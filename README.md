@@ -1,2 +1,2 @@
-# gc-front
-GoCamp Frontend
+## Go Camp
+전국 캠핑장 정보를 확인할 수 있다.
