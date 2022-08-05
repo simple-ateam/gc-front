@@ -29,4 +29,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "SpoqaHanSansNeo";
+  text-decoration: none;
+  color: black;
+  list-style: none;
 }
