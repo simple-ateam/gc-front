@@ -1,7 +1,8 @@
 // import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
-import MNav from "./components/mNav";
+import { MobileView } from "react-device-detect";
+import MNav from "./components/mobile/mNavBar";
 import "./App.css";
 function App() {
   return (
@@ -9,7 +10,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
-      <MNav />
+      <MobileView>
+        <MNav />
+      </MobileView>
     </>
   );
 }
