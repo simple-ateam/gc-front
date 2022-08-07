@@ -41,17 +41,19 @@ const MNavBar = () => {
     <div css={mNavBarContainer}>
       <nav css={mNavBarStyle}>
         <ul>
-          <li>
-            <EnvironmentOutlined css={mNavBarIconStyle} />
-            <Link to="/">탐색</Link>
-          </li>
+          <Link to="/">
+            <li>
+              <EnvironmentOutlined css={mNavBarIconStyle} />
+              <p>탐색</p>
+            </li>
+          </Link>
           <li>
             <BookOutlined css={mNavBarIconStyle} />
             <a href="#">북마크</a>
           </li>
           <li>
             <UserOutlined css={mNavBarIconStyle} />
-            <a href="#">내 페이지</a>
+            <a href="#">내 정보</a>
           </li>
         </ul>
       </nav>
