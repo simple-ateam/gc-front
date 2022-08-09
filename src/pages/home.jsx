@@ -1,19 +1,13 @@
 import Map from "../components/common/map";
-import SearchBar from "../components/browser/searchBar";
-import MSearchBar from "../components/mobile/mSearchBar";
-import { BrowserView, MobileView } from "react-device-detect";
+import SearchBar from "../components/common/searchBar";
+import CampsiteDrawer from "../components/common/campsiteDrawer";
 
 const Home = () => {
   return (
     <>
-      <BrowserView>
-        <Map />
-        <SearchBar />
-      </BrowserView>
-      <MobileView>
-        <Map />
-        <MSearchBar />
-      </MobileView>
+      <Map />
+      <CampsiteDrawer />
+      <SearchBar />
     </>
   );
 };
