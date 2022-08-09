@@ -3,7 +3,11 @@ import { css } from "@emotion/react";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import { locationInfoState } from "../../states/location";
+import dummy from "../../dummy.json";
+// import { getSpotByPosition } from "../../apis/maps";
+
 const { naver } = window;
+
 const HomeContainer = css`
   width: 100vw;
   height: 100vh;
@@ -39,26 +43,53 @@ const Map = () => {
     if (myLocation) {
       mapRef.current = new naver.maps.Map("map", {
         center: new naver.maps.LatLng(myLocation.latitude, myLocation.longitude),
-        zoom: 17,
+        minZoom: 9,
+        zoom: 11,
       });
 
-      markerRef.current = new naver.maps.Marker({
-        position: new naver.maps.LatLng(37.579838, 126.9770517),
-        map: mapRef.current,
-        icon: {
-          url: "/img/logo.png",
-          size: new naver.maps.Size(64, 64),
-          anchor: new naver.maps.Point(30, 30),
-        },
+      // let rect = new naver.maps.Rectangle({
+      //   strokeOpacity: 0,
+      //   strokeWeight: 0,
+      //   fillOpacity: 0.2,
+      //   fillColor: "#f00",
+      //   bounds: mapRef.current.getBounds(), // 지도의 bounds와 동일한 크기의 사각형을 그립니다.
+      //   map: mapRef.current,
+      // });
+
+      zoomEvent();
+
+      dummy.map((e) => {
+        markerRef.current = new naver.maps.Marker({
+          position: new naver.maps.LatLng(Number(e.mapY), Number(e.mapX)),
+          map: mapRef.current,
+          title: e.contentId,
+          icon: {
+            url: "/img/logo32.png",
+            size: new naver.maps.Size(32, 32),
+            anchor: new naver.maps.Point(0, 0),
+          },
+        });
+        e.marker = markerRef.current;
+        naver.maps.Event.addListener(markerRef.current, "click", (item) => {
+          console.log(e.contentId);
+        });
       });
     }
   }, [mapRef, myLocation]);
 
+  // zoom Event
+  function zoomEvent() {
+    naver.maps.Event.addListener(mapRef.current, "zoom_changed", function () {
+      console.log(mapRef.current.zoom);
+    });
+  }
+
   // 지도 위치정보 상태 관리
-  const onMapDragHandler = (e) => {
-    setLocationInfos(mapRef.current.centerPoint);
+  const onMapDragHandler = () => {
+    console.log(mapRef.current.bounds);
+    // setLocationInfos({ mapX: mapRef.current.centerPoint.x, mapY: mapRef.current.centerPoint.y });
   };
-  console.log(locationInfos);
+
   return (
     <>
       <div

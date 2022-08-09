@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { theme } from "../../utils/styleTheme";
+import { theme } from "./styleTheme";
 
 export const inputBasic = ({ w = "100%", h = "100%" }) => {
   return css`

@@ -2,6 +2,10 @@
 import { css, jsx } from "@emotion/react";
 import { EnvironmentOutlined, BookOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { theme } from "../styles/styleTheme";
+
+const { borderRadius, gap, fontSize } = theme;
+
 const mNavBarContainer = css`
   position: fixed;
   bottom: 0;
@@ -10,8 +14,8 @@ const mNavBarContainer = css`
   background-color: white;
   z-index: 99999;
   box-shadow: 0 -1px 3px rgb(0 0 0 / 20%);
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+  border-top-left-radius: ${borderRadius.lg};
+  border-top-right-radius: ${borderRadius.lg};
 `;
 
 const mNavBarStyle = css`
@@ -27,13 +31,13 @@ const mNavBarStyle = css`
     li {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: ${gap.sm};
     }
   }
 `;
 
 const mNavBarIconStyle = css`
-  font-size: 20px;
+  font-size: ${fontSize.lg};
 `;
 
 const MNavBar = () => {

@@ -2,7 +2,9 @@ import { atom, selector } from "recoil";
 
 export const locationInfoState = atom({
   key: "locationInfoState",
-  default: null,
+  default: {
+    center: null,
+  },
 });
 
 // export const locationInfosSelector = selector({
