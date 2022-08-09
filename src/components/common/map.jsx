@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import { locationInfoState } from "../../states/location";
 import dummy from "../../dummy.json";
-// import { getSpotByPosition } from "../../apis/maps";
+import { getSpotByPosition } from "../../apis/maps";
 
 const { naver } = window;
 
@@ -46,7 +46,7 @@ const Map = () => {
         minZoom: 9,
         zoom: 11,
       });
-
+      getSpotByPosition({ mapX: myLocation.latitude, mapY: myLocation.longitude });
       // let rect = new naver.maps.Rectangle({
       //   strokeOpacity: 0,
       //   strokeWeight: 0,
@@ -57,23 +57,7 @@ const Map = () => {
       // });
 
       zoomEvent();
-
-      dummy.map((e) => {
-        markerRef.current = new naver.maps.Marker({
-          position: new naver.maps.LatLng(Number(e.mapY), Number(e.mapX)),
-          map: mapRef.current,
-          title: e.contentId,
-          icon: {
-            url: "/img/logo32.png",
-            size: new naver.maps.Size(32, 32),
-            anchor: new naver.maps.Point(0, 0),
-          },
-        });
-        e.marker = markerRef.current;
-        naver.maps.Event.addListener(markerRef.current, "click", (item) => {
-          console.log(e.contentId);
-        });
-      });
+      addMarkerHandler(dummy);
     }
   }, [mapRef, myLocation]);
 
@@ -84,9 +68,28 @@ const Map = () => {
     });
   }
 
+  function addMarkerHandler(list) {
+    list.map((e) => {
+      markerRef.current = new naver.maps.Marker({
+        position: new naver.maps.LatLng(Number(e.mapY), Number(e.mapX)),
+        map: mapRef.current,
+        title: e.contentId,
+        icon: {
+          url: "/img/logo32.png",
+          size: new naver.maps.Size(32, 32),
+          anchor: new naver.maps.Point(0, 0),
+        },
+      });
+      e.marker = markerRef.current;
+      naver.maps.Event.addListener(e.marker, "click", (item) => {
+        console.log(e.marker);
+      });
+    });
+  }
+
   // 지도 위치정보 상태 관리
   const onMapDragHandler = () => {
-    console.log(mapRef.current.bounds);
+    // console.log(mapRef.current.bounds);
     // setLocationInfos({ mapX: mapRef.current.centerPoint.x, mapY: mapRef.current.centerPoint.y });
   };
 

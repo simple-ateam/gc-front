@@ -4,6 +4,7 @@ import { elFlex, inputBasic } from "../styles/elStyles";
 import { SearchOutlined } from "@ant-design/icons";
 import { theme } from "../styles/styleTheme";
 import { searchBarIconStyle, searchBarContainer } from "../styles/components";
+import { isMobile } from "react-device-detect";
 const { palette, flex, borderRadius, boxSize, fontSize } = theme;
 
 const SearchBar = () => {
@@ -11,7 +12,10 @@ const SearchBar = () => {
     <div css={searchBarContainer}>
       <div css={elFlex({ fd: null, jc: "center" })}>
         <input css={inputBasic} type="text" placeholder="캠핑장 검색" />
-        <SearchOutlined css={searchBarIconStyle} />
+        <div>
+          <SearchOutlined css={searchBarIconStyle} />
+          {isMobile && <SearchOutlined css={searchBarIconStyle} />}
+        </div>
       </div>
     </div>
   );
