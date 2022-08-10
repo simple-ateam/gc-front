@@ -4,12 +4,17 @@ import Home from "./pages/home";
 import { MobileView } from "react-device-detect";
 import MNav from "./components/mobile/mNavBar";
 import "./App.css";
+import { Suspense } from "react";
+
 function App() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
+      <Suspense fallback={<h1>Loading</h1>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Suspense>
+
       <MobileView>
         <MNav />
       </MobileView>
