@@ -17,6 +17,7 @@ import {
 const { boxSize, borderRadius, palette, fontSize, gap, gapByPercent } = theme;
 
 const drawerContainer = css`
+  display: none;
   position: fixed;
   top: 0;
   width: ${isMobile ? "100vw" : "420px"};

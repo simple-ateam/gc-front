@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { theme } from "./styleTheme";
+import { theme } from "../styleTheme";
 import { isMobile, isBrowser } from "react-device-detect";
 
 const { palette, borderRadius, boxSize, fontSize } = theme;

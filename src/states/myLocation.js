@@ -1,9 +1,11 @@
-import { atom, selector } from "recoil";
+import { atom } from "recoil";
 
-export const locationInfoState = atom({
-  key: "locationInfoState",
+export default atom({
+  key: "myLocationState",
   default: {
-    center: null,
+    lat: null,
+    lng: null,
+    zoom: null,
   },
 });
 
