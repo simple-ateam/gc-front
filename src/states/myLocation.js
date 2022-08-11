@@ -3,8 +3,9 @@ import { atom } from "recoil";
 export default atom({
   key: "myLocationState",
   default: {
-    latitude: null,
-    longitude: null,
+    lat: null,
+    lng: null,
+    zoom: null,
   },
 });
 

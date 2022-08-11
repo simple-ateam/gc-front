@@ -1,44 +1,61 @@
-import { useEffect, useRef } from "react";
-import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
-import { myLocationState, spotListState } from "../../states";
+import { useEffect, useRef, useLayoutEffect } from "react";
 import {
-  dragAndTouchHandler,
-  setInitialLocation,
-  zoomEventHanler,
-  addMarkerHandler,
-} from "../../utils/mapApi";
+  useRecoilState,
+  useRecoilValue,
+  useRecoilValueLoadable,
+  useResetRecoilState,
+} from "recoil";
+import { myLocationState, spotListState } from "../../states";
+import { mapEventHanler, setInitialLocation, addMarkerHandler } from "../../utils/mapApi";
 const { naver } = window;
 
 const Map = () => {
   const mapRef = useRef(null);
   const markerRef = useRef(null);
-  const spotList = useRecoilValue(spotListState);
+  const spotListRef = useRef(null);
+  const boundsRef = useRef(null);
+  const markerListRef = useRef([]);
+  const spotList = useRecoilValueLoadable(spotListState);
+  // const spotList = useRecoilValue(spotListState);
   const [myLocation, setMyLocation] = useRecoilState(myLocationState);
 
-  // 위치 초기화
   useEffect(() => {
+    // 현재 위치 초기화
     setInitialLocation(setMyLocation);
   }, []);
 
-  // map 생성
   useEffect(() => {
-    if (myLocation.latitude === null) return;
+    if (!myLocation.lat) return;
     if (mapRef.current === null) {
+      // map 생성
       mapRef.current = new naver.maps.Map("map", {
         center: new naver.maps.LatLng(myLocation.lat, myLocation.lng),
         minZoom: 9,
-        zoom: 11,
+        zoom: 15,
       });
       // map event 등록
-      zoomEventHanler(naver, mapRef.current, setMyLocation);
-      dragAndTouchHandler(naver, mapRef.current, setMyLocation);
+      mapEventHanler(naver, mapRef.current, setMyLocation, markerListRef.current);
     }
-  }, [myLocation]);
-
+    switch (spotList.state) {
+      case "hasValue":
+        spotListRef.current = spotList.contents;
+        break;
+      case "hasError":
+        throw console.log(spotList.contents.message);
+      case "loading":
+        break;
+      default:
+        spotListRef.current = "... loading ...";
+    }
+    addMarkerHandler(
+      naver,
+      spotListRef.current,
+      markerRef.current,
+      mapRef.current,
+      markerListRef.current,
+    );
+  }, [myLocation, spotList]);
   // 마커 생성 / 클릭 이벤트 등록
-  useEffect(() => {
-    if (myLocation.lat) addMarkerHandler(naver, spotList, markerRef.current, mapRef.current);
-  }, [myLocation]);
 
   // let rect = new naver.maps.Rectangle({
   //   strokeOpacity: 0,
