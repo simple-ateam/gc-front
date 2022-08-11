@@ -1,17 +1,38 @@
-export const zoomEventHanler = (naver, ref, method) => {
-  naver.maps.Event.addListener(ref, "zoom_changed", function () {
-    console.log("hi");
-    // setMyLocation({ lat: mapRef.current.center._lat, lng: mapRef.current.center._lng });
+import { getSpotByPosition } from "../apis/maps";
+import customAxios from "../config/config";
+
+const axios = customAxios();
+
+export const zoomEventHanler = (naver, ref, set) => {
+  naver.maps.Event.addListener(ref, "zoom_changed", () => {
+    set({ lat: ref.center._lat, lng: ref.center._lng });
   });
 };
 
-export const dragAndTouchHandler = (naver, ref, method) => {
-  naver.maps.Event.addListener(ref, "mouseup", () => {});
+export const dragAndTouchHandler = (naver, ref, set) => {
+  naver.maps.Event.addListener(ref, "mouseup", () => {
+    set({ lat: ref.center._lat, lng: ref.center._lng });
+  });
   naver.maps.Event.addListener(ref, "touchend", () => {});
 };
 
-export const addMarkerHandler = () => {};
-export const markerClickHandler = () => {};
+export const addMarkerHandler = (naver, list, markerRef, mapRef) => {
+  list.map((e) => {
+    markerRef = new naver.maps.Marker({
+      position: new naver.maps.LatLng(Number(e.mapY), Number(e.mapX)),
+      map: mapRef,
+      title: e.contentId,
+      icon: {
+        url: "/img/logo32.png",
+        size: new naver.maps.Size(32, 32),
+        anchor: new naver.maps.Point(0, 0),
+      },
+    });
+    naver.maps.Event.addListener(markerRef, "click", () => {
+      console.log(e.contentId);
+    });
+  });
+};
 
 export const setInitialLocation = (set) => {
   const success = (position) => {

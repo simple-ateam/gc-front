@@ -9,7 +9,7 @@ export default selector({
   key: "spotList",
   get: async ({ get }) => {
     const myLocation = get(myLocationState);
-    if (!myLocation.latitude) return null;
+    if (!myLocation.lat) return;
     const res = await getSpotByPosition(axios, myLocation);
     return res;
   },

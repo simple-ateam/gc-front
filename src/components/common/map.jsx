@@ -1,7 +1,12 @@
 import { useEffect, useRef } from "react";
 import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { myLocationState, spotListState } from "../../states";
-import { dragAndTouchHandler, setInitialLocation, zoomEventHanler } from "../../utils/mapApi";
+import {
+  dragAndTouchHandler,
+  setInitialLocation,
+  zoomEventHanler,
+  addMarkerHandler,
+} from "../../utils/mapApi";
 const { naver } = window;
 
 const Map = () => {
@@ -10,10 +15,10 @@ const Map = () => {
   const spotList = useRecoilValue(spotListState);
   const [myLocation, setMyLocation] = useRecoilState(myLocationState);
 
-  // 내 위치 설정하기
+  // 위치 초기화
   useEffect(() => {
     setInitialLocation(setMyLocation);
-  });
+  }, []);
 
   // map 생성
   useEffect(() => {
@@ -24,14 +29,15 @@ const Map = () => {
         minZoom: 9,
         zoom: 11,
       });
-      zoomEventHanler(naver, mapRef.current);
-      dragAndTouchHandler(naver, mapRef.current);
+      // map event 등록
+      zoomEventHanler(naver, mapRef.current, setMyLocation);
+      dragAndTouchHandler(naver, mapRef.current, setMyLocation);
     }
   }, [myLocation]);
 
-  // marker 생성
+  // 마커 생성 / 클릭 이벤트 등록
   useEffect(() => {
-    console.log(spotList);
+    if (myLocation.lat) addMarkerHandler(naver, spotList, markerRef.current, mapRef.current);
   }, [myLocation]);
 
   // let rect = new naver.maps.Rectangle({
@@ -43,33 +49,8 @@ const Map = () => {
   //   map: mapRef.current,
   // });
 
-  //     // addMarkerHandler(dummy);
   //   }
   // }, [mapRef, myLocation]);
-
-  function addMarkerHandler(list) {
-    list.map((e) => {
-      markerRef.current = new naver.maps.Marker({
-        position: new naver.maps.LatLng(Number(e.mapY), Number(e.mapX)),
-        map: mapRef.current,
-        title: e.contentId,
-        icon: {
-          url: "/img/logo32.png",
-          size: new naver.maps.Size(32, 32),
-          anchor: new naver.maps.Point(0, 0),
-        },
-      });
-      e.marker = markerRef.current;
-      naver.maps.Event.addListener(e.marker, "click", (item) => {
-        console.log(e.marker);
-      });
-    });
-  }
-
-  // 지도 위치정보 상태 관리
-  const onMapDragHandler = () => {
-    setMyLocation({ lat: mapRef.current.center._lat, lng: mapRef.current.center._lng });
-  };
 
   return (
     <>

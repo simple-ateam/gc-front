@@ -11,7 +11,7 @@ export const getSpotByPosition = (axios, data) => {
         scale,
       },
     })
-    .then((res) => res.data);
+    .then((res) => res.data.data);
 };
 
 // export const getSpotById = async (axios, data) => {
