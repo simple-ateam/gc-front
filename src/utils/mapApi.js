@@ -1,6 +1,5 @@
 import { getSpotByPosition } from "../apis/maps";
-import customAxios from "../config/config";
-
+import { markerHtml } from "./marker";
 // 맵 상태 변경 이벤트
 export const mapEventHanler = (naver, ref, set) => {
   const { map } = ref;
@@ -13,7 +12,7 @@ export const mapEventHanler = (naver, ref, set) => {
     }
     timer = setTimeout(() => {
       set({ lat: map.center._lat, lng: map.center._lng, zoom: map.zoom });
-    }, 300);
+    }, 100);
   });
 };
 
@@ -31,27 +30,29 @@ export const addMarkerHandler = (naver, ref, list) => {
 
   if (ref.map.zoom <= 10) {
     const doNmArr = [...new Set(list.map((e) => e.doNm))];
-    const site = doNmArr.reduce((acc, cur) => {
-      acc[cur] = list.filter((e) => e.doNm === cur).length;
-      return acc;
-    }, {});
+    const site = Object.values(
+      doNmArr.reduce((acc, cur) => {
+        acc[cur] = list.filter((e) => e.doNm === cur);
+        return acc;
+      }, {}),
+    );
 
-    // site.map((e) => {
-    //   ref.marker = new naver.maps.Marker({
-    //     position: new naver.maps.LatLng(Number(e.mapY), Number(e.mapX)),
-    //     map: ref.map,
-    //     icon: {
-    //       url: "/img/logo64.png",
-    //       size: new naver.maps.Size(32, 32),
-    //       anchor: new naver.maps.Point(0, 0),
-    //     },
-    //   });
-    //   ref.markerList.push(ref.marker);
+    setPositionByLocation(site).map((e) => {
+      ref.marker = new naver.maps.Marker({
+        position: new naver.maps.LatLng(e.lat, e.lng),
+        map: ref.map,
+        icon: {
+          content: markerHtml(e.sum),
+          size: new naver.maps.Size(64, 64),
+          anchor: new naver.maps.Point(0, 0),
+        },
+      });
+      ref.markerList.push(ref.marker);
 
-    //   naver.maps.Event.addListener(ref.marker, "click", () => {
-    //     console.log(e);
-    //   });
-    // });
+      naver.maps.Event.addListener(ref.marker, "click", () => {
+        console.log(e);
+      });
+    });
   } else if (ref.map.zoom >= 11) {
     list.map((e) => {
       ref.marker = new naver.maps.Marker({
@@ -93,3 +94,20 @@ export const setInitialLocation = (set, zoomLevel) => {
     navigator.geolocation.getCurrentPosition(success, failed);
   }
 };
+
+function setPositionByLocation(site) {
+  const latLng = site.map((e) => {
+    let sumLat = 0;
+    let sumLng = 0;
+
+    e.forEach((e) => {
+      sumLng += Number(e.mapX);
+      sumLat += Number(e.mapY);
+    });
+    const lat = sumLat / e.length;
+    const lng = sumLng / e.length;
+    const sum = e.length;
+    return { lat, lng, sum };
+  });
+  return latLng;
+}
