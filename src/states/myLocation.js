@@ -5,7 +5,7 @@ export default atom({
   default: {
     lat: null,
     lng: null,
-    zoom: null,
+    zoom: 12,
   },
 });
 
