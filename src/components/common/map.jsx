@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import { useRecoilState, useRecoilValueLoadable } from "recoil";
-import { myLocationState, spotListState } from "../../states";
+import { useRecoilState, useRecoilValueLoadable, useSetRecoilState } from "recoil";
+import { myLocationState, spotListState, pickSpotQuery } from "../../states";
 import { mapEventHanler, setInitialLocation, addMarkerHandler } from "../../utils/mapApi";
 const { naver } = window;
 
@@ -8,6 +8,7 @@ const Map = () => {
   const mapRef = useRef({ map: null, markerList: [], marker: null });
   const spotList = useRecoilValueLoadable(spotListState);
   const [myLocation, setMyLocation] = useRecoilState(myLocationState);
+  const setPickSpotQuery = useSetRecoilState(pickSpotQuery);
   const initialZoomLevel = 10;
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const Map = () => {
   useEffect(() => {
     switch (spotList.state) {
       case "hasValue":
-        addMarkerHandler(naver, mapRef.current, spotList.contents);
+        addMarkerHandler(naver, mapRef.current, spotList.contents, setPickSpotQuery);
         break;
       case "hasError":
         throw console.log(spotList.contents.message);

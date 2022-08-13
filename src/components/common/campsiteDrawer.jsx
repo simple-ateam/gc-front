@@ -3,7 +3,6 @@ import { css } from "@emotion/react";
 import content from "../../content.json";
 import { isMobile, isBrowser } from "react-device-detect";
 import { theme } from "../styles/styleTheme";
-import { elFlex } from "../styles/elStyles";
 import {
   PhoneOutlined,
   BookOutlined,
@@ -13,31 +12,37 @@ import {
   PhoneFilled,
   GitlabFilled,
 } from "@ant-design/icons";
+import { useRecoilValue } from "recoil";
+import { pickSpotQuery } from "../../states";
+import spotInfo from "../../states/spotInfo";
+import { useEffect } from "react";
 
 const { boxSize, borderRadius, palette, fontSize, gap, gapByPercent } = theme;
 
-const drawerContainer = css`
-  display: none;
-  position: fixed;
-  top: 0;
-  width: ${isMobile ? "100vw" : "420px"};
-  height: 100vh;
-  z-index: 9998;
-  background-color: ${palette.white_1};
-  box-shadow: 2px 0 4px rgb(0 0 0 / 20%), 0 -1px 0px rgb(0 0 0 / 2%);
-  overflow: auto;
-  ::-webkit-scrollbar {
-    width: ${boxSize.xs};
-  }
-  ::-webkit-scrollbar-thumb {
-    height: 30%; /* 스크롤바 길이 */
-    background: ${palette.gray_1};
-    border-radius: ${borderRadius.md};
-  }
-  ::-webkit-scrollbar-track {
-    background: ${palette.skyblue_1};
-  }
-`;
+const drawerContainer = (state) => {
+  return css`
+    display: ${state ? "block" : "none"};
+    position: fixed;
+    top: 0;
+    width: ${isMobile ? "100vw" : "420px"};
+    height: 100vh;
+    z-index: 9998;
+    background-color: ${palette.white_1};
+    box-shadow: 2px 0 4px rgb(0 0 0 / 20%), 0 -1px 0px rgb(0 0 0 / 2%);
+    overflow: auto;
+    ::-webkit-scrollbar {
+      width: ${boxSize.xs};
+    }
+    ::-webkit-scrollbar-thumb {
+      height: 30%; /* 스크롤바 길이 */
+      background: ${palette.gray_1};
+      border-radius: ${borderRadius.md};
+    }
+    ::-webkit-scrollbar-track {
+      background: ${palette.skyblue_1};
+    }
+  `;
+};
 
 const drawerContent = css`
   display: flex;
@@ -118,13 +123,25 @@ const drawerIconStyle = css`
 `;
 
 const CampsiteDrawer = () => {
+  const pickSpotdata = useRecoilValue(pickSpotQuery);
+  const spotInfoState = useRecoilValue(spotInfo);
+
+  useEffect(() => {
+    console.log(spotInfoState);
+  }, [spotInfoState]);
   return (
-    <div css={drawerContainer}>
+    <div css={drawerContainer(pickSpotdata)}>
       <section css={drawerContent}>
         <picture>
-          <img style={{ width: "100%" }} src={`${content.firstImageUrl}`} alt="야영장 이미지" />
+          <img
+            style={{ width: "100%" }}
+            src={`${
+              spotInfoState?.firstImageUrl ? spotInfoState.firstImageUrl : "img/spotImg.jpg"
+            }`}
+            alt="야영장 이미지"
+          />
         </picture>
-        <h2>{content.facltNm}</h2>
+        <h2>{spotInfoState?.facltNm ? spotInfoState.facltNm : "시설 정보 없음"}</h2>
         <div></div>
         <nav>
           <ul>
@@ -158,17 +175,17 @@ const CampsiteDrawer = () => {
         <article>
           <div>
             <EnvironmentFilled css={drawerIconStyle} />
-            <h3>{content?.addr1 ? content.addr1 : "주소정보 없음"}</h3>
+            <h3>{spotInfoState?.addr1 ? spotInfoState.addr1 : "주소정보 없음"}</h3>
           </div>
           <div>
             <PhoneFilled css={drawerIconStyle} />
-            <h3>{content?.tel ? content.tel : "전화번호 없음"}</h3>
+            <h3>{spotInfoState?.tel ? spotInfoState.tel : "전화번호 없음"}</h3>
           </div>
           <div>
             <GitlabFilled css={drawerIconStyle} />
             <h3>
               반려동물 출입 :{" "}
-              {content?.animalCmgCl ? content.animalCmgCl : "반려동물 출입정보 없음"}
+              {spotInfoState?.animalCmgCl ? spotInfoState.animalCmgCl : "반려동물 출입정보 없음"}
             </h3>
           </div>
         </article>

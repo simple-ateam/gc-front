@@ -1,5 +1,5 @@
-import { getSpotByPosition } from "../apis/maps";
 import { markerHtml } from "./marker";
+
 // 맵 상태 변경 이벤트
 export const mapEventHanler = (naver, ref, set) => {
   const { map } = ref;
@@ -12,14 +12,13 @@ export const mapEventHanler = (naver, ref, set) => {
     }
     timer = setTimeout(() => {
       set({ lat: map.center._lat, lng: map.center._lng, zoom: map.zoom });
-    }, 100);
+    }, 0);
   });
 };
 
 // 마커 핸들러
-export const addMarkerHandler = (naver, ref, list) => {
+export const addMarkerHandler = (naver, ref, list, pick) => {
   if (!Array.isArray(list)) return;
-
   // 기존 마커 있는 경우, 초기화
   if (ref.markerList[0]) {
     ref.markerList.forEach((e) => {
@@ -27,7 +26,7 @@ export const addMarkerHandler = (naver, ref, list) => {
     });
     ref.markerList.splice(0);
   }
-
+  // 마커 클러스터링
   if (ref.map.zoom <= 10) {
     const doNmArr = [...new Set(list.map((e) => e.doNm))];
     const site = Object.values(
@@ -54,6 +53,7 @@ export const addMarkerHandler = (naver, ref, list) => {
       });
     });
   } else if (ref.map.zoom >= 11) {
+    // 마커
     list.map((e) => {
       ref.marker = new naver.maps.Marker({
         position: new naver.maps.LatLng(Number(e.mapY), Number(e.mapX)),
@@ -68,7 +68,7 @@ export const addMarkerHandler = (naver, ref, list) => {
 
       // 마커 클릭 이벤트 설정
       naver.maps.Event.addListener(ref.marker, "click", () => {
-        console.log(e);
+        pick(e.contentId);
       });
     });
   }

@@ -14,5 +14,5 @@ export const getSpotByPosition = (axios, data, kilometer) => {
 };
 
 export const getSpotById = async (axios, data) => {
-  return await axios.get(`/map/detail/${data}`).then((res) => res.data);
+  return await axios.get(`/map/detail/${data}`).then((res) => res.data.data);
 };

@@ -1,5 +1,5 @@
 import spotListState from "./spotList";
 import myLocationState from "./myLocation";
-import pickSpotState from "./pickSpot";
+import pickSpotQuery from "./pickSpot";
 
-export { spotListState, myLocationState, pickSpotState };
+export { spotListState, myLocationState, pickSpotQuery };
