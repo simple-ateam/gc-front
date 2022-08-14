@@ -8,8 +8,8 @@ const Home = () => {
       <Map />
       <Suspense fallback={<div>loading...</div>}>
         <CampsiteDrawer />
+        <SearchBar />
       </Suspense>
-      <SearchBar />
     </>
   );
 };

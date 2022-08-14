@@ -13,15 +13,14 @@ import {
   GitlabFilled,
 } from "@ant-design/icons";
 import { useRecoilValue } from "recoil";
-import { pickSpotQuery } from "../../states";
-import spotInfo from "../../states/spotInfo";
+import { pickSpotQuery, spotInfoState } from "../../states";
 import { useEffect } from "react";
 
 const { boxSize, borderRadius, palette, fontSize, gap, gapByPercent } = theme;
 
 const drawerContainer = (state) => {
   return css`
-    display: ${state ? "block" : "none"};
+    display: ${state ? "flex" : "none"};
     position: fixed;
     top: 0;
     width: ${isMobile ? "100vw" : "420px"};
@@ -30,6 +29,7 @@ const drawerContainer = (state) => {
     background-color: ${palette.white_1};
     box-shadow: 2px 0 4px rgb(0 0 0 / 20%), 0 -1px 0px rgb(0 0 0 / 2%);
     overflow: auto;
+
     ::-webkit-scrollbar {
       width: ${boxSize.xs};
     }
@@ -124,24 +124,19 @@ const drawerIconStyle = css`
 
 const CampsiteDrawer = () => {
   const pickSpotdata = useRecoilValue(pickSpotQuery);
-  const spotInfoState = useRecoilValue(spotInfo);
+  const spotInfo = useRecoilValue(spotInfoState);
 
-  useEffect(() => {
-    console.log(spotInfoState);
-  }, [spotInfoState]);
   return (
     <div css={drawerContainer(pickSpotdata)}>
       <section css={drawerContent}>
         <picture>
           <img
             style={{ width: "100%" }}
-            src={`${
-              spotInfoState?.firstImageUrl ? spotInfoState.firstImageUrl : "img/spotImg.jpg"
-            }`}
+            src={`${spotInfo?.firstImageUrl ? spotInfo.firstImageUrl : "img/spotImg.jpg"}`}
             alt="야영장 이미지"
           />
         </picture>
-        <h2>{spotInfoState?.facltNm ? spotInfoState.facltNm : "시설 정보 없음"}</h2>
+        <h2>{spotInfo?.facltNm ? spotInfo.facltNm : "시설 정보 없음"}</h2>
         <div></div>
         <nav>
           <ul>
@@ -175,17 +170,17 @@ const CampsiteDrawer = () => {
         <article>
           <div>
             <EnvironmentFilled css={drawerIconStyle} />
-            <h3>{spotInfoState?.addr1 ? spotInfoState.addr1 : "주소정보 없음"}</h3>
+            <h3>{spotInfo?.addr1 ? spotInfo.addr1 : "주소정보 없음"}</h3>
           </div>
           <div>
             <PhoneFilled css={drawerIconStyle} />
-            <h3>{spotInfoState?.tel ? spotInfoState.tel : "전화번호 없음"}</h3>
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
           </div>
           <div>
             <GitlabFilled css={drawerIconStyle} />
             <h3>
               반려동물 출입 :{" "}
-              {spotInfoState?.animalCmgCl ? spotInfoState.animalCmgCl : "반려동물 출입정보 없음"}
+              {spotInfo?.animalCmgCl ? spotInfo.animalCmgCl : "반려동물 출입정보 없음"}
             </h3>
           </div>
         </article>
