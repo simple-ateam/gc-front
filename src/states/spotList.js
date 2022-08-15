@@ -9,11 +9,14 @@ export default selector({
   key: "spotList",
   get: async ({ get }) => {
     const myLocation = get(myLocationState);
+    let kilometer;
     if (!myLocation.lat) return;
-    const res = await getSpotByPosition(axios, myLocation);
-    return res;
-  },
-  set: ({ get, set }) => {
-    return console.log("bye");
+    if (myLocation.zoom <= 10) {
+      kilometer = 500;
+      return await getSpotByPosition(axios, myLocation, kilometer);
+    } else if (myLocation.zoom >= 11) {
+      kilometer = 20;
+      return await getSpotByPosition(axios, myLocation, kilometer);
+    }
   },
 });

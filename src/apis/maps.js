@@ -1,5 +1,4 @@
-export const getSpotByPosition = (axios, data) => {
-  const kilometer = 20;
+export const getSpotByPosition = (axios, data, kilometer) => {
   const scale = 5;
   const { lng, lat } = data;
   return axios
@@ -14,6 +13,6 @@ export const getSpotByPosition = (axios, data) => {
     .then((res) => res.data.data);
 };
 
-// export const getSpotById = async (axios, data) => {
-//   return await axios.get(`/map/detail/${data}`).then((res) => res.data);
-// };
+export const getSpotById = async (axios, data) => {
+  return await axios.get(`/map/detail/${data}`).then((res) => res.data.data);
+};

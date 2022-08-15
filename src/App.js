@@ -1,13 +1,10 @@
-// import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
+import Profile from "./pages/profile";
 import { MobileView } from "react-device-detect";
 import MNav from "./components/mobile/mNavBar";
 import "./App.css";
-import Map from "./components/common/map";
 import { RecoilRoot } from "recoil";
-
-import { Suspense } from "react";
 
 function App() {
   return (
@@ -15,6 +12,8 @@ function App() {
       <RecoilRoot>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/maps/:content" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
         <MobileView>
           <MNav />
