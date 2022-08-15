@@ -48,8 +48,8 @@ export const addMarkerHandler = (naver, ref, list, pick) => {
       });
       ref.markerList.push(ref.marker);
 
-      naver.maps.Event.addListener(ref.marker, "click", () => {
-        console.log(e);
+      naver.maps.Event.addListener(ref.marker, "click", (e) => {
+        ref.map.morph(e.coord, 11);
       });
     });
   } else if (ref.map.zoom >= 11) {

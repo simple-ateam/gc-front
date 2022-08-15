@@ -30,7 +30,7 @@ export const theme = {
     sm: "5px",
     md: "10px",
     lg: "15px",
-    half: "50px",
+    half: "50%",
   },
   gap: {
     xs: "3px",

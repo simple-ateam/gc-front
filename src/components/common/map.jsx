@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValueLoadable, useSetRecoilState } from "recoil";
 import { myLocationState, spotListState, pickSpotQuery } from "../../states";
 import { mapEventHanler, setInitialLocation, addMarkerHandler } from "../../utils/mapApi";
@@ -10,12 +11,14 @@ const Map = () => {
   const [myLocation, setMyLocation] = useRecoilState(myLocationState);
   const setPickSpotQuery = useSetRecoilState(pickSpotQuery);
   const initialZoomLevel = 10;
-
+  const params = useParams();
   useEffect(() => {
     // 현재 위치 초기화
     setInitialLocation(setMyLocation, initialZoomLevel);
   }, []);
-
+  useEffect(() => {
+    console.log(params);
+  }, []);
   useEffect(() => {
     if (!myLocation.lat) return;
     if (mapRef.current.map === null) {

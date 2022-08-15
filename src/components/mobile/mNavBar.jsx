@@ -3,6 +3,8 @@ import { css, jsx } from "@emotion/react";
 import { EnvironmentOutlined, BookOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { theme } from "../styles/styleTheme";
+import { useRecoilState } from "recoil";
+import { pickSpotQuery } from "../../states";
 
 const { borderRadius, gap, fontSize } = theme;
 
@@ -41,24 +43,34 @@ const mNavBarIconStyle = css`
 `;
 
 const MNavBar = () => {
+  const [pickSpotdata, setPickSpotdata] = useRecoilState(pickSpotQuery);
+
+  const onClickNavHome = () => {
+    setPickSpotdata(null);
+  };
+
   return (
     <div css={mNavBarContainer}>
       <nav css={mNavBarStyle}>
         <ul>
           <Link to="/">
-            <li>
+            <li onClick={onClickNavHome}>
               <EnvironmentOutlined css={mNavBarIconStyle} />
               <p>탐색</p>
             </li>
           </Link>
-          <li>
-            <BookOutlined css={mNavBarIconStyle} />
-            <a href="#">북마크</a>
-          </li>
-          <li>
-            <UserOutlined css={mNavBarIconStyle} />
-            <a href="#">내 정보</a>
-          </li>
+          <Link to="/profile">
+            <li>
+              <BookOutlined css={mNavBarIconStyle} />
+              <p>북마크</p>
+            </li>
+          </Link>
+          <Link to="#">
+            <li>
+              <UserOutlined css={mNavBarIconStyle} />
+              <p>내 정보</p>
+            </li>
+          </Link>
         </ul>
       </nav>
     </div>
