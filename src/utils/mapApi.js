@@ -1,7 +1,7 @@
 import { markerHtml } from "./marker";
 
 // 맵 상태 변경 이벤트
-export const mapEventHanler = (naver, ref, set) => {
+export const mapEventHandler = (naver, ref, set) => {
   const { map } = ref;
   let timer;
 
@@ -49,7 +49,7 @@ export const addMarkerHandler = (naver, ref, list, pick) => {
       ref.markerList.push(ref.marker);
 
       naver.maps.Event.addListener(ref.marker, "click", (e) => {
-        ref.map.morph(e.coord, 11);
+        ref.map.morph(e.coord, 12);
       });
     });
   } else if (ref.map.zoom >= 11) {

@@ -4,6 +4,7 @@ export const theme = {
     black_1: "#000000",
     green_1: "#70AD47",
     green_2: "#548235",
+    gray_0: "#F0F0F0",
     gray_1: "#dcdcdc",
     gray_2: "#bebebe",
     gray_3: "#999",
@@ -37,7 +38,7 @@ export const theme = {
     sm: "5px",
     md: "7px",
     lg: "10px",
-    xl: "15px",
+    xl: "20px",
   },
   gapByPercent: {
     sm: "10%",

@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValueLoadable, useSetRecoilState } from "recoil";
 import { myLocationState, spotListState, pickSpotQuery } from "../../states";
-import { mapEventHanler, setInitialLocation, addMarkerHandler } from "../../utils/mapApi";
+import { mapEventHandler, setInitialLocation, addMarkerHandler } from "../../utils/mapApi";
 const { naver } = window;
 
 const Map = () => {
@@ -12,13 +12,16 @@ const Map = () => {
   const setPickSpotQuery = useSetRecoilState(pickSpotQuery);
   const initialZoomLevel = 10;
   const params = useParams();
+
   useEffect(() => {
     // 현재 위치 초기화
     setInitialLocation(setMyLocation, initialZoomLevel);
   }, []);
+
   useEffect(() => {
     console.log(params);
   }, []);
+
   useEffect(() => {
     if (!myLocation.lat) return;
     if (mapRef.current.map === null) {
@@ -29,23 +32,23 @@ const Map = () => {
         zoom: initialZoomLevel,
       });
       // map event 등록
-      mapEventHanler(naver, mapRef.current, setMyLocation);
+      mapEventHandler(naver, mapRef.current, setMyLocation);
     }
   }, [myLocation]);
 
-  useEffect(() => {
-    switch (spotList.state) {
-      case "hasValue":
-        addMarkerHandler(naver, mapRef.current, spotList.contents, setPickSpotQuery);
-        break;
-      case "hasError":
-        throw console.log(spotList.contents.message);
-      case "loading":
-        break;
-      default:
-        break;
-    }
-  }, [spotList]);
+  // useEffect(() => {
+  //   switch (spotList.state) {
+  //     case "hasValue":
+  //       addMarkerHandler(naver, mapRef.current, spotList.contents, setPickSpotQuery);
+  //       break;
+  //     case "hasError":
+  //       throw console.log(spotList.contents.message);
+  //     case "loading":
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }, [spotList]);
 
   return (
     <>
