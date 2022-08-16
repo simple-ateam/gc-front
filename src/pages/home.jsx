@@ -1,6 +1,7 @@
 import Map from "../components/common/map";
 import SearchBar from "../components/common/searchBar";
 import CampsiteDrawer from "../components/common/campsiteDrawer";
+import ShareModal from "../components/common/share";
 import SkeletonPage from "../components/common/skeletonPage";
 import { Suspense } from "react";
 const Home = () => {
@@ -11,6 +12,7 @@ const Home = () => {
         <CampsiteDrawer />
         <SearchBar />
       </Suspense>
+      {/* <ShareModal /> */}
     </>
   );
 };
