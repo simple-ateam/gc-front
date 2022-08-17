@@ -11,7 +11,7 @@ import {
   inputStyle,
   resultStyle,
 } from "../styles/components/searchBar";
-import { useSetRecoilState, useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import { spotInfoState, pickSpotQuery, searchQuery, searchResultState } from "../../states";
 
 const SearchBar = () => {

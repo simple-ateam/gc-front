@@ -36,19 +36,19 @@ const Map = () => {
     }
   }, [myLocation]);
 
-  useEffect(() => {
-    switch (spotList.state) {
-      case "hasValue":
-        addMarkerHandler(naver, mapRef.current, spotList.contents, setPickSpotQuery);
-        break;
-      case "hasError":
-        throw console.log(spotList.contents.message);
-      case "loading":
-        break;
-      default:
-        break;
-    }
-  }, [spotList]);
+  // useEffect(() => {
+  //   switch (spotList.state) {
+  //     case "hasValue":
+  //       addMarkerHandler(naver, mapRef.current, spotList.contents, setPickSpotQuery);
+  //       break;
+  //     case "hasError":
+  //       throw console.log(spotList.contents.message);
+  //     case "loading":
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }, [spotList]);
 
   return (
     <>
