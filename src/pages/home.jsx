@@ -4,6 +4,8 @@ import CampsiteDrawer from "../components/common/campsiteDrawer";
 import ShareModal from "../components/common/share";
 import SkeletonPage from "../components/common/skeletonPage";
 import { Suspense } from "react";
+import MyBtn from "../components/common/myBtn";
+import { isBrowser } from "react-device-detect";
 const Home = () => {
   return (
     <>
@@ -11,8 +13,9 @@ const Home = () => {
       <Suspense fallback={<SkeletonPage />}>
         <CampsiteDrawer />
         <SearchBar />
+        {/* <ShareModal /> */}
       </Suspense>
-      {/* <ShareModal /> */}
+      {isBrowser && <MyBtn />}
     </>
   );
 };

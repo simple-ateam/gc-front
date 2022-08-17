@@ -9,6 +9,7 @@ export const theme = {
     gray_2: "#bebebe",
     gray_3: "#999",
     blue_1: "#217af41a",
+    blue_2: "#1890ff",
     blue_3: "#1a73e8",
   },
 
