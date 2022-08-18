@@ -69,17 +69,18 @@ export const drawerContent = css`
 
         button {
           background-color: inherit;
-          border: solid 1px ${palette.blue_3};
+          border: solid 1px ${palette.green_2};
           border-radius: ${borderRadius.half};
           padding: ${boxSize.md};
           :hover {
-            background-color: ${palette.blue_1};
+            background-color: ${palette.green_0};
           }
         }
         p {
           text-align: center;
-          color: ${palette.blue_3};
+          color: ${palette.green_2};
           font-size: ${fontSize.sm};
+          font-weight: 700;
         }
       }
     }
@@ -107,6 +108,6 @@ export const drawerContent = css`
 export const drawerIconStyle = css`
   font-size: ${isMobile ? fontSize.md : fontSize.md};
   svg {
-    fill: ${palette.blue_3};
+    fill: ${palette.green_1};
   }
 `;

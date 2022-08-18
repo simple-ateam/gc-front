@@ -2,15 +2,19 @@ export const theme = {
   palette: {
     white_1: "#ffffff",
     black_1: "#000000",
+    green_0: "#0080001a",
     green_1: "#70AD47",
     green_2: "#548235",
     gray_0: "#F0F0F0",
     gray_1: "#dcdcdc",
     gray_2: "#bebebe",
     gray_3: "#999",
+    gray_4: "#787878",
     blue_1: "#217af41a",
     blue_2: "#1890ff",
     blue_3: "#1a73e8",
+    red_3: "#FF0C33",
+    red_4: "#C21010",
   },
 
   boxSize: {

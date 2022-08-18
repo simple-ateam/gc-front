@@ -4,6 +4,8 @@ import pickSpotQuery from "./pickSpot";
 import spotInfoState from "./spotInfo";
 import searchQuery from "./search";
 import searchResultState from "./searchResult";
+import shareState from "./share";
+
 export {
   spotListState,
   myLocationState,
@@ -11,4 +13,5 @@ export {
   spotInfoState,
   searchQuery,
   searchResultState,
+  shareState,
 };
