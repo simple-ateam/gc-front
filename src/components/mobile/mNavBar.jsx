@@ -3,7 +3,7 @@ import { css, jsx } from "@emotion/react";
 import { EnvironmentOutlined, BookOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { theme } from "../styles/styleTheme";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { pickSpotQuery } from "../../states";
 
 const { borderRadius, gap, fontSize } = theme;
@@ -43,12 +43,13 @@ const mNavBarIconStyle = css`
 `;
 
 const MNavBar = () => {
-  const [pickSpotdata, setPickSpotdata] = useRecoilState(pickSpotQuery);
+  const setPickSpotdata = useSetRecoilState(pickSpotQuery);
 
   const onClickNavHome = () => {
     setPickSpotdata(null);
   };
 
+  console.log("hi");
   return (
     <div css={mNavBarContainer}>
       <nav css={mNavBarStyle}>

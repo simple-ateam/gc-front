@@ -17,7 +17,6 @@ const CampsiteDrawer = () => {
   const pickSpotdata = useRecoilValue(pickSpotQuery);
   const spotInfo = useRecoilValue(spotInfoState);
   const setShareState = useSetRecoilState(shareState);
-
   const shareBtnHandler = () => {
     setShareState(true);
   };

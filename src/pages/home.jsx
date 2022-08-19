@@ -13,7 +13,7 @@ const Home = () => {
       <Suspense fallback={<SkeletonPage />}>
         <CampsiteDrawer />
         <SearchBar />
-        {/* <ShareModal /> */}
+        <ShareModal />
       </Suspense>
       {isBrowser && <MyBtn />}
     </>

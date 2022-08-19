@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
 import { inputBasic } from "../styles/elStyles";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SearchOutlined, CloseOutlined } from "@ant-design/icons";
 import {
   searchBarIconStyle,
@@ -15,6 +15,7 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { spotInfoState, pickSpotQuery, searchQuery, searchResultState } from "../../states";
 
 const SearchBar = () => {
+  const [searchInput, setSearchInput] = useState(null);
   const spotInfo = useRecoilValue(spotInfoState);
   const searchResult = useRecoilValue(searchResultState);
   const [pickSpotState, setPickSpotState] = useRecoilState(pickSpotQuery);
@@ -26,10 +27,15 @@ const SearchBar = () => {
   const onChangeHandler = (e) => {
     setSearchQueryState(e.target.value);
   };
-
   useEffect(() => {
-    console.log(searchResult);
-  }, [searchResult]);
+    if (spotInfo) {
+      setSearchInput(spotInfo.facltNm);
+    }
+  }, [spotInfo]);
+
+  // 검색 결과
+  useEffect(() => {}, [searchResult]);
+
   return (
     <div css={searchBarContainer}>
       <div css={searchInputContainer}>
@@ -38,7 +44,7 @@ const SearchBar = () => {
             css={inputBasic}
             type="text"
             placeholder="캠핑장 검색"
-            defaultValue={`${spotInfo?.facltNm ? spotInfo.facltNm : ""}`}
+            defaultValue={`${searchInput ? searchInput : ""}`}
             onChange={onChangeHandler}
           />
           <div>

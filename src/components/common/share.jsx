@@ -9,14 +9,24 @@ import {
 } from "../styles/components/share";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { shareState, spotInfoState } from "../../states";
+import { copyText } from "../../utils/clipboard";
+import { useRef } from "react";
 
 const ShareModal = () => {
+  const shareLinkRef = useRef(null);
   const [share, setShare] = useRecoilState(shareState);
   const spotInfo = useRecoilValue(spotInfoState);
 
   const CancelBtnClickHandler = () => {
     setShare(false);
   };
+
+  const copyBtnClickHandler = () => {
+    copyText(shareLinkRef.current.value);
+    setShare(false);
+    alert("클립보드에 복사되었습니다!");
+  };
+
   return (
     <div css={ShowShareModal(share)}>
       <div onClick={CancelBtnClickHandler} css={ShareModalBackground}></div>
@@ -37,8 +47,8 @@ const ShareModal = () => {
             </div>
           </div>
           <div>
-            <input value={`${window.location.host}/maps/${spotInfo.contentId}`} type="text" />
-            <button>링크 복사</button>
+            <input ref={shareLinkRef} value={window.location.href} type="text" readOnly />
+            <button onClick={copyBtnClickHandler}>링크 복사</button>
           </div>
         </div>
       </div>

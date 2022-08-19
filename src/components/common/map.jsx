@@ -1,26 +1,49 @@
 import { useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
-import { useRecoilState, useRecoilValueLoadable, useSetRecoilState } from "recoil";
-import { myLocationState, spotListState, pickSpotQuery } from "../../states";
+import { useNavigate, useParams } from "react-router-dom";
+import { useRecoilState, useRecoilValue, useRecoilValueLoadable, useSetRecoilState } from "recoil";
+import { myLocationState, spotListState, pickSpotQuery, spotInfoState } from "../../states";
 import { mapEventHandler, setInitialLocation, addMarkerHandler } from "../../utils/mapApi";
 const { naver } = window;
 
 const Map = () => {
-  const mapRef = useRef({ map: null, markerList: [], marker: null });
+  const mapRef = useRef({ map: null, markerList: [], marker: null, selectedMarker: null });
   const spotList = useRecoilValueLoadable(spotListState);
   const [myLocation, setMyLocation] = useRecoilState(myLocationState);
   const setPickSpotQuery = useSetRecoilState(pickSpotQuery);
-  const initialZoomLevel = 10;
+  const spotInfo = useRecoilValueLoadable(spotInfoState);
+  const initialZoomLevel = 12;
   const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    // parameter가 있는 경우 접속했을 경우
+    if (params.content) {
+      setPickSpotQuery(params.content);
+    }
     // 현재 위치 초기화
     setInitialLocation(setMyLocation, initialZoomLevel);
-  }, []);
+  }, [params.content]);
 
   useEffect(() => {
-    console.log(params);
-  }, []);
+    switch (spotInfo.state) {
+      case "hasValue":
+        if (spotInfo.contents) {
+          mapRef.current.map.morph({
+            y: spotInfo.contents.mapY,
+            _lat: spotInfo.contents.mapY,
+            x: spotInfo.contents.mapX,
+            _lng: spotInfo.contents.mapX,
+          });
+        }
+        break;
+      case "hasError":
+        throw console.log(spotList.contents);
+      case "loading":
+        break;
+      default:
+        break;
+    }
+  }, [spotInfo]);
 
   useEffect(() => {
     if (!myLocation.lat) return;
@@ -36,19 +59,20 @@ const Map = () => {
     }
   }, [myLocation]);
 
-  // useEffect(() => {
-  //   switch (spotList.state) {
-  //     case "hasValue":
-  //       addMarkerHandler(naver, mapRef.current, spotList.contents, setPickSpotQuery);
-  //       break;
-  //     case "hasError":
-  //       throw console.log(spotList.contents.message);
-  //     case "loading":
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // }, [spotList]);
+  // 마커 생성
+  useEffect(() => {
+    switch (spotList.state) {
+      case "hasValue":
+        addMarkerHandler(naver, mapRef.current, spotList.contents, setPickSpotQuery, navigate);
+        break;
+      case "hasError":
+        throw console.log(spotList.contents.message);
+      case "loading":
+        break;
+      default:
+        break;
+    }
+  }, [spotList]);
 
   return (
     <>
@@ -58,15 +82,3 @@ const Map = () => {
 };
 
 export default Map;
-
-// let rect = new naver.maps.Rectangle({
-//   strokeOpacity: 0,
-//   strokeWeight: 0,
-//   fillOpacity: 0.2,
-//   fillColor: "#f00",
-//   bounds: mapRef.current.getBounds(), // 지도의 bounds와 동일한 크기의 사각형을 그립니다.
-//   map: mapRef.current,
-// });
-
-//   }
-// }, [mapRef, myLocation]);

@@ -51,7 +51,7 @@ const SignUpForm = () => {
               autoComplete="off"
               placeholder="이메일을 입력해주세요"
               type="text"
-              {...register("id", {
+              {...register("email", {
                 required: true,
                 pattern: {
                   value: RegExp.email,

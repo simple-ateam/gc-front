@@ -72,6 +72,7 @@ export const drawerContent = css`
           border: solid 1px ${palette.green_2};
           border-radius: ${borderRadius.half};
           padding: ${boxSize.md};
+          cursor: pointer;
           :hover {
             background-color: ${palette.green_0};
           }
