@@ -9,13 +9,17 @@ import {
   PhoneFilled,
   GitlabFilled,
 } from "@ant-design/icons";
-import { useRecoilValue } from "recoil";
-import { pickSpotQuery, spotInfoState } from "../../states";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { pickSpotQuery, shareState, spotInfoState } from "../../states";
 import { drawerContainer, drawerContent, drawerIconStyle } from "../styles/components/drawer";
 
 const CampsiteDrawer = () => {
   const pickSpotdata = useRecoilValue(pickSpotQuery);
   const spotInfo = useRecoilValue(spotInfoState);
+  const setShareState = useSetRecoilState(shareState);
+  const shareBtnHandler = () => {
+    setShareState(true);
+  };
 
   return (
     <div css={drawerContainer(pickSpotdata)}>
@@ -50,7 +54,7 @@ const CampsiteDrawer = () => {
               <p>리뷰</p>
             </li>
             <li>
-              <button aria-label="캠핑장 공유하기">
+              <button onClick={shareBtnHandler} aria-label="캠핑장 공유하기">
                 <ShareAltOutlined css={drawerIconStyle} />
               </button>
               <p aria-label="캠핑장 공유하기">공유</p>
@@ -78,8 +82,6 @@ const CampsiteDrawer = () => {
         <div></div>
         <article>
           <h2>리뷰</h2>
-          <p>아직 작성된 리뷰가 없습니다.</p>
-          <p>아직 작성된 리뷰가 없습니다.</p>
           <p>아직 작성된 리뷰가 없습니다.</p>
         </article>
       </section>

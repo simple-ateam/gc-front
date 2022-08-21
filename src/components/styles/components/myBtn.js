@@ -36,7 +36,7 @@ export const myBtnContent = css`
     fill: ${palette.blue_3};
   }
   &:hover {
-    background-color: ${palette.blue_2};
+    background-color: ${palette.green_1};
     p {
       color: ${palette.white_1};
     }

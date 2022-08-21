@@ -5,7 +5,7 @@ import { theme } from "../styleTheme";
 
 const { borderRadius, palette, gap, gapByPercent, boxSize } = theme;
 
-export const loginFormContainer = css`
+export const SignFormContainer = css`
   width: ${isMobile ? "60vw" : "300px"};
   margin: 0 auto;
 `;
@@ -51,6 +51,7 @@ export const loginFormContent = css`
         height: 40px;
         border: none;
         border-radius: ${borderRadius.sm};
+        transition: 100ms;
         cursor: pointer;
         :hover {
           background-color: ${palette.green_2};
@@ -75,7 +76,8 @@ export const loginFormContent = css`
       border-bottom: 1px solid ${palette.gray_2};
       z-index: -1;
     }
-    & > p {
+    & a {
+      cursor: pointer;
       width: 90px;
       position: absolute;
       text-align: center;

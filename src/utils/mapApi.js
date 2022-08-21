@@ -17,7 +17,7 @@ export const mapEventHandler = (naver, ref, set) => {
 };
 
 // 마커 핸들러
-export const addMarkerHandler = (naver, ref, list, pick) => {
+export const addMarkerHandler = (naver, ref, list, pick, navigate) => {
   if (!Array.isArray(list)) return;
   // 기존 마커 있는 경우, 초기화
   if (ref.markerList[0]) {
@@ -63,12 +63,14 @@ export const addMarkerHandler = (naver, ref, list, pick) => {
           size: new naver.maps.Size(32, 32),
           anchor: new naver.maps.Point(0, 0),
         },
+        name: e.contentId,
       });
       ref.markerList.push(ref.marker);
 
       // 마커 클릭 이벤트 설정
       naver.maps.Event.addListener(ref.marker, "click", () => {
         pick(e.contentId);
+        navigate(`/maps/${e.contentId}`);
       });
     });
   }

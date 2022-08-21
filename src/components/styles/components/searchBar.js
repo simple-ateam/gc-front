@@ -22,12 +22,11 @@ export const searchInputContainer = css`
   align-items: center;
   width: 100%;
   height: 50px;
-
   box-shadow: 0 2px 3px -2px rgb(0 0 0 / 30%);
 `;
 
-export const searchResultContainer = (pickState, searchState) => css`
-  display: ${pickState ? "none" : searchState ? "flex" : "none"};
+export const searchResultContainer = (searchResultState) => css`
+  display: ${searchResultState ? "flex" : "none"};
   flex-direction: column;
   width: 100%;
 `;
@@ -55,6 +54,7 @@ export const resultStyle = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
     h3 {
       font-size: ${fontSize.sm};
     }

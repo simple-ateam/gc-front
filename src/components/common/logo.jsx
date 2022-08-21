@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { css, jsx } from "@emotion/react";
 import { useNavigate } from "react-router-dom";
-import { logoContainer, logoContent } from "../styles/components/logo";
+import { logoContainer } from "../styles/components/logo";
 
 const Logo = () => {
   const navigate = useNavigate();

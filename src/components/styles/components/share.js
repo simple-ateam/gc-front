@@ -4,6 +4,12 @@ import { theme } from "../styleTheme";
 import { isMobile } from "react-device-detect";
 const { palette, boxSize, fontSize, gap } = theme;
 
+export const ShowShareModal = (state) => {
+  return css`
+    display: ${state ? "block" : "none"};
+  `;
+};
+
 export const ShareModalBackground = css`
   position: fixed;
   top: 0;
@@ -16,18 +22,20 @@ export const ShareModalBackground = css`
 
 export const ShareModalContainer = css`
   position: fixed;
-  top: 40%;
-  width: 100vw;
   background-color: inherit;
   z-index: 100001;
 `;
 
 export const ShareModalContent = css`
+  position: fixed;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
+
   justify-content: center;
-  margin: 0 auto;
   background-color: ${palette.white_1};
   width: ${isMobile ? "94%" : "500px"};
   & > * {
