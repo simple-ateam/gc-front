@@ -49,7 +49,6 @@ const MNavBar = () => {
     setPickSpotdata(null);
   };
 
-  console.log("hi");
   return (
     <div css={mNavBarContainer}>
       <nav css={mNavBarStyle}>

@@ -27,7 +27,7 @@ const Map = () => {
   useEffect(() => {
     switch (spotInfo.state) {
       case "hasValue":
-        if (spotInfo.contents) {
+        if (mapRef.current.map && spotInfo.contents) {
           mapRef.current.map.morph({
             y: spotInfo.contents.mapY,
             _lat: spotInfo.contents.mapY,
@@ -63,6 +63,7 @@ const Map = () => {
   useEffect(() => {
     switch (spotList.state) {
       case "hasValue":
+        console.log("실행");
         addMarkerHandler(naver, mapRef.current, spotList.contents, setPickSpotQuery, navigate);
         break;
       case "hasError":

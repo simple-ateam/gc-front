@@ -1,5 +1,5 @@
 import { selector } from "recoil";
-import { myLocationState, searchQuery } from ".";
+import { myLocationState } from ".";
 import { getSpotByPosition } from "../apis/maps";
 import customAxios from "../config/config";
 
