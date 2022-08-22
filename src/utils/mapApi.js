@@ -1,19 +1,25 @@
 import { markerHtml } from "./marker";
+import { encodeQueryString } from "./queryString";
 
 // 맵 상태 변경 이벤트
 export const mapEventHandler = (naver, ref, set) => {
   const { map } = ref;
-  let timer;
-
-  // 이벤트 핸들러 디바운싱
-  naver.maps.Event.addListener(map, "idle", () => {
-    if (timer) {
-      clearTimeout(timer);
-    }
-    timer = setTimeout(() => {
+  naver.maps.Event.addListener(
+    map,
+    "mouseup",
+    () => {
       set({ lat: map.center._lat, lng: map.center._lng, zoom: map.zoom });
-    }, 0);
-  });
+    },
+    0,
+  );
+  naver.maps.Event.addListener(
+    map,
+    "touchend",
+    () => {
+      set({ lat: map.center._lat, lng: map.center._lng, zoom: map.zoom });
+    },
+    0,
+  );
 };
 
 // 마커 핸들러
@@ -35,7 +41,6 @@ export const addMarkerHandler = (naver, ref, list, pick, navigate) => {
         return acc;
       }, {}),
     );
-
     setPositionByLocation(site).map((e) => {
       ref.marker = new naver.maps.Marker({
         position: new naver.maps.LatLng(e.lat, e.lng),
@@ -47,13 +52,12 @@ export const addMarkerHandler = (naver, ref, list, pick, navigate) => {
         },
       });
       ref.markerList.push(ref.marker);
-
       naver.maps.Event.addListener(ref.marker, "click", (e) => {
         ref.map.morph(e.coord, 12);
       });
     });
   } else if (ref.map.zoom >= 11) {
-    // 마커
+    // 마커 찍기
     list.map((e) => {
       ref.marker = new naver.maps.Marker({
         position: new naver.maps.LatLng(Number(e.mapY), Number(e.mapX)),
@@ -66,11 +70,9 @@ export const addMarkerHandler = (naver, ref, list, pick, navigate) => {
         name: e.contentId,
       });
       ref.markerList.push(ref.marker);
-
-      // 마커 클릭 이벤트 설정
-      naver.maps.Event.addListener(ref.marker, "click", () => {
-        pick(e.contentId);
-        navigate(`/maps/${e.contentId}`);
+      // 마커 클릭 이벤트
+      naver.maps.Event.addListener(ref.marker, "click", (el) => {
+        navigate(`/maps/${encodeQueryString({ id: e.contentId, x: e.mapX, y: e.mapY })}`);
       });
     });
   }

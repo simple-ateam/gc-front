@@ -13,7 +13,8 @@ const LoginForm = () => {
 
   const onSubmitHandler = (e) => {
     console.log(e);
-    navigate("/");
+    localStorage.setItem("token", "hi");
+    navigate("/profile");
   };
 
   return (

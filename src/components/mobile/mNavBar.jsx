@@ -65,7 +65,7 @@ const MNavBar = () => {
               <p>북마크</p>
             </li>
           </Link>
-          <Link to="/login">
+          <Link to="/profile">
             <li>
               <UserOutlined css={mNavBarIconStyle} />
               <p>내 정보</p>
