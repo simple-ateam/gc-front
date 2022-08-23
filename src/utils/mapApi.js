@@ -1,29 +1,35 @@
 import { markerHtml } from "./marker";
 import { encodeQueryString } from "./queryString";
 
-// 맵 상태 변경 이벤트
+/**
+지도에서 발생하는 이벤트 핸들러
+* 
+ * @param {*} naver 네이버 객체
+ * @param {*} ref 참조할 지도 객체
+ * @param {*} set setter 함수
+ */
 export const mapEventHandler = (naver, ref, set) => {
   const { map } = ref;
   naver.maps.Event.addListener(
     map,
-    "mouseup",
-    () => {
-      set({ lat: map.center._lat, lng: map.center._lng, zoom: map.zoom });
-    },
-    0,
-  );
-  naver.maps.Event.addListener(
-    map,
-    "touchend",
-    () => {
+    "idle",
+    (e) => {
+      console.log(e.coord);
       set({ lat: map.center._lat, lng: map.center._lng, zoom: map.zoom });
     },
     0,
   );
 };
 
-// 마커 핸들러
-export const addMarkerHandler = (naver, ref, list, pick, navigate) => {
+/**
+마커 핸들러
+* 
+ * @param {*} naver 네이버 객체
+ * @param {*} ref 참조할 지도 객체
+ * @param {Array} list 야영장 리스트
+ * @param {*} navigate router navigate
+ */
+export const addMarkerHandler = (naver, ref, list, navigate) => {
   if (!Array.isArray(list)) return;
   // 기존 마커 있는 경우, 초기화
   if (ref.markerList[0]) {

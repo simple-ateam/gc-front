@@ -1,7 +1,13 @@
 import { useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useRecoilValueLoadable, useSetRecoilState } from "recoil";
-import { myLocationState, spotListState, pickSpotQuery, spotInfoState } from "../../states";
+import {
+  myLocationState,
+  spotListState,
+  pickSpotQuery,
+  spotInfoState,
+  meState,
+} from "../../states";
 import { mapEventHandler, setInitialLocation, addMarkerHandler } from "../../utils/mapApi";
 import { decodeQueryString } from "../../utils/queryString";
 const { naver } = window;
@@ -11,6 +17,7 @@ const Map = () => {
   const spotList = useRecoilValueLoadable(spotListState);
   const [myLocation, setMyLocation] = useRecoilState(myLocationState);
   const setPickSpotQuery = useSetRecoilState(pickSpotQuery);
+  const me = useRecoilValue(meState);
   const initialZoomLevel = 14;
   const params = useParams();
   const navigate = useNavigate();
@@ -19,7 +26,7 @@ const Map = () => {
 
   //임시
   useEffect(() => {
-    localStorage.removeItem("token");
+    console.log(me);
   }, []);
 
   // query string 없는 경우 위치 초기화
@@ -67,7 +74,7 @@ const Map = () => {
   useEffect(() => {
     switch (spotList.state) {
       case "hasValue":
-        addMarkerHandler(naver, mapRef.current, spotList.contents, setPickSpotQuery, navigate);
+        addMarkerHandler(naver, mapRef.current, spotList.contents, navigate);
         break;
       case "hasError":
         throw console.log(spotList.contents.message);

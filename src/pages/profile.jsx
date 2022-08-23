@@ -1,10 +1,15 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { meState } from "../states";
 
 const Profile = () => {
   const navigate = useNavigate();
+  const me = useRecoilValue(meState);
   useEffect(() => {
-    if (!localStorage.getItem("token")) navigate("/login");
+    if (!me) {
+      navigate("/login");
+    }
   }, []);
 
   return (
