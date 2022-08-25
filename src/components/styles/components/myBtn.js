@@ -30,10 +30,10 @@ export const myBtnContent = css`
   font-weight: 700;
   transition: 100ms linear;
   p {
-    color: ${palette.blue_3};
+    color: ${palette.green_2};
   }
   svg {
-    fill: ${palette.blue_3};
+    fill: ${palette.green_2};
   }
   &:hover {
     background-color: ${palette.green_1};

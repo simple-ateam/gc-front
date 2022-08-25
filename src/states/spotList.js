@@ -6,7 +6,7 @@ import customAxios from "../config/config";
 const axios = customAxios();
 
 export default selector({
-  key: "spotList",
+  key: "spotListState",
   get: async ({ get }) => {
     const myLocation = get(myLocationState);
     let kilometer;

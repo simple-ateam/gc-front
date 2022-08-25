@@ -2,15 +2,21 @@
 import { css } from "@emotion/react";
 import { drawerContainer } from "../styles/components/drawer";
 import { pickSpotQuery } from "../../states";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { skeletonStyle } from "../styles/components/skeletonPage";
 
 const SkeletonPage = () => {
-  const pickSpotdata = useRecoilValue(pickSpotQuery);
+  const [pickSpot, setPickSpot] = useRecoilState(pickSpotQuery);
+
+  // 임시
+  const temporaryHandler = () => {
+    setPickSpot(false);
+  };
+
   return (
-    <div css={drawerContainer(pickSpotdata)}>
+    <div css={drawerContainer(pickSpot)}>
       <section css={skeletonStyle}>
-        <div></div>
+        <div onClick={temporaryHandler}></div>
         <h2></h2>
         <ul>
           <li></li>

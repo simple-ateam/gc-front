@@ -14,7 +14,7 @@ const { naver } = window;
 
 const Map = () => {
   const mapRef = useRef({ map: null, markerList: [], marker: null, selectedMarker: null });
-  const spotList = useRecoilValueLoadable(spotListState);
+  // const spotList = useRecoilValueLoadable(spotListState);
   const [myLocation, setMyLocation] = useRecoilState(myLocationState);
   const setPickSpotQuery = useSetRecoilState(pickSpotQuery);
   const me = useRecoilValue(meState);
@@ -25,9 +25,9 @@ const Map = () => {
   const { id, x, y } = decodedQuery;
 
   //임시
-  useEffect(() => {
-    console.log(me);
-  }, []);
+  // useEffect(() => {
+  //   console.log(me);
+  // }, []);
 
   // query string 없는 경우 위치 초기화
   useEffect(() => {
@@ -71,19 +71,19 @@ const Map = () => {
   }, [myLocation]);
 
   // 마커 생성
-  useEffect(() => {
-    switch (spotList.state) {
-      case "hasValue":
-        addMarkerHandler(naver, mapRef.current, spotList.contents, navigate);
-        break;
-      case "hasError":
-        throw console.log(spotList.contents.message);
-      case "loading":
-        break;
-      default:
-        break;
-    }
-  }, [spotList]);
+  // useEffect(() => {
+  //   switch (spotList.state) {
+  //     case "hasValue":
+  //       addMarkerHandler(naver, mapRef.current, spotList.contents, navigate);
+  //       break;
+  //     case "hasError":
+  //       throw console.log(spotList.contents.message);
+  //     case "loading":
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }, [spotList]);
 
   return (
     <>

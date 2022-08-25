@@ -43,11 +43,11 @@ const mNavBarIconStyle = css`
 `;
 
 const MNavBar = () => {
-  const setPickSpotdata = useSetRecoilState(pickSpotQuery);
+  const setPickSpot = useSetRecoilState(pickSpotQuery);
   const setMyInfo = useSetRecoilState(myInfoState);
 
   const onClickNavHome = () => {
-    setPickSpotdata(null);
+    setPickSpot(null);
     setMyInfo(false);
   };
 
@@ -65,12 +65,10 @@ const MNavBar = () => {
               <p>탐색</p>
             </li>
           </Link>
-          <Link to="/profile">
-            <li onClick={onClickNavMyInfo}>
-              <BookOutlined css={mNavBarIconStyle} />
-              <p>북마크</p>
-            </li>
-          </Link>
+          <li onClick={onClickNavMyInfo}>
+            <BookOutlined css={mNavBarIconStyle} />
+            <p>북마크</p>
+          </li>
           <li onClick={onClickNavMyInfo}>
             <UserOutlined css={mNavBarIconStyle} />
             <p>내 정보</p>

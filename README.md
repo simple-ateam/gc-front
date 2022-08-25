@@ -63,3 +63,18 @@
 > 해결 방법은 idle 이벤트를 드래그 관련 이벤트로 변경하고, query string을 통해 지도 위치 변경을 관리.
 
 내 정보 창 만들기
+
+8/25
+내 정보 페이지 - 상태 관리 문제
+모바일에서 뒤로가기를 지원하려면 query parameter를 사용한 뒤 useNavigate를 통해 뒤로가기를 구현해야 함.
+현재 문제는 state에 따라 component만 다르게 띄우는 방식이라 뒤로가기가 지원되지 않음.
+내 정보 클릭 시 parameter를 넣고(profile/유저정보)
+Home에서는 parameter가 profile인 경우, myInfo state 값을 true로 변경하는 방식으로 해야함.
+여기서 이제
+profile/유저 정보/bookmark
+profile/유저 정보/review 이런 형식으로 퍼져야 함.
+이렇게 하면 뒤로가기 지원이 가능함.
+
+---
+
+모바일에서 지도 사용성을 올리기 위해선 swipe로 올렸다 내렸다 할 수 있게 만들어야 함.

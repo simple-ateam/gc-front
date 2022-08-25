@@ -14,7 +14,6 @@ export const mapEventHandler = (naver, ref, set) => {
     map,
     "idle",
     (e) => {
-      console.log(e.coord);
       set({ lat: map.center._lat, lng: map.center._lng, zoom: map.zoom });
     },
     0,

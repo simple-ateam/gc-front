@@ -3,17 +3,18 @@ import { css, jsx } from "@emotion/react";
 import { myBtnContainer, myBtnContent } from "../styles/components/myBtn";
 import { UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { myInfoState } from "../../states";
+import { useSetRecoilState, useRecoilState } from "recoil";
+import { drawerState } from "../../states";
 
 const MyBtn = () => {
-  const setMyInfo = useSetRecoilState(myInfoState);
-  const nagivate = useNavigate();
+  const [drawer, setDrawer] = useRecoilState(drawerState);
+  const navigate = useNavigate();
+
   const MyBtnOnClickHandler = () => {
     if (localStorage.getItem("token")) {
-      setMyInfo(true);
+      navigate("/profile");
     } else {
-      nagivate("/login");
+      navigate("/login");
     }
   };
 

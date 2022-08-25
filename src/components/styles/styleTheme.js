@@ -30,6 +30,7 @@ export const theme = {
     md: "18px",
     lg: "22px",
     xl: "25px",
+    xxl: "30px",
   },
 
   borderRadius: {
