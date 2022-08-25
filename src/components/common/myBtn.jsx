@@ -12,7 +12,7 @@ const MyBtn = () => {
 
   const MyBtnOnClickHandler = () => {
     if (localStorage.getItem("token")) {
-      navigate("/profile");
+      navigate({ pathname: "/profile" });
     } else {
       navigate("/login");
     }

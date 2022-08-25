@@ -8,15 +8,10 @@ import { skeletonStyle } from "../styles/components/skeletonPage";
 const SkeletonPage = () => {
   const [pickSpot, setPickSpot] = useRecoilState(pickSpotQuery);
 
-  // 임시
-  const temporaryHandler = () => {
-    setPickSpot(false);
-  };
-
   return (
     <div css={drawerContainer(pickSpot)}>
       <section css={skeletonStyle}>
-        <div onClick={temporaryHandler}></div>
+        <div></div>
         <h2></h2>
         <ul>
           <li></li>

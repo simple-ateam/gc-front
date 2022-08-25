@@ -11,7 +11,7 @@ const Home = () => {
       <Map />
       <Suspense fallback={<SkeletonPage />}>
         <Drawer />
-        {/* <SearchBar /> */}
+        <SearchBar />
       </Suspense>
       {isBrowser && <MyBtn />}
     </>

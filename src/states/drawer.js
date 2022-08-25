@@ -14,21 +14,4 @@ export default selector({
         return null;
     }
   },
-  set: ({ get, set }, ui) => {
-    const pickSpot = get(pickSpotQuery);
-    const drawer = get(drawerQuery);
-
-    switch (ui) {
-      case "myInfo":
-        set(pickSpot, null);
-        set(drawer, ui);
-        break;
-      case "pickSpot":
-        console.log(ui);
-        set(drawerQuery, ui);
-        break;
-      default:
-        set(drawerQuery, null);
-    }
-  },
 });

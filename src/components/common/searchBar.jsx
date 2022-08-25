@@ -12,25 +12,30 @@ import {
   resultStyle,
 } from "../styles/components/searchBar";
 import { useRecoilValue, useRecoilState, useSetRecoilState, useRecoilValueLoadable } from "recoil";
-import { spotInfoState, pickSpotQuery, searchQuery, searchResultState } from "../../states";
+import {
+  spotInfoState,
+  pickSpotQuery,
+  searchQuery,
+  searchResultState,
+  drawerQuery,
+} from "../../states";
 import { debounce } from "../../utils/debounce";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const [showResultList, setShowResultList] = useState(false);
   const spotInfo = useRecoilValue(spotInfoState);
   const searchResult = useRecoilValueLoadable(searchResultState);
   const setPickSpot = useSetRecoilState(pickSpotQuery);
-  const [searchResultList, setSearchResultList] = useState(null);
   const [searchQueryState, setSearchQueryState] = useRecoilState(searchQuery);
-
-  // 임시
-  const temporaryHandler = () => {
-    setPickSpot(true);
-  };
+  const [drawer, setDrawer] = useRecoilState(drawerQuery);
+  const navigate = useNavigate();
 
   const closeBtnHandler = () => {
     setPickSpot(null);
     setSearchQueryState(null);
+    setDrawer(null);
+    navigate("/");
   };
 
   const onChangeHandler = (e) => {
@@ -67,7 +72,7 @@ const SearchBar = () => {
   // }, [searchResultState]);
 
   return (
-    <div css={searchBarContainer}>
+    <div css={searchBarContainer(drawer)}>
       <div css={searchInputContainer}>
         <div css={inputStyle}>
           <input
@@ -80,7 +85,7 @@ const SearchBar = () => {
             onBlur={onBlurHandler}
           />
           <div>
-            <SearchOutlined onClick={temporaryHandler} css={searchBarIconStyle} />
+            <SearchOutlined css={searchBarIconStyle} />
             {spotInfo && <CloseOutlined css={searchBarIconStyle} onClick={closeBtnHandler} />}
           </div>
         </div>

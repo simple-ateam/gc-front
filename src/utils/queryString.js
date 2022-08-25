@@ -7,11 +7,10 @@ export const encodeQueryString = (params) => {
 };
 
 export const decodeQueryString = (params) => {
-  const decodedQueryArr = {};
-  const decoded = decodeURIComponent(params);
-  const entries = new URLSearchParams(decoded).entries();
+  const paramsObj = {};
+  const entries = new URLSearchParams(params).entries();
   for (let entry of entries) {
-    decodedQueryArr[entry[0]] = entry[1];
+    paramsObj[entry[0]] = entry[1];
   }
-  return decodedQueryArr;
+  return paramsObj;
 };

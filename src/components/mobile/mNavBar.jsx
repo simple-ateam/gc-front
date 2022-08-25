@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
 import { EnvironmentOutlined, BookOutlined, UserOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { theme } from "../styles/styleTheme";
 import { useSetRecoilState } from "recoil";
-import { myInfoState, pickSpotQuery } from "../../states";
+import { drawerQuery, myInfoState, pickSpotQuery, searchQuery } from "../../states";
 
 const { borderRadius, gap, fontSize } = theme;
 
@@ -44,15 +44,18 @@ const mNavBarIconStyle = css`
 
 const MNavBar = () => {
   const setPickSpot = useSetRecoilState(pickSpotQuery);
+  const setSearchQueryState = useSetRecoilState(searchQuery);
   const setMyInfo = useSetRecoilState(myInfoState);
+  const navigate = useNavigate();
 
   const onClickNavHome = () => {
     setPickSpot(null);
     setMyInfo(false);
+    setSearchQueryState(null);
   };
 
   const onClickNavMyInfo = () => {
-    setMyInfo(true);
+    navigate("/profile");
   };
 
   return (

@@ -5,17 +5,19 @@ import { isMobile, isBrowser } from "react-device-detect";
 
 const { palette, borderRadius, boxSize, fontSize } = theme;
 
-export const searchBarContainer = css`
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  width: ${isMobile ? "96vw" : "400px"};
-  top: ${isMobile ? "15px" : "10px"};
-  left: ${isMobile ? "2vw" : "10px"};
-  background-color: ${palette.white_1};
-  z-index: 99999;
-  border-radius: ${borderRadius.sm};
-`;
+export const searchBarContainer = (state) => {
+  return css`
+    display: ${state !== "myInfo" ? "flex" : "none"};
+    flex-direction: column;
+    position: fixed;
+    width: ${isMobile ? "96vw" : "400px"};
+    top: ${isMobile ? "15px" : "10px"};
+    left: ${isMobile ? "2vw" : "10px"};
+    background-color: ${palette.white_1};
+    z-index: 99999;
+    border-radius: ${borderRadius.sm};
+  `;
+};
 
 export const searchInputContainer = css`
   display: flex;
