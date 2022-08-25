@@ -6,7 +6,7 @@ import customAxios from "../config/config";
 const axios = customAxios();
 
 export default selector({
-  key: "spotInfo",
+  key: "spotInfoState",
   get: async ({ get }) => {
     const pickSpotdata = get(pickSpotQuery);
     if (!pickSpotdata) return null;

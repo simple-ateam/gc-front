@@ -1,7 +1,6 @@
 import Map from "../components/common/map";
 import SearchBar from "../components/common/searchBar";
-import CampsiteDrawer from "../components/common/campsiteDrawer";
-import ShareModal from "../components/common/share";
+import Drawer from "../components/common/drawer";
 import SkeletonPage from "../components/common/skeletonPage";
 import { Suspense } from "react";
 import MyBtn from "../components/common/myBtn";
@@ -11,9 +10,8 @@ const Home = () => {
     <>
       <Map />
       <Suspense fallback={<SkeletonPage />}>
-        <CampsiteDrawer />
-        <SearchBar />
-        <ShareModal />
+        <Drawer />
+        {/* <SearchBar /> */}
       </Suspense>
       {isBrowser && <MyBtn />}
     </>

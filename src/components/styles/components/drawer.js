@@ -7,7 +7,8 @@ const { boxSize, borderRadius, palette, fontSize, gap, gapByPercent } = theme;
 
 export const drawerContainer = (state) => {
   return css`
-    display: ${state ? "flex" : "none"};
+    /* display: ${state ? "flex" : "none"}; */
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;

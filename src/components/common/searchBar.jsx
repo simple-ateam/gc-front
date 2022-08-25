@@ -12,19 +12,24 @@ import {
   resultStyle,
 } from "../styles/components/searchBar";
 import { useRecoilValue, useRecoilState, useSetRecoilState, useRecoilValueLoadable } from "recoil";
-import { spotInfoState, pickSpotQuery, searchQuery, searchResult } from "../../states";
+import { spotInfoState, pickSpotQuery, searchQuery, searchResultState } from "../../states";
 import { debounce } from "../../utils/debounce";
 
 const SearchBar = () => {
   const [showResultList, setShowResultList] = useState(false);
   const spotInfo = useRecoilValue(spotInfoState);
-  const searchResultState = useRecoilValueLoadable(searchResult);
-  const setPickSpotState = useSetRecoilState(pickSpotQuery);
+  const searchResult = useRecoilValueLoadable(searchResultState);
+  const setPickSpot = useSetRecoilState(pickSpotQuery);
   const [searchResultList, setSearchResultList] = useState(null);
   const [searchQueryState, setSearchQueryState] = useRecoilState(searchQuery);
 
+  // 임시
+  const temporaryHandler = () => {
+    setPickSpot(true);
+  };
+
   const closeBtnHandler = () => {
-    setPickSpotState(null);
+    setPickSpot(null);
     setSearchQueryState(null);
   };
 
@@ -75,7 +80,7 @@ const SearchBar = () => {
             onBlur={onBlurHandler}
           />
           <div>
-            <SearchOutlined css={searchBarIconStyle} />
+            <SearchOutlined onClick={temporaryHandler} css={searchBarIconStyle} />
             {spotInfo && <CloseOutlined css={searchBarIconStyle} onClick={closeBtnHandler} />}
           </div>
         </div>

@@ -4,7 +4,7 @@ import { EnvironmentOutlined, BookOutlined, UserOutlined } from "@ant-design/ico
 import { Link } from "react-router-dom";
 import { theme } from "../styles/styleTheme";
 import { useSetRecoilState } from "recoil";
-import { pickSpotQuery } from "../../states";
+import { myInfoState, pickSpotQuery } from "../../states";
 
 const { borderRadius, gap, fontSize } = theme;
 
@@ -43,10 +43,16 @@ const mNavBarIconStyle = css`
 `;
 
 const MNavBar = () => {
-  const setPickSpotdata = useSetRecoilState(pickSpotQuery);
+  const setPickSpot = useSetRecoilState(pickSpotQuery);
+  const setMyInfo = useSetRecoilState(myInfoState);
 
   const onClickNavHome = () => {
-    setPickSpotdata(null);
+    setPickSpot(null);
+    setMyInfo(false);
+  };
+
+  const onClickNavMyInfo = () => {
+    setMyInfo(true);
   };
 
   return (
@@ -59,18 +65,14 @@ const MNavBar = () => {
               <p>탐색</p>
             </li>
           </Link>
-          <Link to="/profile">
-            <li>
-              <BookOutlined css={mNavBarIconStyle} />
-              <p>북마크</p>
-            </li>
-          </Link>
-          <Link to="/login">
-            <li>
-              <UserOutlined css={mNavBarIconStyle} />
-              <p>내 정보</p>
-            </li>
-          </Link>
+          <li onClick={onClickNavMyInfo}>
+            <BookOutlined css={mNavBarIconStyle} />
+            <p>북마크</p>
+          </li>
+          <li onClick={onClickNavMyInfo}>
+            <UserOutlined css={mNavBarIconStyle} />
+            <p>내 정보</p>
+          </li>
         </ul>
       </nav>
     </div>
