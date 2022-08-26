@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { SearchResultSkeleton } from "../../common/skeletons";
 import { theme } from "../styleTheme";
 
 const { boxSize, borderRadius, palette, fontSize, gap, gapByPercent } = theme;
 
-export const skeletonStyle = css`
+export const drawerSkeleton = css`
   display: flex;
   flex-direction: column;
   position: relative;
@@ -68,5 +69,16 @@ export const skeletonStyle = css`
       height: 150px;
       background-color: ${palette.gray_1};
     }
+  }
+`;
+
+export const searchResultSkeleton = css`
+  height: 20px;
+  display: flex;
+  align-items: center;
+  padding: ${boxSize.lg};
+  font-size: ${fontSize.xs};
+  em {
+    color: ${palette.gray_3};
   }
 `;

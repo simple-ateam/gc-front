@@ -5,7 +5,7 @@ import { pickSpotQuery } from "../../states";
 import { useRecoilState } from "recoil";
 import { skeletonStyle } from "../styles/components/skeletonPage";
 
-const SkeletonPage = () => {
+const DrawerSKeleton = () => {
   const [pickSpot, setPickSpot] = useRecoilState(pickSpotQuery);
 
   return (
@@ -40,4 +40,4 @@ const SkeletonPage = () => {
     </div>
   );
 };
-export default SkeletonPage;
+export default DrawerSKeleton;

@@ -49,8 +49,9 @@ const MNavBar = () => {
   const navigate = useNavigate();
 
   const onClickNavHome = () => {
+    navigate("/");
     setPickSpot(null);
-    setMyInfo(false);
+    setMyInfo(null);
     setSearchQueryState(null);
   };
 
@@ -63,16 +64,16 @@ const MNavBar = () => {
       <nav css={mNavBarStyle}>
         <ul>
           <Link to="/">
-            <li onClick={onClickNavHome}>
+            <li onTouchEnd={onClickNavHome}>
               <EnvironmentOutlined css={mNavBarIconStyle} />
               <p>탐색</p>
             </li>
           </Link>
-          <li onClick={onClickNavMyInfo}>
+          <li onTouchEnd={onClickNavMyInfo}>
             <BookOutlined css={mNavBarIconStyle} />
             <p>북마크</p>
           </li>
-          <li onClick={onClickNavMyInfo}>
+          <li onTouchEnd={onClickNavMyInfo}>
             <UserOutlined css={mNavBarIconStyle} />
             <p>내 정보</p>
           </li>

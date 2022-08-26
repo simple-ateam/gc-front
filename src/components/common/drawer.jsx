@@ -14,7 +14,6 @@ const Drawer = () => {
   const [drawer, setDrawer] = useRecoilState(drawerQuery);
 
   useEffect(() => {
-    console.log(location.pathname);
     if (location.pathname === "/maps") {
       setDrawer("pickSpot");
     }
