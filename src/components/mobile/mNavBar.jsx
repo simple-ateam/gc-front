@@ -12,7 +12,7 @@ const mNavBarContainer = css`
   position: fixed;
   bottom: 0;
   width: 100vw;
-  height: 80px;
+  height: 10vh;
   background-color: white;
   z-index: 99999;
   box-shadow: 0 -1px 3px rgb(0 0 0 / 20%);
@@ -33,13 +33,13 @@ const mNavBarStyle = css`
     li {
       display: flex;
       flex-direction: column;
-      gap: ${gap.sm};
+      gap: ${gap.md};
     }
   }
 `;
 
 const mNavBarIconStyle = css`
-  font-size: ${fontSize.lg};
+  font-size: ${fontSize.md};
 `;
 
 const MNavBar = () => {

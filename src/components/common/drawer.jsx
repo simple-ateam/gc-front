@@ -7,6 +7,7 @@ import SpotInfo from "./spotInfo";
 import MyInfo from "./myInfo";
 import { useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
+import MSpotInfo from "../mobile/mSpotInfo";
 
 const Drawer = () => {
   const params = useParams();
@@ -39,7 +40,8 @@ const Drawer = () => {
   const showUI = () => {
     switch (drawer) {
       case "pickSpot":
-        return <SpotInfo />;
+        // return <SpotInfo />;
+        return <MSpotInfo />;
       case "myInfo":
         return <MyInfo />;
       default:

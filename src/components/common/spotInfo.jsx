@@ -47,12 +47,6 @@ const SpotInfo = () => {
               <p>북마크</p>
             </li>
             <li>
-              <button aria-label="리뷰 작성하기">
-                <EditOutlined css={drawerIconStyle} />
-              </button>
-              <p>리뷰</p>
-            </li>
-            <li>
               <button onClick={shareBtnHandler} aria-label="캠핑장 공유하기">
                 <ShareAltOutlined css={drawerIconStyle} />
               </button>
@@ -77,11 +71,6 @@ const SpotInfo = () => {
               {spotInfo?.animalCmgCl ? spotInfo.animalCmgCl : "반려동물 출입정보 없음"}
             </h3>
           </div>
-        </article>
-        <div></div>
-        <article>
-          <h2>리뷰</h2>
-          <p>아직 작성된 리뷰가 없습니다.</p>
         </article>
       </section>
       <ShareModal />
