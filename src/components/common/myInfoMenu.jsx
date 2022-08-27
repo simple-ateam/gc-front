@@ -3,13 +3,7 @@ import { css } from "@emotion/react";
 
 import { useSetRecoilState } from "recoil";
 import { myInfoState } from "../../states";
-import {
-  BookOutlined,
-  CloseCircleOutlined,
-  CloseOutlined,
-  EditOutlined,
-  UserDeleteOutlined,
-} from "@ant-design/icons";
+import { BookOutlined, CloseOutlined, EditOutlined, UserDeleteOutlined } from "@ant-design/icons";
 import { myInfoContent } from "../styles/components/myInfo";
 import { useNavigate } from "react-router-dom";
 const MyInfoMenu = () => {

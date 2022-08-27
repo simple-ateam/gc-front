@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
-import { useEffect } from "react";
 import { useNavigate, createSearchParams } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { pickSpotQuery, searchResultState } from "../../states";
+import { useRecoilValue } from "recoil";
+import { searchResultState } from "../../states";
 import { searchResultContainer, resultStyle } from "../styles/components/searchBar";
 
 const SearchResult = ({ showUi, inputRef }) => {

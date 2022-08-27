@@ -15,7 +15,7 @@ import { drawerContent, drawerIconStyle } from "../styles/components/drawer";
 import ShareModal from "./share";
 import { isMobile } from "react-device-detect";
 
-const SpotInfo = () => {
+const MSpotInfo = () => {
   const spotInfo = useRecoilValue(spotInfoState);
   const setShareState = useSetRecoilState(shareState);
   const shareBtnHandler = () => {
@@ -26,6 +26,7 @@ const SpotInfo = () => {
       <section css={drawerContent}>
         <picture>
           <img
+            style={{ width: "100%" }}
             src={`${spotInfo?.firstImageUrl ? spotInfo.firstImageUrl : "/img/spotImg.jpg"}`}
             alt="야영장 이미지"
           />
@@ -89,4 +90,4 @@ const SpotInfo = () => {
   );
 };
 
-export default SpotInfo;
+export default MSpotInfo;

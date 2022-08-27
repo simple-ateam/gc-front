@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { drawerContainer } from "../styles/components/drawer";
 import { pickSpotQuery } from "../../states";
 import { useRecoilState } from "recoil";
-import { skeletonStyle } from "../styles/components/skeletonPage";
+import { skeletonStyle } from "../styles/components/skeletons";
 
 const DrawerSKeleton = () => {
   const [pickSpot, setPickSpot] = useRecoilState(pickSpotQuery);

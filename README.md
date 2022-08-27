@@ -84,13 +84,24 @@ profile/유저 정보/review 이런 형식으로 퍼져야 함.
 8/26
 
 <!-- - 내 정보 페이지 x버튼 추가하기 -->
+
+<!-- - 검색 기능 구현-->
+
+search Bar의 input value를 searchQuery라는 전역 상태로 관리하고 있고, searchQuery가 업데이트 될 때마다 selector를 통해 비동기 처리로 야영장 전체 데이터에서 searchQuery를 포함하는 데이터를 필터링해서 가져오는 형식.
+
+문제점 1. 타자 한 번 칠 때마다 야영장 전체 데이터를 가져오는거라 성능이 매우 저하된다.debounce 적용이 안된다. 내 예상으로는 setTimeout보다 async로 변경하는 selector 함수의 우선순위가 높아서 setTimeout이 call stack으로 안 불려오는 것 같음.
+해결-1. 첫 렌더링 시에 전체 데이터를 로드하고 거기서 검색하는 형식(검색에 비동기를 사용하지 않아도 됨.)
+해결-2. 어떻게든 debounce 적용해보기.
+
+문제점 2. 마커를 클릭할 경우, searchQuery도 해당 마커의 야영장 이름으로 적용되게 해놨다. 그러면 자동적으로 result를 가져오기 때문에 searchResult의 suspense도 동작하게 된다. 즉 마커를 클릭하면 불필요하게 검색 결과의 스켈레톤 코드가 잠시 나오게 된다.
+
+해결방법-1. searchQuery 분리하기. input에 작성하는 state를 따로 두고 마커 클릭했을 때 검색창에 입력되는 state 따로 두기. 그러면 문제점 1의 debounce도 해결해볼 수 있을 듯. 단점은 이렇게하면 검색창에 state만 3-4개를 쓰고 있음. selector로 해결해 볼 수 있지 않을까?
+
 <!-- - 검색 suspense 꾸미기 -->
 
 - 검색 debounce 적용하기
 
 - 북마크 / 리뷰 페이지 만들기
-
-<!-- - 검색 기능 -->
 
 - 마커 클릭 시 검색창 suspense 튀어나오는거 해결하기
 

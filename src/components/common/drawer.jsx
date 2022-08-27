@@ -25,6 +25,17 @@ const Drawer = () => {
     }
   }, [location.pathname]);
 
+  const touchStartHandler = (e) => {
+    // console.log(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+  };
+  const touchEndHandler = (e) => {
+    // console.log(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+  };
+
+  const touchMoveHandler = (e) => {
+    // console.log(e.changedTouches[0]);
+  };
+
   const showUI = () => {
     switch (drawer) {
       case "pickSpot":
@@ -35,9 +46,16 @@ const Drawer = () => {
         return null;
     }
   };
+
   return (
     <>
-      <div css={drawerContainer(drawer)}>{showUI()}</div>
+      <div
+        onTouchStart={touchStartHandler}
+        onTouchEnd={touchEndHandler}
+        onTouchMove={touchMoveHandler}
+        css={drawerContainer(drawer)}>
+        {showUI()}
+      </div>
     </>
   );
 };

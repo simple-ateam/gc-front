@@ -17,6 +17,8 @@ export const drawerContainer = (state) => {
     background-color: ${palette.white_1};
     box-shadow: 2px 0 4px rgb(0 0 0 / 20%), 0 -1px 0px rgb(0 0 0 / 2%);
     overflow: auto;
+    transition: 100ms;
+    transform: translate(0, 420px);
 
     ::-webkit-scrollbar {
       width: ${boxSize.xs};
@@ -42,9 +44,14 @@ export const drawerContent = css`
     padding: ${boxSize.lg};
     width: 100%;
   }
+
   & > picture {
     padding: 0;
+    img {
+      width: 100%;
+    }
   }
+
   // divider
   & > div {
     justify-items: center;

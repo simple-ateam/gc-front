@@ -47,3 +47,5 @@ export const SearchResultSkeleton = () => {
     </div>
   );
 };
+
+export const mDrawerSkeleton = () => {};
