@@ -4,7 +4,6 @@ import {
   PhoneOutlined,
   BookOutlined,
   ShareAltOutlined,
-  EditOutlined,
   EnvironmentFilled,
   PhoneFilled,
   GitlabFilled,
@@ -12,8 +11,10 @@ import {
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { shareState, spotInfoState } from "../../states";
 import { drawerContent, drawerIconStyle } from "../styles/components/drawer";
+import { DrawerSkeleton } from "./skeletons";
+
 import ShareModal from "./share";
-import { isMobile } from "react-device-detect";
+import { Suspense } from "react";
 
 const SpotInfo = () => {
   const spotInfo = useRecoilValue(spotInfoState);

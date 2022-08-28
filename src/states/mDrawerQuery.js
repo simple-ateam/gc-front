@@ -2,5 +2,9 @@ import { atom } from "recoil";
 
 export default atom({
   key: "mDrawerQuery",
-  default: 0,
+  default: {
+    startY: 0,
+    endY: 0,
+    moveY: 0,
+  },
 });

@@ -82,3 +82,34 @@ export const searchResultSkeleton = css`
     color: ${palette.gray_3};
   }
 `;
+
+export const mDrawerSkeleton = css`
+  height: 25vh;
+  background-color: white;
+  border-radius: ${borderRadius.lg};
+  display: flex;
+  justify-content: space-around;
+  & > * {
+  }
+  div:first-of-type {
+    margin-top: 7vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: ${gap.xl};
+    p {
+      background-color: ${palette.gray_2};
+      border-radius: ${borderRadius.md};
+      width: 20vh;
+      height: 4vh;
+    }
+  }
+  div:last-of-type {
+    margin-top: ${boxSize.lg};
+    background-color: ${palette.gray_2};
+    width: 45vw;
+    height: 70%;
+    border-radius: ${borderRadius.md};
+  }
+`;

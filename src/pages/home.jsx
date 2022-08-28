@@ -9,8 +9,8 @@ const Home = () => {
   return (
     <>
       <Map />
-      <Suspense fallback={<DrawerSkeleton />}>
-        <Drawer />
+      <Drawer />
+      <Suspense fallback={<div></div>}>
         <SearchBar />
       </Suspense>
       {isBrowser && <MyBtn />}

@@ -77,7 +77,7 @@ const SearchBar = () => {
           </div>
         </div>
       </div>
-      <Suspense fallback={<SearchResultSkeleton />}>
+      <Suspense fallback={SearchResultSkeleton}>
         <SearchResult inputRef={searchInputRef.current} showUi={showResultList} />
       </Suspense>
     </div>

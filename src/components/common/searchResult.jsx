@@ -1,9 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
+import { Suspense } from "react";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { searchResultState } from "../../states";
 import { searchResultContainer, resultStyle } from "../styles/components/searchBar";
+import { SearchResultSkeleton } from "./skeletons";
 
 const SearchResult = ({ showUi, inputRef }) => {
   const searchResult = useRecoilValue(searchResultState);

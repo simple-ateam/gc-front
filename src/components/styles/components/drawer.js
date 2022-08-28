@@ -9,7 +9,7 @@ export const drawerContainer = (state) => {
   return css`
     display: ${state ? "block" : "none"};
     position: fixed;
-    bottom: 0;
+    bottom: 9vh;
     left: 0;
     width: ${isMobile ? "100vw" : "420px"};
     z-index: 9998;
@@ -119,47 +119,50 @@ export const drawerIconStyle = css`
   }
 `;
 
-export const mDrawerContent = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: flex-start;
-  height: 30vh;
-  & > * {
-    padding: 0 ${boxSize.md};
-    width: 100%;
-  }
-  & > div:first-of-type {
-    padding: 5px;
-    margin: ${boxSize.sm} auto;
-    width: 70px;
-    border-radius: ${borderRadius.lg};
-    background-color: ${palette.gray_1};
-  }
-  & > div:last-of-type {
+export const mDrawerContent = (query) => {
+  const { moveY } = query;
+  return css`
     display: flex;
-    padding-top: ${boxSize.sm};
-
-    div {
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    margin-bottom: ${10 + moveY / 10}vh;
+    & > * {
+      padding: 0 ${boxSize.md};
+      width: 100%;
+    }
+    & > div:first-of-type {
+      padding: 5px;
+      margin: ${boxSize.sm} auto;
+      width: 70px;
+      border-radius: ${borderRadius.lg};
+      background-color: ${palette.gray_1};
+    }
+    & > div:last-of-type {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-      h2 {
-        font-size: ${fontSize.md};
+      padding-top: ${boxSize.sm};
+
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        h2 {
+          font-size: ${fontSize.md};
+        }
+        h3 {
+          font-size: ${fontSize.sm};
+          padding-top: ${boxSize.sm};
+          color: ${palette.gray_3};
+        }
       }
-      h3 {
-        font-size: ${fontSize.sm};
-        padding-top: ${boxSize.sm};
-        color: ${palette.gray_3};
+      picture {
+        padding: 0;
+        width: 45vw;
+        img {
+          width: 100%;
+        }
       }
     }
-    picture {
-      padding: 0;
-      width: 45vw;
-      img {
-        width: 100%;
-      }
-    }
-  }
-`;
+  `;
+};

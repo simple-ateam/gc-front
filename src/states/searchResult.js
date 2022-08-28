@@ -11,7 +11,6 @@ export default selector({
     const query = get(searchQuery);
     if (!query) return null;
     const list = await getSpotByPosition(axios, { lat: 37, lng: 127 }, 500);
-    console.log("goo");
     return search(list, query);
   },
 });

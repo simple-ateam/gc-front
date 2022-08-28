@@ -1,18 +1,20 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useRecoilState } from "recoil";
-import { pickSpotQuery, drawerState, drawerQuery } from "../../states";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { pickSpotQuery, drawerState, drawerQuery, mDrawerQuery, mDrawerState } from "../../states";
 import { drawerContainer } from "../styles/components/drawer";
 import SpotInfo from "./spotInfo";
 import MyInfo from "./myInfo";
-import { useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { Suspense, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import MSpotInfo from "../mobile/mSpotInfo";
+import { DrawerSkeleton, MDrawerSkeleton } from "./skeletons";
+import { isMobile } from "react-device-detect";
 
 const Drawer = () => {
-  const params = useParams();
   const location = useLocation();
   const [drawer, setDrawer] = useRecoilState(drawerQuery);
+  const mDrawer = useRecoilValue(mDrawerState);
 
   useEffect(() => {
     if (location.pathname === "/maps") {
@@ -26,22 +28,28 @@ const Drawer = () => {
     }
   }, [location.pathname]);
 
-  const touchStartHandler = (e) => {
-    // console.log(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
-  };
-  const touchEndHandler = (e) => {
-    // console.log(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
-  };
-
-  const touchMoveHandler = (e) => {
-    // console.log(e.changedTouches[0]);
-  };
+  // if (mDrawer === "expand") {
+  //   return (
+  //     <Suspense fallback={<DrawerSkeleton />}>
+  //       <SpotInfo />
+  //     </Suspense>
+  //   );
+  // } else if (mDrawer === "collapse") {
+  //   return (
+  //     <Suspense fallback={<MDrawerSkeleton />}>
+  //       <MSpotInfo />
+  //     </Suspense>
+  //   );
+  // }
 
   const showUI = () => {
     switch (drawer) {
       case "pickSpot":
-        // return <SpotInfo />;
-        return <MSpotInfo />;
+        return (
+          <Suspense fallback={<DrawerSkeleton />}>
+            <SpotInfo />
+          </Suspense>
+        );
       case "myInfo":
         return <MyInfo />;
       default:
@@ -51,13 +59,7 @@ const Drawer = () => {
 
   return (
     <>
-      <div
-        onTouchStart={touchStartHandler}
-        onTouchEnd={touchEndHandler}
-        onTouchMove={touchMoveHandler}
-        css={drawerContainer(drawer)}>
-        {showUI()}
-      </div>
+      <div css={drawerContainer(drawer)}>{showUI()}</div>
     </>
   );
 };

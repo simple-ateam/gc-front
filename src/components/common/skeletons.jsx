@@ -4,6 +4,7 @@ import { drawerContainer } from "../styles/components/drawer";
 import { pickSpotQuery } from "../../states";
 import { useRecoilValue } from "recoil";
 import { drawerSkeleton, searchResultSkeleton } from "../styles/components/skeletons";
+import { mDrawerSkeleton } from "../styles/components/skeletons";
 
 export const DrawerSkeleton = () => {
   const pickSpot = useRecoilValue(pickSpotQuery);
@@ -48,4 +49,14 @@ export const SearchResultSkeleton = () => {
   );
 };
 
-export const mDrawerSkeleton = () => {};
+export const MDrawerSkeleton = () => {
+  return (
+    <section css={mDrawerSkeleton}>
+      <div>
+        <p></p>
+        <p></p>
+      </div>
+      <div></div>
+    </section>
+  );
+};

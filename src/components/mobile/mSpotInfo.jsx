@@ -1,17 +1,42 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { EnvironmentFilled } from "@ant-design/icons";
-import { useRecoilValue } from "recoil";
-import { spotInfoState } from "../../states";
-import { mDrawerContent, drawerIconStyle } from "../styles/components/drawer";
-import { isMobile } from "react-device-detect";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { spotInfoState, mDrawerQuery } from "../../states";
+import { mDrawerContent } from "../styles/components/drawer";
 
 const MSpotInfo = () => {
   const spotInfo = useRecoilValue(spotInfoState);
+  const [mDrawer, setMDrawer] = useRecoilState(mDrawerQuery);
+  useEffect(() => {
+    console.log("render");
+  }, []);
+  const touchStartHandler = (e) => {
+    setMDrawer({ ...mDrawer, startY: e.changedTouches[0].clientY });
+  };
+
+  const touchEndHandler = (e) => {
+    if (mDrawer.startY - e.changedTouches[0].clientY >= 200) {
+      setMDrawer({ ...mDrawer, endY: e.changedTouches[0].clientY });
+    } else {
+      setMDrawer({ ...mDrawer, endY: e.changedTouches[0].clientY, moveY: 0 });
+    }
+  };
+
+  const touchMoveHandler = (e) => {
+    if (mDrawer.startY - e.changedTouches[0].clientY > 0) {
+      setMDrawer({ ...mDrawer, moveY: mDrawer.startY - e.changedTouches[0].clientY });
+    }
+  };
 
   return (
     <>
-      <section css={mDrawerContent}>
+      <section
+        onTouchStart={touchStartHandler}
+        onTouchEnd={touchEndHandler}
+        onTouchMove={touchMoveHandler}
+        css={mDrawerContent(mDrawer)}>
         <div></div>
         <div>
           <div>
