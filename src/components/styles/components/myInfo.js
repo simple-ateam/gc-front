@@ -17,14 +17,21 @@ export const myInfoContent = css`
   }
   & > div {
     display: flex;
-    align-items: end;
-    gap: ${gap.sm};
     border-bottom: 1px solid ${palette.gray_1};
-    h2 {
-      font-size: ${fontSize.xxl};
+    justify-content: space-between;
+    div:first-of-type {
+      display: flex;
+      align-items: end;
+      gap: ${gap.sm};
+      h2 {
+        font-size: ${fontSize.xxl};
+      }
+      span {
+        font-size: ${fontSize.md};
+      }
     }
-    span {
-      font-size: ${fontSize.md};
+    div:last-of-type {
+      font-size: ${fontSize.lg};
     }
   }
   & > nav > ul {

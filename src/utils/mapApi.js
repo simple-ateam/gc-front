@@ -28,7 +28,7 @@ export const mapEventHandler = (naver, ref, set) => {
  * @param {Array} list 야영장 리스트
  * @param {*} navigate router navigate
  */
-export const addMarkerHandler = (naver, ref, list, navigate) => {
+export const addMarkerHandler = (naver, ref, list, navigateObj) => {
   if (!Array.isArray(list)) return;
   // 기존 마커 있는 경우, 초기화
   if (ref.markerList[0]) {
@@ -77,7 +77,14 @@ export const addMarkerHandler = (naver, ref, list, navigate) => {
       ref.markerList.push(ref.marker);
       // 마커 클릭 이벤트
       naver.maps.Event.addListener(ref.marker, "click", (el) => {
-        navigate(`/maps/${encodeQueryString({ id: e.contentId, x: e.mapX, y: e.mapY })}`);
+        navigateObj.navigate({
+          pathname: "/maps",
+          search: `?${navigateObj.createSearchParams({
+            id: e.contentId,
+            x: e.mapX,
+            y: e.mapY,
+          })}`,
+        });
       });
     });
   }

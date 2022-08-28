@@ -2,21 +2,16 @@
 import { css } from "@emotion/react";
 import { drawerContainer } from "../styles/components/drawer";
 import { pickSpotQuery } from "../../states";
-import { useRecoilState } from "recoil";
-import { skeletonStyle } from "../styles/components/skeletonPage";
+import { useRecoilValue } from "recoil";
+import { drawerSkeleton, searchResultSkeleton } from "../styles/components/skeletons";
+import { mDrawerSkeleton } from "../styles/components/skeletons";
 
-const SkeletonPage = () => {
-  const [pickSpot, setPickSpot] = useRecoilState(pickSpotQuery);
-
-  // 임시
-  const temporaryHandler = () => {
-    setPickSpot(false);
-  };
-
+export const DrawerSkeleton = () => {
+  const pickSpot = useRecoilValue(pickSpotQuery);
   return (
     <div css={drawerContainer(pickSpot)}>
-      <section css={skeletonStyle}>
-        <div onClick={temporaryHandler}></div>
+      <section css={drawerSkeleton}>
+        <div></div>
         <h2></h2>
         <ul>
           <li></li>
@@ -45,4 +40,23 @@ const SkeletonPage = () => {
     </div>
   );
 };
-export default SkeletonPage;
+
+export const SearchResultSkeleton = () => {
+  return (
+    <div css={searchResultSkeleton}>
+      <em>로딩중입니다...</em>
+    </div>
+  );
+};
+
+export const MDrawerSkeleton = () => {
+  return (
+    <section css={mDrawerSkeleton}>
+      <div>
+        <p></p>
+        <p></p>
+      </div>
+      <div></div>
+    </section>
+  );
+};

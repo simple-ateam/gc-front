@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { SearchResultSkeleton } from "../../common/skeletons";
 import { theme } from "../styleTheme";
 
 const { boxSize, borderRadius, palette, fontSize, gap, gapByPercent } = theme;
 
-export const skeletonStyle = css`
+export const drawerSkeleton = css`
   display: flex;
   flex-direction: column;
   position: relative;
@@ -68,5 +69,47 @@ export const skeletonStyle = css`
       height: 150px;
       background-color: ${palette.gray_1};
     }
+  }
+`;
+
+export const searchResultSkeleton = css`
+  height: 20px;
+  display: flex;
+  align-items: center;
+  padding: ${boxSize.lg};
+  font-size: ${fontSize.xs};
+  em {
+    color: ${palette.gray_3};
+  }
+`;
+
+export const mDrawerSkeleton = css`
+  height: 25vh;
+  background-color: white;
+  border-radius: ${borderRadius.lg};
+  display: flex;
+  justify-content: space-around;
+  & > * {
+  }
+  div:first-of-type {
+    margin-top: 7vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: ${gap.xl};
+    p {
+      background-color: ${palette.gray_2};
+      border-radius: ${borderRadius.md};
+      width: 20vh;
+      height: 4vh;
+    }
+  }
+  div:last-of-type {
+    margin-top: ${boxSize.lg};
+    background-color: ${palette.gray_2};
+    width: 45vw;
+    height: 70%;
+    border-radius: ${borderRadius.md};
   }
 `;

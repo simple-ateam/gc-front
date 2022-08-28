@@ -13,9 +13,10 @@ function App() {
     <>
       <RecoilRoot>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/maps/:content" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/" exact={true} element={<Home />} />
+          <Route path="/maps" element={<Home />} />
+          <Route path="/profile" element={<Home />} />
+          {/* <Route path="/profile" element={<Profile />} /> */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
         </Routes>

@@ -1,40 +1,46 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
+import { useRef } from "react";
 import { inputBasic } from "../styles/elStyles";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { SearchOutlined, CloseOutlined } from "@ant-design/icons";
 import {
   searchBarIconStyle,
   searchBarContainer,
-  searchResultContainer,
   searchInputContainer,
   inputStyle,
-  resultStyle,
 } from "../styles/components/searchBar";
-import { useRecoilValue, useRecoilState, useSetRecoilState, useRecoilValueLoadable } from "recoil";
-import { spotInfoState, pickSpotQuery, searchQuery, searchResultState } from "../../states";
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
+import { spotInfoState, pickSpotQuery, searchQuery, drawerQuery } from "../../states";
 import { debounce } from "../../utils/debounce";
+import { useNavigate } from "react-router-dom";
+import SearchResult from "./searchResult";
+import { SearchResultSkeleton } from "./skeletons";
 
 const SearchBar = () => {
+  const searchInputRef = useRef(null);
   const [showResultList, setShowResultList] = useState(false);
   const spotInfo = useRecoilValue(spotInfoState);
-  const searchResult = useRecoilValueLoadable(searchResultState);
   const setPickSpot = useSetRecoilState(pickSpotQuery);
-  const [searchResultList, setSearchResultList] = useState(null);
   const [searchQueryState, setSearchQueryState] = useRecoilState(searchQuery);
-
-  // 임시
-  const temporaryHandler = () => {
-    setPickSpot(true);
-  };
+  const [drawer, setDrawer] = useRecoilState(drawerQuery);
+  const navigate = useNavigate();
+  let timer;
 
   const closeBtnHandler = () => {
     setPickSpot(null);
     setSearchQueryState(null);
+    setDrawer(null);
+    navigate("/");
   };
 
   const onChangeHandler = (e) => {
+    // if (timer) {
+    //   clearTimeout(timer);
+    // }
+    // timer = setTimeout(() => {
     setSearchQueryState(e.target.value);
+    // }, 200);
   };
 
   const onFocusHandler = () => {
@@ -51,26 +57,12 @@ const SearchBar = () => {
     }
   }, [spotInfo]);
 
-  // 검색 결과
-  // useEffect(() => {
-  //   switch (searchResultState.state) {
-  //     case "hasValue":
-  //       console.log(searchResultState.contents);
-  //       break;
-  //     case "hasError":
-  //       throw console.log(searchResultState.contents);
-  //     case "loading":
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // }, [searchResultState]);
-
   return (
-    <div css={searchBarContainer}>
+    <div css={searchBarContainer(drawer)}>
       <div css={searchInputContainer}>
         <div css={inputStyle}>
           <input
+            ref={searchInputRef}
             css={inputBasic}
             type="text"
             placeholder="캠핑장 검색"
@@ -80,19 +72,14 @@ const SearchBar = () => {
             onBlur={onBlurHandler}
           />
           <div>
-            <SearchOutlined onClick={temporaryHandler} css={searchBarIconStyle} />
+            <SearchOutlined css={searchBarIconStyle} />
             {spotInfo && <CloseOutlined css={searchBarIconStyle} onClick={closeBtnHandler} />}
           </div>
         </div>
       </div>
-      <div css={searchResultContainer(showResultList)}>
-        <ul css={resultStyle}>
-          <li>
-            <h3>서울숲 야영장</h3>
-            <p>주소주소주소주소주소주소</p>
-          </li>
-        </ul>
-      </div>
+      <Suspense fallback={SearchResultSkeleton}>
+        <SearchResult inputRef={searchInputRef.current} showUi={showResultList} />
+      </Suspense>
     </div>
   );
 };

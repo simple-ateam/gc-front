@@ -4,8 +4,6 @@
  * @param {*} value input value
  * @returns 검색 결과 배열
  */
-const search = (arr, value) => {
-  return arr.filter((e) => e.includes(value)).slice(0, 6);
+export const search = (arr, value) => {
+  return arr.filter((e) => e.facltNm.includes(value)).slice(0, 6);
 };
-
-search("맛있는");

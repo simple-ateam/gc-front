@@ -7,17 +7,17 @@ const { boxSize, borderRadius, palette, fontSize, gap, gapByPercent } = theme;
 
 export const drawerContainer = (state) => {
   return css`
-    /* display: ${state ? "flex" : "none"}; */
-    display: flex;
+    display: ${state ? "block" : "none"};
     position: fixed;
-    top: 0;
+    bottom: 9vh;
     left: 0;
     width: ${isMobile ? "100vw" : "420px"};
-    height: 100vh;
     z-index: 9998;
     background-color: ${palette.white_1};
     box-shadow: 2px 0 4px rgb(0 0 0 / 20%), 0 -1px 0px rgb(0 0 0 / 2%);
     overflow: auto;
+    /* transition: 100ms; */
+    /* transform: translate(0, 420px); */
 
     ::-webkit-scrollbar {
       width: ${boxSize.xs};
@@ -38,14 +38,19 @@ export const drawerContent = css`
   flex-direction: column;
   justify-content: start;
   align-items: flex-start;
-  margin-bottom: ${isMobile ? "1000px" : 0};
+  height: 100vh;
   & > * {
     padding: ${boxSize.lg};
     width: 100%;
   }
+
   & > picture {
     padding: 0;
+    img {
+      width: 100%;
+    }
   }
+
   // divider
   & > div {
     justify-items: center;
@@ -113,3 +118,51 @@ export const drawerIconStyle = css`
     fill: ${palette.green_1};
   }
 `;
+
+export const mDrawerContent = (query) => {
+  const { moveY } = query;
+  return css`
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    margin-bottom: ${10 + moveY / 10}vh;
+    & > * {
+      padding: 0 ${boxSize.md};
+      width: 100%;
+    }
+    & > div:first-of-type {
+      padding: 5px;
+      margin: ${boxSize.sm} auto;
+      width: 70px;
+      border-radius: ${borderRadius.lg};
+      background-color: ${palette.gray_1};
+    }
+    & > div:last-of-type {
+      display: flex;
+      padding-top: ${boxSize.sm};
+
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        h2 {
+          font-size: ${fontSize.md};
+        }
+        h3 {
+          font-size: ${fontSize.sm};
+          padding-top: ${boxSize.sm};
+          color: ${palette.gray_3};
+        }
+      }
+      picture {
+        padding: 0;
+        width: 45vw;
+        img {
+          width: 100%;
+        }
+      }
+    }
+  `;
+};

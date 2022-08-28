@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
 import { EnvironmentOutlined, BookOutlined, UserOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { theme } from "../styles/styleTheme";
 import { useSetRecoilState } from "recoil";
-import { myInfoState, pickSpotQuery } from "../../states";
+import { drawerQuery, myInfoState, pickSpotQuery, searchQuery } from "../../states";
 
 const { borderRadius, gap, fontSize } = theme;
 
@@ -12,7 +12,7 @@ const mNavBarContainer = css`
   position: fixed;
   bottom: 0;
   width: 100vw;
-  height: 80px;
+  height: 10vh;
   background-color: white;
   z-index: 99999;
   box-shadow: 0 -1px 3px rgb(0 0 0 / 20%);
@@ -33,26 +33,30 @@ const mNavBarStyle = css`
     li {
       display: flex;
       flex-direction: column;
-      gap: ${gap.sm};
+      gap: ${gap.md};
     }
   }
 `;
 
 const mNavBarIconStyle = css`
-  font-size: ${fontSize.lg};
+  font-size: ${fontSize.md};
 `;
 
 const MNavBar = () => {
   const setPickSpot = useSetRecoilState(pickSpotQuery);
+  const setSearchQueryState = useSetRecoilState(searchQuery);
   const setMyInfo = useSetRecoilState(myInfoState);
+  const navigate = useNavigate();
 
   const onClickNavHome = () => {
+    navigate("/");
     setPickSpot(null);
-    setMyInfo(false);
+    setMyInfo(null);
+    setSearchQueryState(null);
   };
 
   const onClickNavMyInfo = () => {
-    setMyInfo(true);
+    navigate("/profile");
   };
 
   return (
@@ -60,16 +64,16 @@ const MNavBar = () => {
       <nav css={mNavBarStyle}>
         <ul>
           <Link to="/">
-            <li onClick={onClickNavHome}>
+            <li onTouchEnd={onClickNavHome}>
               <EnvironmentOutlined css={mNavBarIconStyle} />
               <p>탐색</p>
             </li>
           </Link>
-          <li onClick={onClickNavMyInfo}>
+          <li onTouchEnd={onClickNavMyInfo}>
             <BookOutlined css={mNavBarIconStyle} />
             <p>북마크</p>
           </li>
-          <li onClick={onClickNavMyInfo}>
+          <li onTouchEnd={onClickNavMyInfo}>
             <UserOutlined css={mNavBarIconStyle} />
             <p>내 정보</p>
           </li>

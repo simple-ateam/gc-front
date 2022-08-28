@@ -9,6 +9,9 @@ import meState from "./me";
 import drawerState from "./drawer";
 import myInfoState from "./myInfo";
 import drawerQuery from "./drawerQuery";
+import mDrawerState from "./mDrawer";
+import mDrawerQuery from "./mDrawerQuery";
+
 export {
   spotListState,
   myLocationState,
@@ -21,4 +24,6 @@ export {
   myInfoState,
   drawerState,
   drawerQuery,
+  mDrawerQuery,
+  mDrawerState,
 };
