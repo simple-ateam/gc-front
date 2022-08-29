@@ -44,7 +44,7 @@ export const DrawerSkeleton = () => {
 export const SearchResultSkeleton = () => {
   return (
     <div css={searchResultSkeleton}>
-      <em>로딩중입니다...</em>
+      <em>검색 정보를 불러오는 중입니다...</em>
     </div>
   );
 };

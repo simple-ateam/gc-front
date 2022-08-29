@@ -5,6 +5,6 @@ export default atom({
   default: {
     startY: 0,
     endY: 0,
-    moveY: 0,
+    moveY: null,
   },
 });

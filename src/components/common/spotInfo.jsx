@@ -9,12 +9,9 @@ import {
   GitlabFilled,
 } from "@ant-design/icons";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { shareState, spotInfoState } from "../../states";
+import { shareState, spotInfoState, pickSpotQuery } from "../../states";
 import { drawerContent, drawerIconStyle } from "../styles/components/drawer";
-import { DrawerSkeleton } from "./skeletons";
-
 import ShareModal from "./share";
-import { Suspense } from "react";
 
 const SpotInfo = () => {
   const spotInfo = useRecoilValue(spotInfoState);
@@ -22,6 +19,7 @@ const SpotInfo = () => {
   const shareBtnHandler = () => {
     setShareState(true);
   };
+
   return (
     <>
       <section css={drawerContent}>
@@ -61,6 +59,130 @@ const SpotInfo = () => {
             <EnvironmentFilled css={drawerIconStyle} />
             <h3>{spotInfo?.addr1 ? spotInfo.addr1 : "주소정보 없음"}</h3>
           </div>
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>{" "}
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>{" "}
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>{" "}
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>{" "}
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>{" "}
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>{" "}
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>{" "}
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>{" "}
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>{" "}
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>{" "}
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>{" "}
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>{" "}
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>{" "}
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>{" "}
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>{" "}
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>{" "}
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>{" "}
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>{" "}
+          <div>
+            <PhoneFilled css={drawerIconStyle} />
+            <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
+          </div>{" "}
           <div>
             <PhoneFilled css={drawerIconStyle} />
             <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>

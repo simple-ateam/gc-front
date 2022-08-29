@@ -1,22 +1,20 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { pickSpotQuery, drawerState, drawerQuery, mDrawerQuery, mDrawerState } from "../../states";
+import { drawerQuery, pickSpotQuery, spotInfoState } from "../../states";
 import { drawerContainer } from "../styles/components/drawer";
-import SpotInfo from "./spotInfo";
 import MyInfo from "./myInfo";
-import { Suspense, useEffect } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import MSpotInfo from "../mobile/mSpotInfo";
-import { DrawerSkeleton, MDrawerSkeleton } from "./skeletons";
-import { isMobile } from "react-device-detect";
+import ResSpotInfo from "./resSpotInfo";
 
 const Drawer = () => {
   const location = useLocation();
   const [drawer, setDrawer] = useRecoilState(drawerQuery);
-  const mDrawer = useRecoilValue(mDrawerState);
+  const pickSpot = useRecoilValue(pickSpotQuery);
 
   useEffect(() => {
+    console.log("pickSpot", pickSpot);
     if (location.pathname === "/maps") {
       setDrawer("pickSpot");
     }
@@ -26,40 +24,27 @@ const Drawer = () => {
     if (location.pathname === "/") {
       setDrawer(null);
     }
-  }, [location.pathname]);
+  }, [location]);
 
-  // if (mDrawer === "expand") {
-  //   return (
-  //     <Suspense fallback={<DrawerSkeleton />}>
-  //       <SpotInfo />
-  //     </Suspense>
-  //   );
-  // } else if (mDrawer === "collapse") {
-  //   return (
-  //     <Suspense fallback={<MDrawerSkeleton />}>
-  //       <MSpotInfo />
-  //     </Suspense>
-  //   );
-  // }
-
-  const showUI = () => {
+  const DrawerContent = () => {
     switch (drawer) {
       case "pickSpot":
-        return (
-          <Suspense fallback={<DrawerSkeleton />}>
-            <SpotInfo />
-          </Suspense>
-        );
+        return <ResSpotInfo />;
       case "myInfo":
         return <MyInfo />;
       default:
         return null;
     }
   };
+  const scroll = (e) => {
+    console.log(e);
+  };
 
   return (
     <>
-      <div css={drawerContainer(drawer)}>{showUI()}</div>
+      <div css={drawerContainer(drawer)}>
+        <DrawerContent />
+      </div>
     </>
   );
 };

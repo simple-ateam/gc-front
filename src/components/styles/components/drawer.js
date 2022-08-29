@@ -9,15 +9,14 @@ export const drawerContainer = (state) => {
   return css`
     display: ${state ? "block" : "none"};
     position: fixed;
-    bottom: 9vh;
+    bottom: ${isMobile ? "8vh" : "0"};
     left: 0;
     width: ${isMobile ? "100vw" : "420px"};
+
     z-index: 9998;
     background-color: ${palette.white_1};
     box-shadow: 2px 0 4px rgb(0 0 0 / 20%), 0 -1px 0px rgb(0 0 0 / 2%);
     overflow: auto;
-    /* transition: 100ms; */
-    /* transform: translate(0, 420px); */
 
     ::-webkit-scrollbar {
       width: ${boxSize.xs};
@@ -39,6 +38,8 @@ export const drawerContent = css`
   justify-content: start;
   align-items: flex-start;
   height: 100vh;
+  padding-top: ${isMobile ? "10vh" : "0"};
+
   & > * {
     padding: ${boxSize.lg};
     width: 100%;
@@ -121,12 +122,13 @@ export const drawerIconStyle = css`
 
 export const mDrawerContent = (query) => {
   const { moveY } = query;
+
   return css`
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: flex-start;
-    margin-bottom: ${10 + moveY / 10}vh;
+    margin-bottom: ${3 + moveY / 10}vh;
     & > * {
       padding: 0 ${boxSize.md};
       width: 100%;
@@ -140,6 +142,7 @@ export const mDrawerContent = (query) => {
     }
     & > div:last-of-type {
       display: flex;
+      justify-content: space-between;
       padding-top: ${boxSize.sm};
 
       div {

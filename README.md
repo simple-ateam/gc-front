@@ -105,6 +105,9 @@ search Bar의 input value를 searchQuery라는 전역 상태로 관리하고 있
 
 - 마커 클릭 시 검색창 suspense 튀어나오는거 해결하기
 
-- 모바일에서 지도 사용성을 올리기 위해선 swipe로 올렸다 내렸다 할 수 있게 만들어야 함.
+<!-- - 모바일에서 지도 사용성을 올리기 위해선 swipe로 올렸다 내렸다 할 수 있게 만들어야 함. -->
+<!-- -올리기 완료 -->
+
+-내리기
 
 - home page에서 useEffect로 pathname에 따라 state 한 번에 관리하기
