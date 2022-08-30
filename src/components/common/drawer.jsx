@@ -1,20 +1,20 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { pickSpotQuery, drawerState, drawerQuery, mDrawerQuery, mDrawerState } from "../../states";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { drawerQuery, pickSpotQuery, mDrawerQuery, drawerScrollQuery } from "../../states";
 import { drawerContainer } from "../styles/components/drawer";
-import SpotInfo from "./spotInfo";
 import MyInfo from "./myInfo";
-import { Suspense, useEffect } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import MSpotInfo from "../mobile/mSpotInfo";
-import { DrawerSkeleton, MDrawerSkeleton } from "./skeletons";
+import ResSpotInfo from "./resSpotInfo";
+import { useRef } from "react";
 import { isMobile } from "react-device-detect";
 
 const Drawer = () => {
   const location = useLocation();
+  const divRef = useRef();
   const [drawer, setDrawer] = useRecoilState(drawerQuery);
-  const mDrawer = useRecoilValue(mDrawerState);
+  const setDrawerScroll = useSetRecoilState(drawerScrollQuery);
 
   useEffect(() => {
     if (location.pathname === "/maps") {
@@ -26,30 +26,12 @@ const Drawer = () => {
     if (location.pathname === "/") {
       setDrawer(null);
     }
-  }, [location.pathname]);
+  }, [location]);
 
-  // if (mDrawer === "expand") {
-  //   return (
-  //     <Suspense fallback={<DrawerSkeleton />}>
-  //       <SpotInfo />
-  //     </Suspense>
-  //   );
-  // } else if (mDrawer === "collapse") {
-  //   return (
-  //     <Suspense fallback={<MDrawerSkeleton />}>
-  //       <MSpotInfo />
-  //     </Suspense>
-  //   );
-  // }
-
-  const showUI = () => {
+  const DrawerContent = () => {
     switch (drawer) {
       case "pickSpot":
-        return (
-          <Suspense fallback={<DrawerSkeleton />}>
-            <SpotInfo />
-          </Suspense>
-        );
+        return <ResSpotInfo />;
       case "myInfo":
         return <MyInfo />;
       default:
@@ -57,9 +39,18 @@ const Drawer = () => {
     }
   };
 
+  const onScrollHandler = () => {
+    if (!isMobile) return setDrawerScroll(false);
+    if (divRef.current.scrollTop === 0) {
+      return setDrawerScroll(true);
+    } else return setDrawerScroll(false);
+  };
+
   return (
     <>
-      <div css={drawerContainer(drawer)}>{showUI()}</div>
+      <div ref={divRef} onScroll={onScrollHandler} css={drawerContainer(drawer)}>
+        <DrawerContent />
+      </div>
     </>
   );
 };

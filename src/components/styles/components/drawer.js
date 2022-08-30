@@ -9,15 +9,13 @@ export const drawerContainer = (state) => {
   return css`
     display: ${state ? "block" : "none"};
     position: fixed;
-    bottom: 9vh;
+    bottom: ${isMobile ? "8vh" : "0"};
     left: 0;
     width: ${isMobile ? "100vw" : "420px"};
     z-index: 9998;
     background-color: ${palette.white_1};
     box-shadow: 2px 0 4px rgb(0 0 0 / 20%), 0 -1px 0px rgb(0 0 0 / 2%);
     overflow: auto;
-    /* transition: 100ms; */
-    /* transform: translate(0, 420px); */
 
     ::-webkit-scrollbar {
       width: ${boxSize.xs};
@@ -33,84 +31,89 @@ export const drawerContainer = (state) => {
   `;
 };
 
-export const drawerContent = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: flex-start;
-  height: 100vh;
-  & > * {
-    padding: ${boxSize.lg};
-    width: 100%;
-  }
-
-  & > picture {
-    padding: 0;
-    img {
+export const drawerContent = (state) => {
+  return css`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    height: 100vh;
+    padding-top: ${Math.abs(state) / 20}px;
+    & > * {
+      padding: ${boxSize.lg};
       width: 100%;
     }
-  }
 
-  // divider
-  & > div {
-    justify-items: center;
-    align-self: center;
-    padding: 0;
-    width: 94%;
-    border-top: solid 1px rgb(220, 220, 220);
-  }
-  & > h2 {
-    font-size: ${isMobile ? fontSize.md : fontSize.lg};
-  }
-  & > nav {
-    align-self: center;
-    ul {
-      display: flex;
-      justify-content: center;
-      gap: ${isMobile ? gapByPercent.sm : gapByPercent.sm};
-      li {
+    & > picture {
+      padding: 0;
+      img {
+        width: 100%;
+        height: ${isMobile ? "45vh" : "35vh"};
+      }
+    }
+
+    // divider
+    & > div {
+      justify-items: center;
+      align-self: center;
+      padding: 0;
+      width: 94%;
+      border-top: solid 1px rgb(220, 220, 220);
+    }
+    & > h2 {
+      font-size: ${isMobile ? fontSize.md : fontSize.lg};
+    }
+    & > nav {
+      align-self: center;
+      ul {
         display: flex;
-        flex-direction: column;
-        gap: ${isMobile ? gap.md : gap.lg};
+        justify-content: center;
+        gap: ${isMobile ? gapByPercent.sm : gapByPercent.sm};
+        li {
+          display: flex;
+          flex-direction: column;
+          gap: ${isMobile ? gap.md : gap.lg};
 
-        button {
-          background-color: inherit;
-          border: solid 1px ${palette.green_2};
-          border-radius: ${borderRadius.half};
-          padding: ${boxSize.md};
-          cursor: pointer;
-          :hover {
-            background-color: ${palette.green_0};
+          button {
+            background-color: inherit;
+            border: solid 1px ${palette.green_2};
+            border-radius: ${borderRadius.half};
+            padding: ${boxSize.md};
+            cursor: pointer;
+            :hover {
+              background-color: ${palette.green_0};
+            }
+          }
+          p {
+            text-align: center;
+            color: ${palette.green_2};
+            font-size: ${fontSize.sm};
+            font-weight: 700;
           }
         }
-        p {
-          text-align: center;
-          color: ${palette.green_2};
+      }
+    }
+    & > article:first-of-type {
+      display: flex;
+      flex-direction: column;
+      gap: ${gap.xl};
+      & > div {
+        display: flex;
+        gap: ${gapByPercent.sm};
+        padding-left: ${boxSize.md};
+        h3 {
           font-size: ${fontSize.sm};
-          font-weight: 700;
         }
       }
     }
-  }
-  & > article:first-of-type {
-    display: flex;
-    flex-direction: column;
-    gap: ${gap.xl};
-    & > div {
+    & > article:last-of-type {
       display: flex;
-      gap: ${gapByPercent.sm};
-      padding-left: ${boxSize.md};
-      h3 {
-        font-size: ${fontSize.sm};
-      }
+      flex-direction: column;
+      gap: ${gap.lg};
     }
-  }
-  & > article:last-of-type {
-    display: flex;
-    flex-direction: column;
-    gap: ${gap.lg};
-  }
-`;
+  `;
+};
 
 export const drawerIconStyle = css`
   font-size: ${isMobile ? fontSize.md : fontSize.md};
@@ -119,14 +122,13 @@ export const drawerIconStyle = css`
   }
 `;
 
-export const mDrawerContent = (query) => {
-  const { moveY } = query;
+export const mDrawerContent = (swipe) => {
   return css`
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: flex-start;
-    margin-bottom: ${10 + moveY / 10}vh;
+    margin-bottom: ${3 + swipe / 10}vh;
     & > * {
       padding: 0 ${boxSize.md};
       width: 100%;
@@ -140,6 +142,7 @@ export const mDrawerContent = (query) => {
     }
     & > div:last-of-type {
       display: flex;
+      justify-content: space-between;
       padding-top: ${boxSize.sm};
 
       div {
@@ -158,9 +161,10 @@ export const mDrawerContent = (query) => {
       }
       picture {
         padding: 0;
-        width: 45vw;
         img {
-          width: 100%;
+          width: 45vw;
+          height: 20vh;
+          border-radius: ${borderRadius.md};
         }
       }
     }

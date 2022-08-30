@@ -1,14 +1,18 @@
 import { selector } from "recoil";
 import mDrawerQuery from "./mDrawerQuery";
+
 export default selector({
   key: "mDrawerState",
   get: ({ get }) => {
     const mDrawer = get(mDrawerQuery);
-    const { startY, endY } = mDrawer;
-    if (startY - endY >= 250) {
-      console.log(startY - endY);
+    const { moveY } = mDrawer;
+
+    if (moveY < -50) {
+      return "collapse";
+    }
+    if (moveY >= 250) {
       return "expand";
     }
-    return "collapse";
+    return;
   },
 });

@@ -11,7 +11,7 @@ import myInfoState from "./myInfo";
 import drawerQuery from "./drawerQuery";
 import mDrawerState from "./mDrawer";
 import mDrawerQuery from "./mDrawerQuery";
-
+import drawerScrollQuery from "./drawerScroll";
 export {
   spotListState,
   myLocationState,
@@ -26,4 +26,5 @@ export {
   drawerQuery,
   mDrawerQuery,
   mDrawerState,
+  drawerScrollQuery,
 };

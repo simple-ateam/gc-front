@@ -19,7 +19,6 @@ const Map = () => {
   const setPickSpotQuery = useSetRecoilState(pickSpotQuery);
   const me = useRecoilValue(meState);
   const initialZoomLevel = 14;
-  const params = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const navigateObj = { navigate, createSearchParams };

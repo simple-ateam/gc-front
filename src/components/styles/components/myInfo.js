@@ -10,6 +10,7 @@ export const myInfoContent = css`
   flex-direction: column;
   justify-content: start;
   align-items: flex-start;
+  height: ${isMobile ? "92vh" : "100vh"};
   width: 100%;
   & > * {
     padding: ${boxSize.lg};

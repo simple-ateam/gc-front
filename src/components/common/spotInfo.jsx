@@ -8,23 +8,28 @@ import {
   PhoneFilled,
   GitlabFilled,
 } from "@ant-design/icons";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { shareState, spotInfoState } from "../../states";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { shareState, spotInfoState, mDrawerQuery, drawerScrollQuery } from "../../states";
 import { drawerContent, drawerIconStyle } from "../styles/components/drawer";
-import { DrawerSkeleton } from "./skeletons";
-
 import ShareModal from "./share";
-import { Suspense } from "react";
+import { touchHandler } from "../../utils/touchHandler";
 
 const SpotInfo = () => {
   const spotInfo = useRecoilValue(spotInfoState);
   const setShareState = useSetRecoilState(shareState);
+  const [mDrawer, setMDrawer] = useRecoilState(mDrawerQuery);
+  const drawerScroll = useRecoilValue(drawerScrollQuery);
   const shareBtnHandler = () => {
     setShareState(true);
   };
+
   return (
     <>
-      <section css={drawerContent}>
+      <section
+        onTouchStart={(e) => touchHandler(e, mDrawer, setMDrawer)}
+        onTouchEnd={(e) => touchHandler(e, mDrawer, setMDrawer)}
+        onTouchMove={(e) => touchHandler(e, mDrawer, setMDrawer, drawerScroll)}
+        css={drawerContent(mDrawer.swipeDown)}>
         <picture>
           <img
             src={`${spotInfo?.firstImageUrl ? spotInfo.firstImageUrl : "/img/spotImg.jpg"}`}
@@ -65,6 +70,7 @@ const SpotInfo = () => {
             <PhoneFilled css={drawerIconStyle} />
             <h3>{spotInfo?.tel ? spotInfo.tel : "전화번호 없음"}</h3>
           </div>
+
           <div>
             <GitlabFilled css={drawerIconStyle} />
             <h3>
