@@ -14,9 +14,7 @@ const Home = () => {
   const resetMdrawer = useResetRecoilState(mDrawerQuery);
 
   useEffect(() => {
-    if (location.pathname === "/") {
-      resetMdrawer();
-    }
+    resetMdrawer();
   }, [location]);
 
   return (

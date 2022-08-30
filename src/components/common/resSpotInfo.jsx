@@ -10,24 +10,16 @@ const ResSpotInfo = () => {
   const mDrawer = useRecoilValue(mDrawerState);
 
   const SpotInfoUI = () => {
-    if (isMobile) {
-      if (mDrawer === "expand") {
-        return (
-          <Suspense fallback={<DrawerSkeleton />}>
-            <SpotInfo />
-          </Suspense>
-        );
-      } else if (mDrawer === "collapse") {
-        return (
-          <Suspense fallback={<MDrawerSkeleton />}>
-            <MSpotInfo />
-          </Suspense>
-        );
-      }
-    } else if (isBrowser) {
+    if (mDrawer === "expand" || isBrowser) {
       return (
         <Suspense fallback={<DrawerSkeleton />}>
           <SpotInfo />
+        </Suspense>
+      );
+    } else {
+      return (
+        <Suspense fallback={<MDrawerSkeleton />}>
+          <MSpotInfo />
         </Suspense>
       );
     }

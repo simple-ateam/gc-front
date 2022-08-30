@@ -1,20 +1,24 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { drawerQuery, pickSpotQuery, spotInfoState } from "../../states";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { drawerQuery, pickSpotQuery, mDrawerQuery, drawerScrollQuery } from "../../states";
 import { drawerContainer } from "../styles/components/drawer";
 import MyInfo from "./myInfo";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ResSpotInfo from "./resSpotInfo";
+import { useRef } from "react";
+import { isMobile } from "react-device-detect";
 
 const Drawer = () => {
   const location = useLocation();
+  const divRef = useRef();
   const [drawer, setDrawer] = useRecoilState(drawerQuery);
   const pickSpot = useRecoilValue(pickSpotQuery);
+  const setDrawerScroll = useSetRecoilState(drawerScrollQuery);
 
   useEffect(() => {
-    console.log("pickSpot", pickSpot);
+    // console.log("pickSpot", pickSpot);
     if (location.pathname === "/maps") {
       setDrawer("pickSpot");
     }
@@ -36,13 +40,17 @@ const Drawer = () => {
         return null;
     }
   };
-  const scroll = (e) => {
-    console.log(e);
+
+  const onScrollHandler = () => {
+    if (!isMobile) return setDrawerScroll(false);
+    if (divRef.current.scrollTop === "0") {
+      return setDrawerScroll(true);
+    } else return setDrawerScroll(false);
   };
 
   return (
     <>
-      <div css={drawerContainer(drawer)}>
+      <div ref={divRef} onScroll={onScrollHandler} css={drawerContainer(drawer)}>
         <DrawerContent />
       </div>
     </>

@@ -12,7 +12,6 @@ export const drawerContainer = (state) => {
     bottom: ${isMobile ? "8vh" : "0"};
     left: 0;
     width: ${isMobile ? "100vw" : "420px"};
-
     z-index: 9998;
     background-color: ${palette.white_1};
     box-shadow: 2px 0 4px rgb(0 0 0 / 20%), 0 -1px 0px rgb(0 0 0 / 2%);
@@ -38,7 +37,6 @@ export const drawerContent = css`
   justify-content: start;
   align-items: flex-start;
   height: 100vh;
-  padding-top: ${isMobile ? "10vh" : "0"};
 
   & > * {
     padding: ${boxSize.lg};
@@ -49,6 +47,7 @@ export const drawerContent = css`
     padding: 0;
     img {
       width: 100%;
+      height: ${isMobile ? "45vh" : "35vh"};
     }
   }
 
@@ -120,15 +119,13 @@ export const drawerIconStyle = css`
   }
 `;
 
-export const mDrawerContent = (query) => {
-  const { moveY } = query;
-
+export const mDrawerContent = (swipe) => {
   return css`
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: flex-start;
-    margin-bottom: ${3 + moveY / 10}vh;
+    margin-bottom: ${3 + swipe / 10}vh;
     & > * {
       padding: 0 ${boxSize.md};
       width: 100%;
@@ -164,6 +161,7 @@ export const mDrawerContent = (query) => {
         width: 45vw;
         img {
           width: 100%;
+          border-radius: ${borderRadius.md};
         }
       }
     }

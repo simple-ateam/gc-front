@@ -8,21 +8,28 @@ import {
   PhoneFilled,
   GitlabFilled,
 } from "@ant-design/icons";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { shareState, spotInfoState, pickSpotQuery } from "../../states";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { shareState, spotInfoState, mDrawerQuery } from "../../states";
 import { drawerContent, drawerIconStyle } from "../styles/components/drawer";
 import ShareModal from "./share";
+import { touchHandler } from "../../utils/touchHandler";
 
 const SpotInfo = () => {
   const spotInfo = useRecoilValue(spotInfoState);
   const setShareState = useSetRecoilState(shareState);
+  const [mDrawer, setMDrawer] = useRecoilState(mDrawerQuery);
+
   const shareBtnHandler = () => {
     setShareState(true);
   };
 
   return (
     <>
-      <section css={drawerContent}>
+      <section
+        onTouchStart={(e) => touchHandler(e, mDrawer, setMDrawer)}
+        onTouchEnd={(e) => touchHandler(e, mDrawer, setMDrawer)}
+        onTouchMove={(e) => touchHandler(e, mDrawer, setMDrawer)}
+        css={drawerContent}>
         <picture>
           <img
             src={`${spotInfo?.firstImageUrl ? spotInfo.firstImageUrl : "/img/spotImg.jpg"}`}
