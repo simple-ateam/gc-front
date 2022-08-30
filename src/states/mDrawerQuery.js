@@ -7,5 +7,6 @@ export default atom({
     endY: null,
     swipeUp: null,
     swipeDown: null,
+    moveY: null,
   },
 });

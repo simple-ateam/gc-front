@@ -14,11 +14,9 @@ const Drawer = () => {
   const location = useLocation();
   const divRef = useRef();
   const [drawer, setDrawer] = useRecoilState(drawerQuery);
-  const pickSpot = useRecoilValue(pickSpotQuery);
   const setDrawerScroll = useSetRecoilState(drawerScrollQuery);
 
   useEffect(() => {
-    // console.log("pickSpot", pickSpot);
     if (location.pathname === "/maps") {
       setDrawer("pickSpot");
     }
@@ -43,7 +41,7 @@ const Drawer = () => {
 
   const onScrollHandler = () => {
     if (!isMobile) return setDrawerScroll(false);
-    if (divRef.current.scrollTop === "0") {
+    if (divRef.current.scrollTop === 0) {
       return setDrawerScroll(true);
     } else return setDrawerScroll(false);
   };

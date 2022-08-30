@@ -1,33 +1,39 @@
-export const touchHandler = (evt, state, setState) => {
-  const moveY = evt.changedTouches[0].clientY;
-  const { startY } = state;
-
+export const touchHandler = (evt, state, setState, scroll) => {
+  const { clientY } = evt.changedTouches[0];
+  const { startY, swipeUp, swipeDown } = state;
+  const swipe = startY - clientY;
+  //   console.log(swipe);
   switch (evt.type) {
     case "touchstart":
-      setState({ ...state, startY: moveY, endY: null });
+      setState({ ...state, startY: clientY, endY: null });
       break;
 
     case "touchmove":
-      if (startY - moveY > 0) {
-        setState({ ...state, swipeUp: startY - moveY });
-      } else if (startY - moveY < 0) {
-        setState({ ...state, swipeDown: startY - moveY });
+      if (swipe > 0) {
+        setState({ ...state, swipeUp: swipe });
+      } else if (scroll && swipe < 0) {
+        setState({ ...state, swipeDown: swipe });
       }
       break;
 
     case "touchend":
-      if (state.swipeUp >= 250) {
-        setState({ ...state, endY: moveY, swipeDown: null, swipeUp: null });
-      } else if (state.swipeUp < 250) {
+      if (swipeUp && swipeUp >= 250) {
+        setState({
+          ...state,
+          endY: clientY,
+          swipeDown: null,
+          swipeUp: null,
+          moveY: swipe,
+        });
+      } else if (swipeUp && swipeUp < 250) {
         setState({ ...state, swipeUp: null });
       }
-      if (state.swipeDown >= -50) {
-        setState({ ...state, endY: moveY, swipeDown: null, swipeUp: null });
-      } else if (state.swipeDown < -50) {
-        setState({ ...state, endY: moveY, swipeUp: null });
+      if (swipeDown && swipeDown >= -50) {
+        setState({ ...state, endY: clientY, swipeDown: null, swipeUp: null });
+      } else if (swipeDown && swipeDown < -50) {
+        setState({ ...state, endY: clientY, swipeUp: null, moveY: swipe, swipeDown: null });
       }
       break;
-
     default:
       return;
   }

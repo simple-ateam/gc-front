@@ -31,86 +31,89 @@ export const drawerContainer = (state) => {
   `;
 };
 
-export const drawerContent = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: flex-start;
-  height: 100vh;
-
-  & > * {
-    padding: ${boxSize.lg};
-    width: 100%;
-  }
-
-  & > picture {
-    padding: 0;
-    img {
+export const drawerContent = (state) => {
+  return css`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    height: 100vh;
+    padding-top: ${Math.abs(state) / 20}px;
+    & > * {
+      padding: ${boxSize.lg};
       width: 100%;
-      height: ${isMobile ? "45vh" : "35vh"};
     }
-  }
 
-  // divider
-  & > div {
-    justify-items: center;
-    align-self: center;
-    padding: 0;
-    width: 94%;
-    border-top: solid 1px rgb(220, 220, 220);
-  }
-  & > h2 {
-    font-size: ${isMobile ? fontSize.md : fontSize.lg};
-  }
-  & > nav {
-    align-self: center;
-    ul {
-      display: flex;
-      justify-content: center;
-      gap: ${isMobile ? gapByPercent.sm : gapByPercent.sm};
-      li {
+    & > picture {
+      padding: 0;
+      img {
+        width: 100%;
+        height: ${isMobile ? "45vh" : "35vh"};
+      }
+    }
+
+    // divider
+    & > div {
+      justify-items: center;
+      align-self: center;
+      padding: 0;
+      width: 94%;
+      border-top: solid 1px rgb(220, 220, 220);
+    }
+    & > h2 {
+      font-size: ${isMobile ? fontSize.md : fontSize.lg};
+    }
+    & > nav {
+      align-self: center;
+      ul {
         display: flex;
-        flex-direction: column;
-        gap: ${isMobile ? gap.md : gap.lg};
+        justify-content: center;
+        gap: ${isMobile ? gapByPercent.sm : gapByPercent.sm};
+        li {
+          display: flex;
+          flex-direction: column;
+          gap: ${isMobile ? gap.md : gap.lg};
 
-        button {
-          background-color: inherit;
-          border: solid 1px ${palette.green_2};
-          border-radius: ${borderRadius.half};
-          padding: ${boxSize.md};
-          cursor: pointer;
-          :hover {
-            background-color: ${palette.green_0};
+          button {
+            background-color: inherit;
+            border: solid 1px ${palette.green_2};
+            border-radius: ${borderRadius.half};
+            padding: ${boxSize.md};
+            cursor: pointer;
+            :hover {
+              background-color: ${palette.green_0};
+            }
+          }
+          p {
+            text-align: center;
+            color: ${palette.green_2};
+            font-size: ${fontSize.sm};
+            font-weight: 700;
           }
         }
-        p {
-          text-align: center;
-          color: ${palette.green_2};
+      }
+    }
+    & > article:first-of-type {
+      display: flex;
+      flex-direction: column;
+      gap: ${gap.xl};
+      & > div {
+        display: flex;
+        gap: ${gapByPercent.sm};
+        padding-left: ${boxSize.md};
+        h3 {
           font-size: ${fontSize.sm};
-          font-weight: 700;
         }
       }
     }
-  }
-  & > article:first-of-type {
-    display: flex;
-    flex-direction: column;
-    gap: ${gap.xl};
-    & > div {
+    & > article:last-of-type {
       display: flex;
-      gap: ${gapByPercent.sm};
-      padding-left: ${boxSize.md};
-      h3 {
-        font-size: ${fontSize.sm};
-      }
+      flex-direction: column;
+      gap: ${gap.lg};
     }
-  }
-  & > article:last-of-type {
-    display: flex;
-    flex-direction: column;
-    gap: ${gap.lg};
-  }
-`;
+  `;
+};
 
 export const drawerIconStyle = css`
   font-size: ${isMobile ? fontSize.md : fontSize.md};
@@ -158,9 +161,9 @@ export const mDrawerContent = (swipe) => {
       }
       picture {
         padding: 0;
-        width: 45vw;
         img {
-          width: 100%;
+          width: 45vw;
+          height: 20vh;
           border-radius: ${borderRadius.md};
         }
       }
