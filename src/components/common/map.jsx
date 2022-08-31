@@ -1,13 +1,7 @@
 import { useEffect, useRef } from "react";
-import { createSearchParams, useLocation, useNavigate, useParams } from "react-router-dom";
-import { useRecoilState, useRecoilValue, useRecoilValueLoadable, useSetRecoilState } from "recoil";
-import {
-  myLocationState,
-  spotListState,
-  pickSpotQuery,
-  spotInfoState,
-  meState,
-} from "../../states";
+import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
+import { useRecoilState, useRecoilValueLoadable, useSetRecoilState } from "recoil";
+import { myLocationState, spotListState, pickSpotQuery } from "../../states";
 import { mapEventHandler, setInitialLocation, addMarkerHandler } from "../../utils/mapApi";
 import { decodeQueryString } from "../../utils/queryString";
 const { naver } = window;
@@ -17,12 +11,10 @@ const Map = () => {
   const spotList = useRecoilValueLoadable(spotListState);
   const [myLocation, setMyLocation] = useRecoilState(myLocationState);
   const setPickSpotQuery = useSetRecoilState(pickSpotQuery);
-  const me = useRecoilValue(meState);
   const initialZoomLevel = 14;
   const navigate = useNavigate();
   const location = useLocation();
   const navigateObj = { navigate, createSearchParams };
-
   // query string 없는 경우 위치 초기화
   useEffect(() => {
     if (location.search) return;

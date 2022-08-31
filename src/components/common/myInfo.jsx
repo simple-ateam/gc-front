@@ -1,17 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
+
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { myInfoState } from "../../states";
+import { meState } from "../../states";
 import MyInfoMenu from "./myInfoMenu";
 
 const MyInfo = () => {
   const navigate = useNavigate();
-  const myInfo = useRecoilValue(myInfoState);
+  const me = useRecoilValue(meState);
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
+    if (!me) {
       navigate("/login");
     }
   }, []);

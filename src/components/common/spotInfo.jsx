@@ -19,6 +19,7 @@ const SpotInfo = () => {
   const setShareState = useSetRecoilState(shareState);
   const [mDrawer, setMDrawer] = useRecoilState(mDrawerQuery);
   const drawerScroll = useRecoilValue(drawerScrollQuery);
+
   const shareBtnHandler = () => {
     setShareState(true);
   };

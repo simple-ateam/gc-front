@@ -104,10 +104,10 @@ search Bar의 input value를 searchQuery라는 전역 상태로 관리하고 있
 
 <!-- -내리기 -->
 
-- home page에서 useEffect로 pathname에 따라 state 한 번에 관리하기
+<!-- - home page에서 useEffect로 pathname에 따라 state 한 번에 관리하기 -->
+
+<!-- - 마커 클릭 시 검색창 suspense 튀어나오는거 해결하기 -->
+<!-- - 검색 debounce 적용하기 -->
 
 - 북마크 기능/페이지 만들기
-
-- 마커 클릭 시 검색창 suspense 튀어나오는거 해결하기
-
-- 검색 debounce 적용하기
+- 검색창 깜빡임 해결

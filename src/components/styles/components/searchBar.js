@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { theme } from "../styleTheme";
 import { isMobile, isBrowser } from "react-device-detect";
 
-const { palette, borderRadius, boxSize, fontSize } = theme;
+const { palette, borderRadius, boxSize, fontSize, gap } = theme;
 
 export const searchBarContainer = (state) => {
   return css`
@@ -54,8 +54,9 @@ export const resultStyle = css`
   }
   & > li {
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
+    gap: ${gap.md};
     cursor: pointer;
     h3 {
       font-size: ${fontSize.sm};

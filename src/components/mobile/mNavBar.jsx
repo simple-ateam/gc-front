@@ -3,8 +3,6 @@ import { css, jsx } from "@emotion/react";
 import { EnvironmentOutlined, BookOutlined, UserOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { theme } from "../styles/styleTheme";
-import { useSetRecoilState } from "recoil";
-import { drawerQuery, myInfoState, pickSpotQuery, searchQuery } from "../../states";
 
 const { borderRadius, gap, fontSize } = theme;
 
@@ -46,16 +44,10 @@ const mNavBarIconStyle = css`
 `;
 
 const MNavBar = () => {
-  const setPickSpot = useSetRecoilState(pickSpotQuery);
-  const setSearchQueryState = useSetRecoilState(searchQuery);
-  const setMyInfo = useSetRecoilState(myInfoState);
   const navigate = useNavigate();
 
   const onClickNavHome = () => {
     navigate("/");
-    setPickSpot(null);
-    setMyInfo(null);
-    setSearchQueryState(null);
   };
 
   const onClickNavMyInfo = () => {
@@ -66,12 +58,10 @@ const MNavBar = () => {
     <div css={mNavBarContainer}>
       <nav css={mNavBarStyle}>
         <ul>
-          <Link to="/">
-            <li onTouchEnd={onClickNavHome}>
-              <EnvironmentOutlined css={mNavBarIconStyle} />
-              <p>탐색</p>
-            </li>
-          </Link>
+          <li onTouchEnd={onClickNavHome}>
+            <EnvironmentOutlined css={mNavBarIconStyle} />
+            <p>탐색</p>
+          </li>
           <li onTouchEnd={onClickNavMyInfo}>
             <BookOutlined css={mNavBarIconStyle} />
             <p>북마크</p>

@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { useForm } from "react-hook-form";
 import { SignFormContainer, loginFormContent } from "../styles/components/loginForm";
-import { RegExp } from "../../utils/RegExp";
 import { Link, useNavigate } from "react-router-dom";
+
 const LoginForm = () => {
   const navigate = useNavigate();
   const {
@@ -12,9 +12,8 @@ const LoginForm = () => {
   } = useForm();
 
   const onSubmitHandler = (e) => {
-    console.log(e);
-    localStorage.setItem("token", "hi");
-    navigate("/profile");
+    localStorage.setItem("token", JSON.stringify({ id: e.id }));
+    navigate({ pathname: "/profile" });
   };
 
   return (
