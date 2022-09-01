@@ -9,7 +9,6 @@ import {
 } from "../styles/components/searchBar";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { spotInfoState, searchQuery } from "../../states";
-import { debounce } from "../../utils/debounce";
 import { useNavigate } from "react-router-dom";
 
 const SearchInput = ({ setShowResultList }) => {
@@ -18,7 +17,6 @@ const SearchInput = ({ setShowResultList }) => {
   const [searchQueryState, setSearchQueryState] = useRecoilState(searchQuery);
   const [inputText, setInputText] = useState(null);
   const navigate = useNavigate();
-  let timer;
   const closeBtnHandler = () => {
     setInputText(null);
     navigate("/");

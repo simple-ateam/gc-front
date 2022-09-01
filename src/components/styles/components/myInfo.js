@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { theme } from "../styleTheme";
 import { isMobile } from "react-device-detect";
 
-const { boxSize, borderRadius, palette, fontSize, gap, gapByPercent } = theme;
+const { boxSize, palette, fontSize, gap } = theme;
 
 export const myInfoContent = css`
   display: flex;

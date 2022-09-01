@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { css, jsx } from "@emotion/react";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { searchResultState } from "../../states";

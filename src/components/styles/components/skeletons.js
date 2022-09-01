@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { SearchResultSkeleton } from "../../common/skeletons";
 import { theme } from "../styleTheme";
 
 const { boxSize, borderRadius, palette, fontSize, gap, gapByPercent } = theme;
