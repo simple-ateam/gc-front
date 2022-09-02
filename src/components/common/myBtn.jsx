@@ -1,14 +1,17 @@
 /** @jsxImportSource @emotion/react */
 import { myBtnContainer, myBtnContent } from "../styles/components/myBtn";
 import { UserOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { meState } from "../../states";
 
 const MyBtn = () => {
+  const me = useRecoilValue(meState);
   const navigate = useNavigate();
 
   const MyBtnOnClickHandler = () => {
-    if (localStorage.getItem("token")) {
-      navigate({ pathname: "/profile" });
+    if (me) {
+      navigate({ pathname: `/profile/${me}` });
     } else {
       navigate({ pathname: "/login" });
     }

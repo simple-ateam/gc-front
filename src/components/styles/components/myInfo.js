@@ -5,13 +5,43 @@ import { isMobile } from "react-device-detect";
 
 const { boxSize, palette, fontSize, gap } = theme;
 
-export const myInfoContent = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: flex-start;
-  height: ${isMobile ? "92vh" : "100vh"};
+export const myInfoContainer = () => {
+  return css`
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    width: 100%;
+  `;
+};
+
+export const bookmarkContent = css`
   width: 100%;
+  height: ${isMobile ? 40 : 100}vh;
+  & > * {
+    padding: ${boxSize.lg};
+    width: 100%;
+  }
+  & > div:first-of-type {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid ${palette.gray_1};
+    div:first-of-type {
+      display: flex;
+      gap: ${gap.lg};
+      align-items: center;
+    }
+    div:last-of-type {
+      align-self: flex-start;
+      font-size: ${fontSize.lg};
+    }
+  }
+`;
+
+export const myInfoMenuContent = css`
+  width: 100%;
+  height: ${isMobile ? "92vh" : "100vh"};
   & > * {
     padding: ${boxSize.lg};
     width: 100%;

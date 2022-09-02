@@ -28,14 +28,14 @@ const Home = () => {
   useEffect(() => {
     resetMdrawer();
     resetMe();
-    switch (location.pathname) {
-      case "/maps":
+    switch (location.pathname.split("/")[1]) {
+      case "maps":
         setDrawer("pickSpot");
         break;
-      case "/profile":
+      case "profile":
         setDrawer("myInfo");
         break;
-      case "/":
+      case "":
         setDrawer(null);
         setMyInfo(null);
         setPickSpot(null);

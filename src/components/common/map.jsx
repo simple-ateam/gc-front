@@ -17,7 +17,7 @@ const Map = () => {
   const navigateObj = { navigate, createSearchParams };
   // query string 없는 경우 위치 초기화
   useEffect(() => {
-    if (location.search) return;
+    if (location.pathname === "/maps") return;
     setInitialLocation(setMyLocation, initialZoomLevel);
   }, []);
 
