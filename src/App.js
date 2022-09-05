@@ -10,9 +10,11 @@ import { useEffect } from "react";
 
 function App() {
   const location = useLocation();
+
   useEffect(() => {
-    console.log(location);
+    // console.log(location);
   }, [location]);
+
   return (
     <>
       <RecoilRoot>

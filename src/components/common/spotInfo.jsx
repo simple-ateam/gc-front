@@ -12,6 +12,7 @@ import { shareState, spotInfoState, mDrawerQuery, drawerScrollQuery } from "../.
 import { drawerContent, drawerIconStyle } from "../styles/components/drawer";
 import ShareModal from "./share";
 import { touchHandler } from "../../utils/touchHandler";
+import controlWebStorage from "../../utils/controlStorage";
 
 const SpotInfo = () => {
   const spotInfo = useRecoilValue(spotInfoState);
@@ -21,6 +22,10 @@ const SpotInfo = () => {
 
   const shareBtnHandler = () => {
     setShareState(true);
+  };
+
+  const bookMarkHandler = () => {
+    controlWebStorage(spotInfo);
   };
 
   return (
@@ -47,7 +52,7 @@ const SpotInfo = () => {
               <p>전화</p>
             </li>
             <li>
-              <button aria-label="캠핑장 북마크">
+              <button onClick={bookMarkHandler} aria-label="캠핑장 북마크">
                 <BookOutlined css={drawerIconStyle} />
               </button>
               <p>북마크</p>
