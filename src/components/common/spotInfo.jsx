@@ -8,26 +8,52 @@ import {
   GitlabFilled,
 } from "@ant-design/icons";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { shareState, spotInfoState, mDrawerQuery, drawerScrollQuery } from "../../states";
-import { drawerContent, drawerIconStyle } from "../styles/components/drawer";
+import {
+  shareState,
+  spotInfoState,
+  mDrawerQuery,
+  drawerScrollQuery,
+  bookmarkState,
+} from "../../states";
+import { drawerContent, drawerIconStyle, bookmarkStyle } from "../styles/components/drawer";
 import ShareModal from "./share";
 import { touchHandler } from "../../utils/touchHandler";
 import controlWebStorage from "../../utils/controlStorage";
+import { useLocation } from "react-router-dom";
+import { decodeQueryString } from "../../utils/queryString";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const SpotInfo = () => {
+  const location = useLocation();
   const spotInfo = useRecoilValue(spotInfoState);
   const setShareState = useSetRecoilState(shareState);
   const [mDrawer, setMDrawer] = useRecoilState(mDrawerQuery);
   const drawerScroll = useRecoilValue(drawerScrollQuery);
+  const [bookmark, setBookmark] = useRecoilState(bookmarkState);
+  const [bookmarkText, setBookmarkText] = useState();
 
   const shareBtnHandler = () => {
     setShareState(true);
   };
 
-  const bookMarkHandler = () => {
-    controlWebStorage(spotInfo);
+  const bookmarkHandler = () => {
+    setBookmark(controlWebStorage(spotInfo));
   };
 
+  const checkAddedBookmark = () => {
+    const { id } = decodeQueryString(location.search);
+    const addedBookmark = bookmark.filter((e) => e.id === Number(id));
+    if (addedBookmark[0]) {
+      return setBookmarkText("저장됨");
+    } else {
+      return setBookmarkText("북마크");
+    }
+  };
+
+  useEffect(() => {
+    checkAddedBookmark();
+  }, [bookmark]);
   return (
     <>
       <section
@@ -52,10 +78,13 @@ const SpotInfo = () => {
               <p>전화</p>
             </li>
             <li>
-              <button onClick={bookMarkHandler} aria-label="캠핑장 북마크">
+              <button
+                css={bookmarkStyle(bookmarkText)}
+                onClick={bookmarkHandler}
+                aria-label="캠핑장 북마크">
                 <BookOutlined css={drawerIconStyle} />
               </button>
-              <p>북마크</p>
+              <p>{bookmarkText}</p>
             </li>
             <li>
               <button onClick={shareBtnHandler} aria-label="캠핑장 공유하기">

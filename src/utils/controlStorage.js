@@ -7,7 +7,8 @@ const controlWebStorage = (spotInfo) => {
   let bookmarkList = JSON.parse(localStorage.getItem("bookmark"));
   const bookmarkObj = {
     id: spotInfo.contentId,
-    facltNm: spotInfo.facltNm,
+    addr: spotInfo.addr1,
+    name: spotInfo.facltNm,
     x: spotInfo.mapX,
     y: spotInfo.mapY,
   };
@@ -26,6 +27,7 @@ const controlWebStorage = (spotInfo) => {
     bookmarkList.push(bookmarkObj);
     localStorage.setItem("bookmark", JSON.stringify(bookmarkList));
   }
+  return JSON.parse(localStorage.getItem("bookmark"));
 };
 
 export default controlWebStorage;

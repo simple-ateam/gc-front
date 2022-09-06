@@ -15,18 +15,14 @@ const Map = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const navigateObj = { navigate, createSearchParams };
-  // query string 없는 경우 위치 초기화
+  const locationRef = useRef(null);
   useEffect(() => {
-    if (location.pathname === "/maps") return;
-    setInitialLocation(setMyLocation, initialZoomLevel);
-  }, []);
-
-  // query string 있는 경우 위치 초기화
-  useEffect(() => {
+    // 위치 초기화(query string 있는 경우)
     if (location.pathname === "/maps" && location.search) {
       const { id: queryId, x: queryX, y: queryY } = decodeQueryString(location.search);
+      locationRef.current = { queryX, queryY };
       setPickSpotQuery(queryId);
-      // 뒤로가기 할 경우, 위치 초기화
+      // 뒤로가기 할 경우
       if (mapRef.current.map) {
         mapRef.current.map.panTo(
           {
@@ -38,8 +34,13 @@ const Map = () => {
           { duration: 300, easing: "easeOutCubic" },
         );
       }
-      // 첫 렌더링 시 위치 초기화
-      setMyLocation({ lat: queryY, lng: queryX, zoom: initialZoomLevel });
+      // 위치 초기화
+      return setMyLocation({ lat: queryY, lng: queryX, zoom: initialZoomLevel });
+    }
+
+    // 위치 초기화(query string 없는 경우)
+    if (location.pathname === "/" || location.pathname === "/maps") {
+      return setInitialLocation(setMyLocation, initialZoomLevel);
     }
   }, [location]);
 
@@ -54,7 +55,7 @@ const Map = () => {
         zoom: initialZoomLevel,
       });
       // map event 등록
-      mapEventHandler(naver, mapRef.current, setMyLocation);
+      mapEventHandler(naver, mapRef.current, myLocation, setMyLocation);
     }
   }, [myLocation]);
 
@@ -63,6 +64,7 @@ const Map = () => {
     switch (spotList.state) {
       case "hasValue":
         addMarkerHandler(naver, mapRef.current, spotList.contents, navigateObj);
+        // 여기다가 선택한 마커 넣으면 계속 깜빡거림 ㅇㅋ?
         break;
       case "hasError":
         throw console.log(spotList.contents.message);
@@ -71,7 +73,25 @@ const Map = () => {
       default:
         break;
     }
+    // 여기다가 해야됨 그래서 선택한 마커 ref값으로 두고 값 비교해서 다른 경우에 갱신하는 걸로 해야함.
   }, [spotList]);
+
+  // 선택한 마커 생성
+
+  useEffect(() => {
+    // api로 빼기
+    if (location.pathname === "/maps" && location.search) {
+      mapRef.current.selectedMarker = new naver.maps.Marker({
+        position: new naver.maps.LatLng(locationRef.current.queryY, locationRef.current.queryX),
+        map: mapRef.current.map,
+        icon: {
+          url: "/img/selectedLogo32.png",
+          size: new naver.maps.Size(32, 32),
+          anchor: new naver.maps.Point(0, 0),
+        },
+      });
+    }
+  }, []);
 
   return (
     <>

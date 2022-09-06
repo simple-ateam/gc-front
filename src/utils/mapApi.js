@@ -1,5 +1,4 @@
 import { markerHtml } from "./marker";
-import { encodeQueryString } from "./queryString";
 
 /**
 지도에서 발생하는 이벤트 핸들러
@@ -8,12 +7,17 @@ import { encodeQueryString } from "./queryString";
  * @param {*} ref 참조할 지도 객체
  * @param {*} set setter 함수
  */
-export const mapEventHandler = (naver, ref, set) => {
+export const mapEventHandler = (naver, ref, get, set) => {
   const { map } = ref;
   naver.maps.Event.addListener(
     map,
     "idle",
     (e) => {
+      // console.log(get.lng);
+      // console.log(map.center._lng);
+      // //  if (get.lng == map.center._lng && get.lat == map.center._lat && get.zoom == map.zoom) {
+      //   return;
+      // } else {
       set({ lat: map.center._lat, lng: map.center._lng, zoom: map.zoom });
     },
     0,
@@ -75,8 +79,9 @@ export const addMarkerHandler = (naver, ref, list, navigateObj) => {
         name: e.contentId,
       });
       ref.markerList.push(ref.marker);
+
       // 마커 클릭 이벤트
-      naver.maps.Event.addListener(ref.marker, "click", (el) => {
+      naver.maps.Event.addListener(ref.marker, "click", () => {
         navigateObj.navigate({
           pathname: "/maps",
           search: `?${navigateObj.createSearchParams({
@@ -89,6 +94,8 @@ export const addMarkerHandler = (naver, ref, list, navigateObj) => {
     });
   }
 };
+
+// 선택한 마커 생성
 
 // 위치 초기화
 export const setInitialLocation = (set, zoomLevel) => {
@@ -111,6 +118,11 @@ export const setInitialLocation = (set, zoomLevel) => {
   }
 };
 
+/**
+ * 야영장 데이터의 시/구 단위 평균 위치값 산출하기
+ * @param {} site
+ * @returns
+ */
 function setPositionByLocation(site) {
   const latLng = site.map((e) => {
     let sumLat = 0;

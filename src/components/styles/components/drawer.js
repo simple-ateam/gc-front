@@ -61,9 +61,11 @@ export const drawerContent = (state) => {
       width: 94%;
       border-top: solid 1px rgb(220, 220, 220);
     }
+    //
     & > h2 {
       font-size: ${isMobile ? fontSize.md : fontSize.lg};
     }
+    // Nav Btn
     & > nav {
       align-self: center;
       ul {
@@ -121,6 +123,12 @@ export const drawerIconStyle = css`
     fill: ${palette.green_1};
   }
 `;
+
+export const bookmarkStyle = (state) => {
+  return css`
+    background-color: ${state === "저장됨" && palette.green_2} !important;
+  `;
+};
 
 export const mDrawerContent = (swipe) => {
   return css`

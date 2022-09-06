@@ -1,17 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { drawerQuery, drawerScrollQuery } from "../../states";
+import { drawerQuery, drawerScrollQuery, bookmarkState } from "../../states";
 import { drawerContainer } from "../styles/components/drawer";
 import MyInfo from "./myInfo";
 import ResSpotInfo from "./resSpotInfo";
 import { useRef } from "react";
 import { isMobile } from "react-device-detect";
+import { useEffect } from "react";
 
 const Drawer = () => {
   const divRef = useRef();
   const drawer = useRecoilValue(drawerQuery);
   const setDrawerScroll = useSetRecoilState(drawerScrollQuery);
+  const setBookmark = useSetRecoilState(bookmarkState);
 
   const DrawerContent = () => {
     switch (drawer) {
@@ -23,6 +25,10 @@ const Drawer = () => {
         return null;
     }
   };
+
+  useEffect(() => {
+    setBookmark(JSON.parse(localStorage.getItem("bookmark")));
+  }, []);
 
   const onScrollHandler = () => {
     if (!isMobile) return setDrawerScroll(false);

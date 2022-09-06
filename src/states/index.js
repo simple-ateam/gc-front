@@ -6,12 +6,12 @@ import searchQuery from "./search";
 import searchResultState from "./searchResult";
 import shareState from "./share";
 import meState from "./me";
-import drawerState from "./drawer";
 import myInfoState from "./myInfo";
 import drawerQuery from "./drawerQuery";
 import mDrawerState from "./mDrawer";
 import mDrawerQuery from "./mDrawerQuery";
 import drawerScrollQuery from "./drawerScroll";
+import bookmarkState from "./bookmark";
 export {
   spotListState,
   myLocationState,
@@ -22,9 +22,9 @@ export {
   shareState,
   meState,
   myInfoState,
-  drawerState,
   drawerQuery,
   mDrawerQuery,
   mDrawerState,
   drawerScrollQuery,
+  bookmarkState,
 };

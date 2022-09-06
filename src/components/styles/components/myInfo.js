@@ -16,6 +16,7 @@ export const myInfoContainer = () => {
 };
 
 export const bookmarkContent = css`
+  position: relative;
   width: 100%;
   height: ${isMobile ? 40 : 100}vh;
   & > * {
@@ -23,6 +24,7 @@ export const bookmarkContent = css`
     width: 100%;
   }
   & > div:first-of-type {
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -35,6 +37,30 @@ export const bookmarkContent = css`
     div:last-of-type {
       align-self: flex-start;
       font-size: ${fontSize.lg};
+    }
+  }
+  & > div:last-of-type {
+    padding: 0;
+    position: absolute;
+    top: 70px;
+    ul li {
+      transition: linear 50ms;
+      padding: ${boxSize.md};
+      border-bottom: 1px ${palette.gray_1} solid;
+      & > * {
+        padding: ${isMobile ? "" : boxSize.xs};
+        cursor: pointer;
+      }
+      h4 {
+        font-size: ${fontSize.md};
+      }
+      p {
+        color: ${palette.gray_3};
+        font-size: ${isMobile ? fontSize.sm : fontSize.sm};
+      }
+      &:hover {
+        background-color: ${palette.green_0};
+      }
     }
   }
 `;
