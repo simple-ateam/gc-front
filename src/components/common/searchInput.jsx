@@ -7,21 +7,21 @@ import {
   searchInputContainer,
   inputStyle,
 } from "../styles/components/searchBar";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilValueLoadable, useSetRecoilState } from "recoil";
 import { spotInfoState, searchQuery } from "../../states";
 import { useNavigate } from "react-router-dom";
 
 const SearchInput = ({ setShowResultList }) => {
+  const inputRef = useRef();
   const timerRef = useRef(null);
-  const spotInfo = useRecoilValue(spotInfoState);
-  const [searchQueryState, setSearchQueryState] = useRecoilState(searchQuery);
+  const spotInfo = useRecoilValueLoadable(spotInfoState);
+  const setSearchQueryState = useSetRecoilState(searchQuery);
   const [inputText, setInputText] = useState(null);
   const navigate = useNavigate();
   const closeBtnHandler = () => {
     setInputText(null);
     navigate("/");
   };
-
   const onChangeHandler = (e) => {
     setInputText(e.target.value);
     if (timerRef.current) {
@@ -42,8 +42,18 @@ const SearchInput = ({ setShowResultList }) => {
   };
 
   useEffect(() => {
-    if (spotInfo) {
-      setInputText(spotInfo.facltNm);
+    switch (spotInfo.state) {
+      case "hasValue":
+        if (spotInfo.contents) {
+          setInputText(spotInfo.contents.facltNm);
+        }
+        break;
+      case "hasError":
+        throw console.log(spotInfo.contents.message);
+      case "loading":
+        break;
+      default:
+        break;
     }
   }, [spotInfo]);
 
@@ -51,6 +61,7 @@ const SearchInput = ({ setShowResultList }) => {
     <div css={searchInputContainer}>
       <div css={inputStyle}>
         <input
+          ref={inputRef}
           css={inputBasic}
           spellCheck="false"
           type="text"
@@ -61,7 +72,13 @@ const SearchInput = ({ setShowResultList }) => {
           onBlur={onBlurHandler}
         />
         <div>
-          <SearchOutlined css={searchBarIconStyle} />
+          <SearchOutlined
+            css={searchBarIconStyle}
+            onClick={() => {
+              inputRef.current.focus();
+            }}
+          />
+
           {spotInfo && <CloseOutlined css={searchBarIconStyle} onClick={closeBtnHandler} />}
         </div>
       </div>

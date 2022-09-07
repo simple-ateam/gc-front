@@ -50,9 +50,7 @@ const Home = () => {
     <>
       <Map />
       <Drawer />
-      <Suspense fallback={null}>
-        <SearchBar />
-      </Suspense>
+      <SearchBar />
       {isBrowser && <MyBtn />}
     </>
   );

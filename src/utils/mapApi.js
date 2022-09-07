@@ -1,5 +1,5 @@
 import { markerHtml } from "./marker";
-
+import { decodeQueryString } from "./queryString";
 /**
 지도에서 발생하는 이벤트 핸들러
 * 
@@ -13,11 +13,6 @@ export const mapEventHandler = (naver, ref, get, set) => {
     map,
     "idle",
     (e) => {
-      // console.log(get.lng);
-      // console.log(map.center._lng);
-      // //  if (get.lng == map.center._lng && get.lat == map.center._lat && get.zoom == map.zoom) {
-      //   return;
-      // } else {
       set({ lat: map.center._lat, lng: map.center._lng, zoom: map.zoom });
     },
     0,
@@ -95,7 +90,25 @@ export const addMarkerHandler = (naver, ref, list, navigateObj) => {
   }
 };
 
-// 선택한 마커 생성
+// 하이라이트 마커 생성
+export const selectedMarkerHandler = (map, naver, location) => {
+  if (map.selectedMarker) {
+    map.selectedMarker.setMap(null);
+    map.selectedMarker = null;
+  }
+  if (location.pathname === "/maps" && location.search) {
+    const { x: queryX, y: queryY } = decodeQueryString(location.search);
+    map.selectedMarker = new naver.maps.Marker({
+      position: new naver.maps.LatLng(queryY, queryX),
+      map: map.map,
+      icon: {
+        url: "/img/selectedLogo32.png",
+        size: new naver.maps.Size(32, 32),
+        anchor: new naver.maps.Point(0, 0),
+      },
+    });
+  }
+};
 
 // 위치 초기화
 export const setInitialLocation = (set, zoomLevel) => {
@@ -120,7 +133,7 @@ export const setInitialLocation = (set, zoomLevel) => {
 
 /**
  * 야영장 데이터의 시/구 단위 평균 위치값 산출하기
- * @param {} site
+ * @param {} site 야영장 데이터
  * @returns
  */
 function setPositionByLocation(site) {
