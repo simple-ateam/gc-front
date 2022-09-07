@@ -8,8 +8,8 @@ const axios = customAxios();
 export default selector({
   key: "spotInfoState",
   get: async ({ get }) => {
-    const pickSpotdata = get(pickSpotQuery);
-    if (!pickSpotdata) return null;
-    return await getSpotById(axios, pickSpotdata);
+    const pickSpot = get(pickSpotQuery);
+    if (!pickSpot) return null;
+    return await getSpotById(axios, pickSpot);
   },
 });

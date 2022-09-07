@@ -4,7 +4,7 @@ import SpotInfo from "./spotInfo";
 import { Suspense } from "react";
 import MSpotInfo from "../mobile/mSpotInfo";
 import { DrawerSkeleton, MDrawerSkeleton } from "./skeletons";
-import { isMobile, isBrowser } from "react-device-detect";
+import { isBrowser } from "react-device-detect";
 
 const ResSpotInfo = () => {
   const mDrawer = useRecoilValue(mDrawerState);

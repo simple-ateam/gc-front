@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import { drawerContainer } from "../styles/components/drawer";
 import { pickSpotQuery } from "../../states";
 import { useRecoilValue } from "recoil";

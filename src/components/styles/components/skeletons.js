@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { SearchResultSkeleton } from "../../common/skeletons";
 import { theme } from "../styleTheme";
 
 const { boxSize, borderRadius, palette, fontSize, gap, gapByPercent } = theme;
@@ -89,11 +88,11 @@ export const mDrawerSkeleton = css`
   border-radius: ${borderRadius.lg};
   display: flex;
   justify-content: space-around;
+  align-items: center;
   & > * {
   }
   div:first-of-type {
-    margin-top: 7vh;
-
+    margin-top: 2vh;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -108,8 +107,8 @@ export const mDrawerSkeleton = css`
   div:last-of-type {
     margin-top: ${boxSize.lg};
     background-color: ${palette.gray_2};
-    width: 45vw;
-    height: 70%;
+    width: 30vw;
+    height: 15vh;
     border-radius: ${borderRadius.md};
   }
 `;

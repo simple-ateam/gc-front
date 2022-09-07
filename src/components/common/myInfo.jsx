@@ -1,21 +1,41 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
+
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { myInfoState } from "../../states";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { meState, myInfoState } from "../../states";
+import { myInfoContainer } from "../styles/components/myInfo";
+import Bookmark from "./bookmark";
 import MyInfoMenu from "./myInfoMenu";
 
 const MyInfo = () => {
+  const location = useLocation();
   const navigate = useNavigate();
-  const myInfo = useRecoilValue(myInfoState);
+  const me = useRecoilValue(meState);
+  const [myInfo, setMyInfo] = useRecoilState(myInfoState);
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
-      navigate("/login");
+    if (!me) return navigate("/login");
+    switch (location.search) {
+      case "?bookmark":
+        return setMyInfo("bookmark");
+      default:
+        return setMyInfo(null);
     }
-  }, []);
+  }, [location]);
 
-  return <MyInfoMenu />;
+  const ShowMyContent = () => {
+    if (!myInfo) {
+      return <MyInfoMenu />;
+    } else if (myInfo === "bookmark") {
+      return <Bookmark />;
+    }
+  };
+
+  return (
+    <div css={myInfoContainer}>
+      <ShowMyContent />
+    </div>
+  );
 };
 export default MyInfo;

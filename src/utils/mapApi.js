@@ -1,6 +1,5 @@
 import { markerHtml } from "./marker";
-import { encodeQueryString } from "./queryString";
-
+import { decodeQueryString } from "./queryString";
 /**
 지도에서 발생하는 이벤트 핸들러
 * 
@@ -8,7 +7,7 @@ import { encodeQueryString } from "./queryString";
  * @param {*} ref 참조할 지도 객체
  * @param {*} set setter 함수
  */
-export const mapEventHandler = (naver, ref, set) => {
+export const mapEventHandler = (naver, ref, get, set) => {
   const { map } = ref;
   naver.maps.Event.addListener(
     map,
@@ -75,8 +74,9 @@ export const addMarkerHandler = (naver, ref, list, navigateObj) => {
         name: e.contentId,
       });
       ref.markerList.push(ref.marker);
+
       // 마커 클릭 이벤트
-      naver.maps.Event.addListener(ref.marker, "click", (el) => {
+      naver.maps.Event.addListener(ref.marker, "click", () => {
         navigateObj.navigate({
           pathname: "/maps",
           search: `?${navigateObj.createSearchParams({
@@ -86,6 +86,26 @@ export const addMarkerHandler = (naver, ref, list, navigateObj) => {
           })}`,
         });
       });
+    });
+  }
+};
+
+// 하이라이트 마커 생성
+export const selectedMarkerHandler = (map, naver, location) => {
+  if (map.selectedMarker) {
+    map.selectedMarker.setMap(null);
+    map.selectedMarker = null;
+  }
+  if (location.pathname === "/maps" && location.search) {
+    const { x: queryX, y: queryY } = decodeQueryString(location.search);
+    map.selectedMarker = new naver.maps.Marker({
+      position: new naver.maps.LatLng(queryY, queryX),
+      map: map.map,
+      icon: {
+        url: "/img/selectedLogo32.png",
+        size: new naver.maps.Size(32, 32),
+        anchor: new naver.maps.Point(0, 0),
+      },
     });
   }
 };
@@ -111,6 +131,11 @@ export const setInitialLocation = (set, zoomLevel) => {
   }
 };
 
+/**
+ * 야영장 데이터의 시/구 단위 평균 위치값 산출하기
+ * @param {} site 야영장 데이터
+ * @returns
+ */
 function setPositionByLocation(site) {
   const latLng = site.map((e) => {
     let sumLat = 0;

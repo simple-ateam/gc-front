@@ -1,41 +1,35 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
-import { useSetRecoilState } from "recoil";
-import { myInfoState } from "../../states";
+import { useSetRecoilState, useRecoilValue } from "recoil";
+import { meState, myInfoState } from "../../states";
 import { BookOutlined, CloseOutlined, UserDeleteOutlined } from "@ant-design/icons";
-import { myInfoContent } from "../styles/components/myInfo";
+import { myInfoMenuContent } from "../styles/components/myInfo";
 import { useNavigate } from "react-router-dom";
 
 const MyInfoMenu = () => {
-  const setMyInfo = useSetRecoilState(myInfoState);
   const navigate = useNavigate();
-
+  const me = useRecoilValue(meState);
   const onClickNavHandler = (e) => {
     if (e.target.textContent === "북마크") {
-      setMyInfo("bookmark");
-    } else if (e.target.textContent === "리뷰") {
-      setMyInfo("review");
+      navigate({ search: `bookmark` });
     } else if (e.target.textContent === "로그아웃") {
       localStorage.removeItem("token");
       navigate("/");
-      setMyInfo(null);
     }
     return;
   };
 
-  const onClickClostBtnHandler = () => {
+  const onClickCloseBtnHandler = () => {
     navigate("/");
-    setMyInfo(null);
   };
 
   return (
-    <section css={myInfoContent}>
+    <section css={myInfoMenuContent}>
       <div>
         <div>
-          <h2>이준서</h2>
+          <h2>{me && me}</h2>
           <span>님</span>
         </div>
-        <div onClick={onClickClostBtnHandler}>
+        <div onClick={onClickCloseBtnHandler}>
           <CloseOutlined />
         </div>
       </div>

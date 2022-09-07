@@ -1,10 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { css, jsx } from "@emotion/react";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { searchResultState } from "../../states";
 import { searchResultContainer, resultStyle } from "../styles/components/searchBar";
-
+import { textLimitHandler } from "../../utils/textLimit";
 const SearchResult = ({ showUi, inputRef }) => {
   const searchResult = useRecoilValue(searchResultState);
   const navigate = useNavigate();
@@ -37,7 +36,7 @@ const SearchResult = ({ showUi, inputRef }) => {
                 }}
                 key={e.contentId}>
                 <h3>{e.facltNm}</h3>
-                <p>{e.addr1}</p>
+                <p>{textLimitHandler(e.addr1, 18)}</p>
               </li>
             );
           })}

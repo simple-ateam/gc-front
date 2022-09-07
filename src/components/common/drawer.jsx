@@ -1,32 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { drawerQuery, pickSpotQuery, mDrawerQuery, drawerScrollQuery } from "../../states";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { drawerQuery, drawerScrollQuery, bookmarkState } from "../../states";
 import { drawerContainer } from "../styles/components/drawer";
 import MyInfo from "./myInfo";
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import ResSpotInfo from "./resSpotInfo";
 import { useRef } from "react";
 import { isMobile } from "react-device-detect";
+import { useEffect } from "react";
 
 const Drawer = () => {
-  const location = useLocation();
   const divRef = useRef();
-  const [drawer, setDrawer] = useRecoilState(drawerQuery);
+  const drawer = useRecoilValue(drawerQuery);
   const setDrawerScroll = useSetRecoilState(drawerScrollQuery);
-
-  useEffect(() => {
-    if (location.pathname === "/maps") {
-      setDrawer("pickSpot");
-    }
-    if (location.pathname === "/profile") {
-      setDrawer("myInfo");
-    }
-    if (location.pathname === "/") {
-      setDrawer(null);
-    }
-  }, [location]);
+  const setBookmark = useSetRecoilState(bookmarkState);
 
   const DrawerContent = () => {
     switch (drawer) {
@@ -38,6 +25,10 @@ const Drawer = () => {
         return null;
     }
   };
+
+  useEffect(() => {
+    setBookmark(JSON.parse(localStorage.getItem("bookmark")));
+  }, []);
 
   const onScrollHandler = () => {
     if (!isMobile) return setDrawerScroll(false);

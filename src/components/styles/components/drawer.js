@@ -61,9 +61,11 @@ export const drawerContent = (state) => {
       width: 94%;
       border-top: solid 1px rgb(220, 220, 220);
     }
+    //
     & > h2 {
       font-size: ${isMobile ? fontSize.md : fontSize.lg};
     }
+    // Nav Btn
     & > nav {
       align-self: center;
       ul {
@@ -122,6 +124,12 @@ export const drawerIconStyle = css`
   }
 `;
 
+export const bookmarkStyle = (state) => {
+  return css`
+    background-color: ${state === "저장됨" && palette.green_2} !important;
+  `;
+};
+
 export const mDrawerContent = (swipe) => {
   return css`
     display: flex;
@@ -133,6 +141,7 @@ export const mDrawerContent = (swipe) => {
       padding: 0 ${boxSize.md};
       width: 100%;
     }
+    // swipe button 표시
     & > div:first-of-type {
       padding: 5px;
       margin: ${boxSize.sm} auto;
@@ -140,15 +149,18 @@ export const mDrawerContent = (swipe) => {
       border-radius: ${borderRadius.lg};
       background-color: ${palette.gray_1};
     }
+
     & > div:last-of-type {
       display: flex;
-      justify-content: space-between;
-      padding-top: ${boxSize.sm};
+      justify-content: space-around;
+      gap: ${gap.xs};
+      padding-top: ${boxSize.xs};
 
       div {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+
         justify-content: center;
         h2 {
           font-size: ${fontSize.md};
@@ -162,8 +174,8 @@ export const mDrawerContent = (swipe) => {
       picture {
         padding: 0;
         img {
-          width: 45vw;
-          height: 20vh;
+          width: 30vw;
+          height: 15vh;
           border-radius: ${borderRadius.md};
         }
       }

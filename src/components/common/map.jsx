@@ -1,14 +1,13 @@
 import { useEffect, useRef } from "react";
-import { createSearchParams, useLocation, useNavigate, useParams } from "react-router-dom";
-import { useRecoilState, useRecoilValue, useRecoilValueLoadable, useSetRecoilState } from "recoil";
+import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
+import { useRecoilState, useSetRecoilState, useRecoilValueLoadable } from "recoil";
+import { myLocationState, spotListState, pickSpotQuery } from "../../states";
 import {
-  myLocationState,
-  spotListState,
-  pickSpotQuery,
-  spotInfoState,
-  meState,
-} from "../../states";
-import { mapEventHandler, setInitialLocation, addMarkerHandler } from "../../utils/mapApi";
+  mapEventHandler,
+  setInitialLocation,
+  addMarkerHandler,
+  selectedMarkerHandler,
+} from "../../utils/mapApi";
 import { decodeQueryString } from "../../utils/queryString";
 const { naver } = window;
 
@@ -16,25 +15,19 @@ const Map = () => {
   const mapRef = useRef({ map: null, markerList: [], marker: null, selectedMarker: null });
   const spotList = useRecoilValueLoadable(spotListState);
   const [myLocation, setMyLocation] = useRecoilState(myLocationState);
-  const setPickSpotQuery = useSetRecoilState(pickSpotQuery);
-  const me = useRecoilValue(meState);
+  const setPickSpot = useSetRecoilState(pickSpotQuery);
   const initialZoomLevel = 14;
   const navigate = useNavigate();
   const location = useLocation();
   const navigateObj = { navigate, createSearchParams };
 
-  // query string 없는 경우 위치 초기화
+  //위치 초기화
   useEffect(() => {
-    if (location.search) return;
-    setInitialLocation(setMyLocation, initialZoomLevel);
-  }, []);
-
-  // query string 있는 경우 위치 초기화
-  useEffect(() => {
+    // 위치 초기화(query string 있는 경우)
     if (location.pathname === "/maps" && location.search) {
       const { id: queryId, x: queryX, y: queryY } = decodeQueryString(location.search);
-      setPickSpotQuery(queryId);
-      // 뒤로가기 할 경우, 위치 초기화
+      setPickSpot(queryId);
+      // 뒤로가기 할 경우 지도 이동
       if (mapRef.current.map) {
         mapRef.current.map.panTo(
           {
@@ -46,8 +39,13 @@ const Map = () => {
           { duration: 300, easing: "easeOutCubic" },
         );
       }
-      // 첫 렌더링 시 위치 초기화
-      setMyLocation({ lat: queryY, lng: queryX, zoom: initialZoomLevel });
+      // 위치 초기화
+      return setMyLocation({ lat: queryY, lng: queryX, zoom: initialZoomLevel });
+    }
+
+    // 위치 초기화(query string 없는 경우)
+    if ((location.pathname === "/" || location.pathname === "/maps") && !myLocation.lat) {
+      return setInitialLocation(setMyLocation, initialZoomLevel);
     }
   }, [location]);
 
@@ -62,7 +60,7 @@ const Map = () => {
         zoom: initialZoomLevel,
       });
       // map event 등록
-      mapEventHandler(naver, mapRef.current, setMyLocation);
+      mapEventHandler(naver, mapRef.current, myLocation, setMyLocation);
     }
   }, [myLocation]);
 
@@ -79,7 +77,11 @@ const Map = () => {
       default:
         break;
     }
-  }, [spotList]);
+
+    if (spotList.state === "hasValue") {
+      selectedMarkerHandler(mapRef.current, naver, location);
+    }
+  }, [spotList, location]);
 
   return (
     <>

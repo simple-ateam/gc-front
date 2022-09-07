@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/react";
 import { EnvironmentOutlined, BookOutlined, UserOutlined } from "@ant-design/icons";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { theme } from "../styles/styleTheme";
-import { useSetRecoilState } from "recoil";
-import { drawerQuery, myInfoState, pickSpotQuery, searchQuery } from "../../states";
-
+import ePropagation from "../../utils/ePropagation";
+import { useRecoilValue } from "recoil";
+import { meState } from "../../states";
 const { borderRadius, gap, fontSize } = theme;
 
 const mNavBarContainer = css`
@@ -46,37 +46,37 @@ const mNavBarIconStyle = css`
 `;
 
 const MNavBar = () => {
-  const setPickSpot = useSetRecoilState(pickSpotQuery);
-  const setSearchQueryState = useSetRecoilState(searchQuery);
-  const setMyInfo = useSetRecoilState(myInfoState);
+  const me = useRecoilValue(meState);
   const navigate = useNavigate();
 
-  const onClickNavHome = () => {
-    navigate("/");
-    setPickSpot(null);
-    setMyInfo(null);
-    setSearchQueryState(null);
-  };
-
-  const onClickNavMyInfo = () => {
-    navigate("/profile");
+  const onTouchNav = (evt) => {
+    const target = ePropagation(evt, "LI");
+    if (!target) return;
+    switch (target.className) {
+      case "home":
+        return navigate("/");
+      case "bookmark":
+        return navigate({ pathname: `/profile/${me}`, search: `bookmark` });
+      case "myInfo":
+        return navigate({ pathname: `/profile/${me}` });
+      default:
+        return;
+    }
   };
 
   return (
     <div css={mNavBarContainer}>
-      <nav css={mNavBarStyle}>
+      <nav onTouchEnd={onTouchNav} css={mNavBarStyle}>
         <ul>
-          <Link to="/">
-            <li onTouchEnd={onClickNavHome}>
-              <EnvironmentOutlined css={mNavBarIconStyle} />
-              <p>탐색</p>
-            </li>
-          </Link>
-          <li onTouchEnd={onClickNavMyInfo}>
+          <li className="home">
+            <EnvironmentOutlined css={mNavBarIconStyle} />
+            <p>탐색</p>
+          </li>
+          <li className="bookmark">
             <BookOutlined css={mNavBarIconStyle} />
             <p>북마크</p>
           </li>
-          <li onTouchEnd={onClickNavMyInfo}>
+          <li className="myInfo">
             <UserOutlined css={mNavBarIconStyle} />
             <p>내 정보</p>
           </li>

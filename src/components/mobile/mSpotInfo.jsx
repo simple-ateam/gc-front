@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { spotInfoState, mDrawerQuery } from "../../states";
 import { mDrawerContent } from "../styles/components/drawer";
