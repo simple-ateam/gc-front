@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { drawerQuery, drawerScrollQuery, bookmarkState } from "../../states";
 import { drawerContainer } from "../styles/components/drawer";

@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import { searchResultState } from "../../states";
 import { searchResultContainer, resultStyle } from "../styles/components/searchBar";
 import { textLimitHandler } from "../../utils/textLimit";
-const SearchResult = ({ showUi, inputRef }) => {
+const SearchResult = ({ showUi }) => {
   const searchResult = useRecoilValue(searchResultState);
   const navigate = useNavigate();
 

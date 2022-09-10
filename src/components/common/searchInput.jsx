@@ -28,7 +28,6 @@ const SearchInput = ({ setShowResultList }) => {
       clearTimeout(timerRef.current);
     }
     timerRef.current = setTimeout(() => {
-      console.log("실행");
       setSearchQueryState(e.target.value);
     }, 500);
   };

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { myBtnContainer, myBtnContent } from "../styles/components/myBtn";
 import { UserOutlined } from "@ant-design/icons";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { meState } from "../../states";
 

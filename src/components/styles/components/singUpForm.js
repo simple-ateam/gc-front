@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css, jsx } from "@emotion/react";
-import { isMobile } from "react-device-detect";
+import { css } from "@emotion/react";
 import { theme } from "../styleTheme";
 
 const { borderRadius, palette, gap, boxSize, fontSize } = theme;
@@ -10,10 +9,11 @@ export const signUpFormContent = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: ${gap.xl};
   & * {
     font-weight: 700;
   }
-  gap: ${gap.xl};
+
   // form
   & > form {
     display: flex;
