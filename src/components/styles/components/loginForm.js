@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/react";
 import { isMobile } from "react-device-detect";
 import { theme } from "../styleTheme";
 
-const { borderRadius, palette, gap, gapByPercent, boxSize } = theme;
+const { borderRadius, palette, gap } = theme;
 
 export const SignFormContainer = css`
   width: ${isMobile ? "60vw" : "300px"};

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { useSetRecoilState, useRecoilValue } from "recoil";
-import { meState, myInfoState } from "../../states";
+import { useRecoilValue } from "recoil";
+import { meState } from "../../states";
 import { BookOutlined, CloseOutlined, UserDeleteOutlined } from "@ant-design/icons";
 import { myInfoMenuContent } from "../styles/components/myInfo";
 import { useNavigate } from "react-router-dom";

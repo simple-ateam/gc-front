@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { ArrowLeftOutlined, CloseOutlined } from "@ant-design/icons";
-import { useEffect } from "react";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { bookmarkState } from "../../states";
