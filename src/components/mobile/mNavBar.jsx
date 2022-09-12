@@ -1,11 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { EnvironmentOutlined, BookOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  EnvironmentOutlined,
+  EnvironmentFilled,
+  BookFilled,
+  BookOutlined,
+  UserOutlined,
+  HeartOutlined,
+  HeartFilled,
+} from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { theme } from "../styles/styleTheme";
 import ePropagation from "../../utils/ePropagation";
-import { useRecoilValue } from "recoil";
-import { meState } from "../../states";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { meState, mNavState } from "../../states";
 const { borderRadius, gap, fontSize } = theme;
 
 const mNavBarContainer = css`
@@ -48,16 +56,20 @@ const mNavBarIconStyle = css`
 const MNavBar = () => {
   const me = useRecoilValue(meState);
   const navigate = useNavigate();
+  const [mNav, setMNav] = useRecoilState(mNavState);
 
   const onTouchNav = (evt) => {
     const target = ePropagation(evt, "LI");
     if (!target) return;
     switch (target.className) {
       case "home":
+        setMNav(target.className);
         return navigate("/");
       case "bookmark":
+        setMNav(target.className);
         return navigate({ pathname: `/profile/${me}`, search: `bookmark` });
       case "myInfo":
+        setMNav(target.className);
         return navigate({ pathname: `/profile/${me}` });
       default:
         return;
@@ -69,15 +81,27 @@ const MNavBar = () => {
       <nav onTouchEnd={onTouchNav} css={mNavBarStyle}>
         <ul>
           <li className="home">
-            <EnvironmentOutlined css={mNavBarIconStyle} />
+            {mNav === "home" ? (
+              <EnvironmentFilled css={mNavBarIconStyle} />
+            ) : (
+              <EnvironmentOutlined css={mNavBarIconStyle} />
+            )}
             <p>탐색</p>
           </li>
           <li className="bookmark">
-            <BookOutlined css={mNavBarIconStyle} />
+            {mNav === "bookmark" ? (
+              <BookFilled css={mNavBarIconStyle} />
+            ) : (
+              <BookOutlined css={mNavBarIconStyle} />
+            )}
             <p>북마크</p>
           </li>
           <li className="myInfo">
-            <UserOutlined css={mNavBarIconStyle} />
+            {mNav === "myInfo" ? (
+              <HeartFilled css={mNavBarIconStyle} />
+            ) : (
+              <HeartOutlined css={mNavBarIconStyle} />
+            )}
             <p>내 정보</p>
           </li>
         </ul>

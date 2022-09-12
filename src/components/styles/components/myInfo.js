@@ -43,6 +43,9 @@ export const bookmarkContent = css`
     padding: 0;
     position: absolute;
     top: 70px;
+    ul > p {
+      padding: ${boxSize.md};
+    }
     ul li {
       transition: linear 50ms;
       padding: ${boxSize.md};

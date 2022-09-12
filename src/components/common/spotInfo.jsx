@@ -42,13 +42,14 @@ const SpotInfo = () => {
   };
 
   const checkAddedBookmark = () => {
-    const { id } = decodeQueryString(location.search);
-    const addedBookmark = bookmark.filter((e) => e.id === Number(id));
-    if (addedBookmark[0]) {
-      return setBookmarkText("저장됨");
-    } else {
-      return setBookmarkText("북마크");
+    if (bookmark) {
+      const { id } = decodeQueryString(location.search);
+      const addedBookmark = bookmark.filter((e) => e.id === Number(id));
+      if (addedBookmark[0]) {
+        return setBookmarkText("저장됨");
+      }
     }
+    return setBookmarkText("북마크");
   };
 
   useEffect(() => {

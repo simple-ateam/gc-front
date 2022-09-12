@@ -72,7 +72,7 @@ export const ShareModalContent = css`
   & > div:last-of-type {
     display: flex;
     justify-content: center;
-    gap: ${gap.xl};
+    gap: ${gap.lg};
     input {
       width: 70%;
       border: none;

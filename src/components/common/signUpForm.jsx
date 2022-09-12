@@ -2,7 +2,7 @@
 import { useForm } from "react-hook-form";
 import { signUpFormContent } from "../styles/components/singUpForm";
 import { SignFormContainer } from "../styles/components/loginForm";
-import { RegExp } from "../../utils/RegExp";
+import { regExp } from "../../utils/regExp";
 import { useNavigate } from "react-router-dom";
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ const SignUpForm = () => {
               {...register("email", {
                 required: true,
                 pattern: {
-                  value: RegExp.email,
+                  value: regExp.email,
                   message: "이메일 형식에 맞게 입력해주세요",
                 },
               })}
@@ -67,7 +67,7 @@ const SignUpForm = () => {
               {...register("pw", {
                 required: true,
                 pattern: {
-                  value: RegExp.password,
+                  value: regExp.password,
                   message: "형식에 맞는 비밀번호를 입력해주세요",
                 },
               })}

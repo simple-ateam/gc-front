@@ -13,6 +13,7 @@ import {
   meState,
   pickSpotQuery,
   searchQuery,
+  mNavState,
 } from "../states";
 
 const Home = () => {
@@ -22,6 +23,7 @@ const Home = () => {
   const setMyInfo = useSetRecoilState(myInfoState);
   const setPickSpot = useSetRecoilState(pickSpotQuery);
   const setSearchQuery = useSetRecoilState(searchQuery);
+  const setMNav = useSetRecoilState(mNavState);
   const resetMe = useResetRecoilState(meState);
 
   useEffect(() => {
@@ -29,6 +31,7 @@ const Home = () => {
     resetMe();
     switch (location.pathname.split("/")[1]) {
       case "maps":
+        setMNav("home");
         setDrawer("pickSpot");
         break;
       case "profile":
@@ -39,6 +42,7 @@ const Home = () => {
         setMyInfo(null);
         setPickSpot(null);
         setSearchQuery(null);
+        setMNav("home");
         break;
       default:
         return;

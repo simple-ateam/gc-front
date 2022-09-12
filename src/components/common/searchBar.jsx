@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { useRef } from "react";
 import { Suspense, useState } from "react";
 import { searchBarContainer } from "../styles/components/searchBar";
 import { useRecoilValue } from "recoil";
@@ -9,7 +8,6 @@ import { SearchResultSkeleton } from "./skeletons";
 import SearchInput from "./searchInput";
 
 const SearchBar = () => {
-  const searchInputRef = useRef(null);
   const [showResultList, setShowResultList] = useState(false);
   const drawer = useRecoilValue(drawerQuery);
 
@@ -17,7 +15,7 @@ const SearchBar = () => {
     <div css={searchBarContainer(drawer)}>
       <SearchInput setShowResultList={setShowResultList} />
       <Suspense fallback={<SearchResultSkeleton />}>
-        <SearchResult inputRef={searchInputRef.current} showUi={showResultList} />
+        <SearchResult setShowResultList={setShowResultList} showUi={showResultList} />
       </Suspense>
     </div>
   );

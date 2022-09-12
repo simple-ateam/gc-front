@@ -23,6 +23,7 @@ const SearchInput = ({ setShowResultList }) => {
     navigate("/");
   };
   const onChangeHandler = (e) => {
+    setShowResultList(true);
     setInputText(e.target.value);
     if (timerRef.current) {
       clearTimeout(timerRef.current);

@@ -4,15 +4,16 @@ import { useRecoilValue } from "recoil";
 import { searchResultState } from "../../states";
 import { searchResultContainer, resultStyle } from "../styles/components/searchBar";
 import { textLimitHandler } from "../../utils/textLimit";
-const SearchResult = ({ showUi }) => {
+
+const SearchResult = ({ showUi, setShowResultList }) => {
   const searchResult = useRecoilValue(searchResultState);
   const navigate = useNavigate();
-
   const onMouseDownHandler = (e) => {
     e.preventDefault();
   };
 
   const onClickHandler = (e) => {
+    setShowResultList(false);
     navigate({
       pathname: "/maps",
       search: `?${createSearchParams({

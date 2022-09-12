@@ -8,7 +8,6 @@ import { bookmarkContent } from "../styles/components/myInfo";
 const Bookmark = () => {
   const bookmark = useRecoilValue(bookmarkState);
   const navigate = useNavigate();
-
   const leftBtnHandler = () => {
     navigate(-1);
   };
@@ -39,7 +38,7 @@ const Bookmark = () => {
       </div>
       <div>
         <ul>
-          {bookmark &&
+          {bookmark ? (
             bookmark.map((e) => {
               return (
                 <li
@@ -51,7 +50,10 @@ const Bookmark = () => {
                   <p>{e.addr}</p>
                 </li>
               );
-            })}
+            })
+          ) : (
+            <p>아직 등록된 북마크가 없습니다.</p>
+          )}
         </ul>
       </div>
     </section>
